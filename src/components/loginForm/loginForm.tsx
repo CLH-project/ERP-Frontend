@@ -1,10 +1,11 @@
 import { Formik, Form, ErrorMessage } from "formik";
 import { TextField, Button } from "@/components";
+
 import React from "react";
 import * as Yup from "yup";
-import { useRouter } from "next/navigation";
-import { loginUser } from "@/services/authService"; // Adjust the import path as necessary
 
+import { useRouter } from "next/navigation";
+import { loginUser } from "@/services/authService"; 
 
 export const LoginForm: React.FC = () => {
     const router = useRouter();
@@ -35,6 +36,7 @@ export const LoginForm: React.FC = () => {
                     router.push("/inicio");
 
                 } catch (err: any) {
+
                     // Retorna o erro do servidor, caso disponível >>>>> Verificar ao conectar com o backend
                     const errorData = err?.response?.data || {};
 
