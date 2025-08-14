@@ -15,7 +15,20 @@ export const ClienteCadastroForm: React.FC = () => {
 
         onSubmit={
             async (values, { setSubmitting, setErrors }) => {
-                console.log("Dados do cliente:", values);
+                try {
+                    const response = await fetch("localhost:8080/clientes", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(values),
+                    });     
+                }
+                catch (err: any) {
+                    alert("Erro ao cadastrar cliente. Por favor, tente novamente mais tarde.");
+                } finally {
+                    setSubmitting(false);
+                }
             }
         }
         >
