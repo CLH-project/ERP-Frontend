@@ -1,0 +1,1 @@
+export {TableClientes} from './tableClientes';

@@ -1,3 +1,5 @@
+'use client'
+
 import { Formik, Form, ErrorMessage } from "formik";
 import { TextField, Button } from "@/components";
 

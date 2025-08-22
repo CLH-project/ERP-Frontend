@@ -35,7 +35,7 @@ export const Sidebar: React.FC = () => {
         const rotas: Record<string, Record<string, string>> = {
             Clientes: {
                 Cadastrar: '/cadastrarcliente',
-                Listar: '/listarclientes',
+                Listar: '/listaclientes',
             },
             Vendas: {
                 Caixa: '/caixa',
