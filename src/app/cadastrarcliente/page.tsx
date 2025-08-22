@@ -1,6 +1,6 @@
 'use client'
 
-import {Button, ClienteCadastroForm, Sidebar } from "@/components";
+import {Button, ClienteCadastroForm, Header } from "@/components";
 import { useRouter } from "next/navigation";
 
 export default function cadastrarCliente() {
@@ -9,10 +9,7 @@ export default function cadastrarCliente() {
 
     return (
         <div className="w-[90%] h-screen flex flex-col items-center mx-auto">
-            <div className="w-full flex justify-between items-center p-2">
-                <Sidebar/>
-                <img className="w-10" src="/image/logo-image.svg" alt="" />
-            </div>
+            <Header/>
 
             <div>
                 <div className="w-full">
