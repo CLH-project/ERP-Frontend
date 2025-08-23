@@ -21,7 +21,7 @@ export default function cadastrarCliente() {
                 </div>
                     
                 <div className="w-full flex justify-center mt-5">
-                    <Button functionName="Voltar" type="button"  onClick={() => router.back()}/>
+                    <Button functionName="Voltar para tela inicial" type="button"  onClick={() => router.push("/inicio")}/>
                 </div>
             </div>
         </div>
