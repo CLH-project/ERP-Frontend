@@ -3,6 +3,9 @@ export {ClienteCadastroForm} from "./clientes/clienteCadastroForm"
 export {TableClientes} from "./clientes/tableClientes"
 export {Header} from "./header"
 
+//Fornecedor exports
+export {FornecedorCadastroForm} from "./fornecedores/fornecedorCadastroForm"
+ 
 //Login exports
 export {LoginForm} from "./login/loginForm"
 
