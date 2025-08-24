@@ -34,13 +34,13 @@ export const FornecedorCadastroForm: React.FC = () => {
                     axios.post("http://localhost:8080/fornecedor", values)
                         .then((response) => {
                             
-                                console.log(response.data.validation_errors)
+                                console.log(response.data)
                             
                             setSubmitting(false);
                         })
                         .catch((error) => {
 
-                            if (error.response && error.response.status === 400 && error.response.data && error.response.data.validation_errors) {
+                            if (error.response && error.response.data && error.response.data.validation_errors) {
                                 const message = error.response.data.validation_errors;
                                 const fieldErrors = {nome: "", cnpj: "", contato: { email: "",telefone: ""} };
 

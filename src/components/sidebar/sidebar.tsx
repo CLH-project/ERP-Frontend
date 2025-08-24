@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import {Button} from '@/components'
+import { Button } from '@/components'
 
 export const Sidebar: React.FC = () => {
 
@@ -33,7 +33,7 @@ export const Sidebar: React.FC = () => {
         }
     ];
 
-     
+
     // Função para lidar com o clique em uma ação do submenu
     // Ela verifica qual ação foi clicada e redireciona para a rota correspondente
     // As rotas são definidas em um objeto, onde cada módulo tem suas ações mapeadas para suas respectivas rotas
@@ -71,7 +71,7 @@ export const Sidebar: React.FC = () => {
     const toggleSubmenu = (index: number) => setAtivo(ativo === index ? null : index);
 
     return (
-        <>
+        <div>
             <button
                 onClick={toggleSidebar}
                 className={aberto ? "display-none" : "hover:cursor-pointer hover:opacity-70"}>
@@ -79,7 +79,7 @@ export const Sidebar: React.FC = () => {
             </button>
 
             {aberto && (
-                <div className="fixed top-0 left-0 h-screen w-64 bg-gray-200 text-white z-[1000] shadow-lg p-4 overflow-y-auto">
+                <div className="flex flex-col justify-between fixed top-0 left-0 h-screen w-64 bg-gray-200 text-white z-[1000] shadow-lg p-4 overflow-y-auto">
                     <div className="flex justify-between items-center mb-6">
                         <span className="text-xl font-bold">ERP CLH</span>
                         <button
@@ -89,36 +89,39 @@ export const Sidebar: React.FC = () => {
                         </button>
                     </div>
 
-                    {menu.map((item, index) => (
-                        <div key={index} className="mb-4">
-                            <button
-                                onClick={() => toggleSubmenu(index)}
-                                className="w-full text-left px-3 py-2 bg-gray-400 hover:bg-gray-700 rounded-2xl flex items-center hover:cursor-pointer"
-                            >
-                                <span className="mr-2">{item.icone}</span>
-                                {item.titulo}
-                            </button>
+                    <div>
+                        {menu.map((item, index) => (
+                            <div key={index} className="mb-4">
+                                <button
+                                    onClick={() => toggleSubmenu(index)}
+                                    className="w-full text-left px-2 py-3 bg-gray-400 hover:bg-gray-700 rounded-2xl flex items-center hover:cursor-pointer"
+                                >
+                                    <span className="mr-2">{item.icone}</span>
+                                    {item.titulo}
+                                </button>
 
-                            {ativo === index && (
-                                <div className=" mt-2 space-y-2">
-                                    {item.acoes.map((acao, i) => (
-                                        <button
-                                            key={i}
-                                            className="w-full text-left px-3 py-1 text-sm hover:bg-gray-600 rounded hover:cursor-pointer"
-                                            onClick={() => handleActionClick(item.titulo, acao)}
-                                        >
-                                            {acao}
-                                        </button>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    ))}
-                    <Button functionName='Sair' onClick={() => router.push('/login')}/>
+                                {ativo === index && (
+                                    <div className=" mt-2 py-2">
+                                        {item.acoes.map((acao, i) => (
+                                            <button
+                                                key={i}
+                                                className="w-full text-left px-3 py-1 text-sm hover:bg-gray-600 rounded hover:cursor-pointer"
+                                                onClick={() => handleActionClick(item.titulo, acao)}
+                                            >
+                                                {acao}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                    
+                    <Button functionName='Sair' onClick={() => router.push('/login')} />
                 </div>
             )}
 
-        </>
+        </div>
     );
 }
 
