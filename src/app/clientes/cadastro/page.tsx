@@ -3,7 +3,7 @@
 import {Button, ClienteCadastroForm, Header } from "@/components";
 import { useRouter } from "next/navigation";
 
-export default function cadastrarCliente() {
+export default function CadastroClientes() {
 
     const router = useRouter();
 

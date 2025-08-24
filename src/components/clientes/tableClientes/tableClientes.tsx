@@ -25,12 +25,14 @@ export const TableClientes: React.FC = () => {
       setClientes(response.data.data);
       setPager(response.data.pager);
     } catch (error) {
-      console.error('Erro ao buscar clientes:', error);
+        alert("Erro ao retornar os clientes");
     } finally {
       setLoading(false);
     }
   };
 
+
+  // Mudança de página da tabela
   useEffect(() => {
     fetchClientes(pager.currentPage);
   }, [pager.currentPage]);
@@ -41,10 +43,8 @@ export const TableClientes: React.FC = () => {
     }
   };
 
-  const handleEdit = (id: string) => {
-    console.log("");
-  }
 
+  // Exclusão de cliente pelo id do mesmo
   const handleDelete = async (id: string) => {
     if (confirm("Deseja apagar o cliente")) {
       try {
@@ -57,12 +57,14 @@ export const TableClientes: React.FC = () => {
     }
   }
 
+  // Filtro do select de consulta dos clientes
   const [filtroTexto, setFiltroTexto] = useState('');
   const [filtroCampo, setFiltroCampo] = useState('nome');
 
   const clientesFiltrados = clientes.filter((cliente) => {
-  const valorCampo = cliente[filtroCampo as keyof Cliente];
-  return valorCampo.toLowerCase().includes(filtroTexto.toLowerCase());
+
+    const valorCampo = cliente[filtroCampo as keyof Cliente];
+    return valorCampo.toLowerCase().includes(filtroTexto.toLowerCase());
 });
 
 
@@ -108,7 +110,6 @@ export const TableClientes: React.FC = () => {
                   <td scope="row" className="px-6 py-4">{cliente.nome}</td>
                   <td scope="row" className="px-6 py-4">{cliente.cpf}</td>
                   <td scope="row" className="px-6 py-4">{cliente.telefone}</td>
-                  <td scope="row" className="px-6 py-4"><button className="hover:opacity-50 cursor-pointer" onClick={() => handleEdit(cliente.id)}>editar</button></td>
                   <td scope="row" className="px-6 py-4"><button className="hover:opacity-50 cursor-pointer" onClick={() => handleDelete(cliente.id)}>deletar</button></td>
                 </tr>
               ))}

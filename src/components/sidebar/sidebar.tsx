@@ -1,5 +1,6 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import {Button} from '@/components'
 
 export const Sidebar: React.FC = () => {
 
@@ -24,6 +25,12 @@ export const Sidebar: React.FC = () => {
             icone: '📦',
             acoes: ['Cadastrar', 'Listar'],
         },
+        {
+            titulo: 'Fornecedores',
+            icone: '👤',
+            acoes: ['Cadastrar', 'Listar']
+
+        }
     ];
 
      
@@ -34,8 +41,8 @@ export const Sidebar: React.FC = () => {
     const handleActionClick = (modulo: string, acao: string) => {
         const rotas: Record<string, Record<string, string>> = {
             Clientes: {
-                Cadastrar: '/cadastrarcliente',
-                Listar: '/listaclientes',
+                Cadastrar: '/clientes/cadastro',
+                Listar: '/clientes',
             },
             Vendas: {
                 Caixa: '/caixa',
@@ -44,6 +51,10 @@ export const Sidebar: React.FC = () => {
                 Cadastrar: '/cadastrarproduto',
                 Listar: '/listarprodutos',
             },
+            Fornecedores: {
+                Cadastrar: '/fornecedores/cadastro',
+                Listar: '/fornecedores'
+            }
         };
 
         const rota = rotas[modulo]?.[acao];
@@ -64,7 +75,7 @@ export const Sidebar: React.FC = () => {
             <button
                 onClick={toggleSidebar}
                 className={aberto ? "display-none" : "hover:cursor-pointer hover:opacity-70"}>
-                <img src="icons/hamburger-menu.svg" alt="" />
+                <img src="/icons/hamburger-menu.svg" alt="" />
             </button>
 
             {aberto && (
@@ -74,7 +85,7 @@ export const Sidebar: React.FC = () => {
                         <button
                             onClick={toggleSidebar}
                             className={aberto ? "hover:cursor-pointer hover:opacity-70" : "none"}>
-                            <img src="icons/close-button.svg" alt="" />
+                            <img src="/icons/close-button.svg" alt="" />
                         </button>
                     </div>
 
@@ -103,7 +114,7 @@ export const Sidebar: React.FC = () => {
                             )}
                         </div>
                     ))}
-                    <button>Sair</button>
+                    <Button functionName='Sair' onClick={() => router.push('/login')}/>
                 </div>
             )}
 

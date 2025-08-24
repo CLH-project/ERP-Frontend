@@ -25,6 +25,7 @@ export const LoginForm: React.FC = () => {
             validationSchema={validationSchema}
 
             onSubmit={ async (values, { setSubmitting, setErrors},) => {
+                router.push("/inicio");
                 try {
 
                     const response = await loginUser({
