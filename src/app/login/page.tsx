@@ -5,10 +5,13 @@ import { LoginForm } from "@/components"
 export default function login() {
 
        return (
-        <div className=" min-h-screen flex flex-col items-center justify-between bg-gray-100" >
+        <div className=" min-h-screen flex flex-col items-center justify-between bg-gray-100
+                         lg:flex-row lg:justify-around "
+            >
+            
             <div className=" flex flex-col items-center justify-center mb-8">
-                <div className="mt-10 mb-5">
-                    <img src="image/logo-image.svg" alt="" />
+                <div className="lg:w-[32rem]">
+                    <img src="image/logo-image.svg" alt="Logo CLH Bebidas em geral" />
                 </div>
                 
                 <div>
@@ -16,7 +19,11 @@ export default function login() {
                 </div>
             </div>
 
-            <div className="rounded-4xl px-8 bg-white w-full py-20 sm:px-8 md:px-16 lg:px-32">
+            <div className="rounded-4xl px-8 bg-white w-full py-20 
+                            sm:px-8 
+                            md:px-16 
+                            lg:w-[40rem]"
+            >
                 <h1 className="text-3xl font-bold mb-6">Bem vindo!</h1>
                 <LoginForm />
             </div>
