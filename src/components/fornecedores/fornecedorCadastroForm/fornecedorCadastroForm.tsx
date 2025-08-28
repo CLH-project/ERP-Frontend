@@ -10,8 +10,10 @@ export const FornecedorCadastroForm: React.FC = () => {
 
     const [SucessMessage, setSucessMessage] = useState("")
 
+
     return (
         <Formik
+
             initialValues={{
                 nome: "",
                 cnpj: "",
@@ -20,18 +22,20 @@ export const FornecedorCadastroForm: React.FC = () => {
                     telefone: ""
                 }
             }}
+
             validationSchema={Yup.object({
-                nome: Yup.string().required(),
-                cnpj: Yup.string().required(),
+                nome: Yup.string().required("Campo de nome da empresa obrigatório"),
+                cnpj: Yup.string().required("Campo de CNPJ obrigatório"),
                 contato: Yup.object({
-                    email: Yup.string().email("Digite um email válido").required(),
-                    telefone: Yup.string().min(15, "Digite um telefone válido").required()
+                    email: Yup.string().email("Digite um email válido").required("Campo de email obrigatório"),
+                    telefone: Yup.string().min(15, "Digite um telefone válido").required("Campo de telefone obrigatório")
                 })
             })}
 
             onSubmit={
                 async (values, { setSubmitting, setErrors }) => {
                     axios.post("http://localhost:8080/fornecedor", values)
+
                         .then((response) => {
 
                             if (response.status === 201) {
@@ -41,23 +45,29 @@ export const FornecedorCadastroForm: React.FC = () => {
                             setSubmitting(false);
                         })
                         .catch((error) => {
+                            console.log(values)
 
-                            if (error.status === 400) {
-                                const message = error.response.data;
+                            if (error.response.status === 400) {
 
+                                const rawErrors = error.response.data;
                                 const fieldErrors: Record<string, string> = {};
 
-                                message.forEach((errorObj: Record<string, string>) => {
-                                    const [field, message] = Object.entries(errorObj)[0]; // pega o primeiro par chave-valor
-                                    fieldErrors[field] = message;
-                                });
+                                rawErrors.forEach((errorObj: Record<string, string>) => {
+                                    Object.entries(errorObj).forEach(([field, message]) => {
 
+                                        const mappedField =
+                                            field === "email" || field === "telefone"
+                                                ? `contato.${field}`
+                                                : field;
+
+                                        fieldErrors[mappedField] = message;
+                                    });
+                                });
                                 setErrors(fieldErrors);
                             }
                             setSubmitting(false);
                         });
-                }}
-        >
+                }}>
             {({ isSubmitting }) => (
                 <Form className="flex flex-col gap-5">
                     <div >
