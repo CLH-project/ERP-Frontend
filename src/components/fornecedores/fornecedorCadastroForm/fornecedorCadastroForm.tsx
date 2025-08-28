@@ -33,22 +33,29 @@ export const FornecedorCadastroForm: React.FC = () => {
                 console.log(values)
                     axios.post("http://localhost:8080/fornecedor", values)
                         .then((response) => {
-                            
-                                console.log(response.data)
-                            
+
+
+
                             setSubmitting(false);
                         })
                         .catch((error) => {
 
-                            if (error.response && error.response.data && error.response.data.validation_errors) {
-                                const message = error.response.data.validation_errors;
-                                const fieldErrors = {nome: "", cnpj: "", contato: { email: "",telefone: ""} };
+                            if (error.status === 400) {
+                                const message = error.response.data;
+                                console.log(message.nome)
+                                const fieldErrors = {
+                                    nome: "",
+                                    cnpj: "",
+                                    email: "",
+                                    telefone:"",
+                                    
+                                };
 
-                                if(message.nome) {fieldErrors.nome = message.nome;}
-                                if(message.cnpj) {fieldErrors.cnpj = message.cnpj;}
+                                if(message.nome) fieldErrors.nome = message.nome;
+                                if(message.cnpj) fieldErrors.cnpj = message.cnpj;
 
-                                if(message.contato.email) {fieldErrors.contato.email = message.contato.email;}
-                                if(message.contato.telefone) {fieldErrors.contato.telefone = message.contato.telefone;}
+                                if(message.contato.email) fieldErrors.email = message.email;
+                                if(message.contato.telefone) fieldErrors.telefone = message.telefone;
 
                                 setErrors(fieldErrors);
                             }

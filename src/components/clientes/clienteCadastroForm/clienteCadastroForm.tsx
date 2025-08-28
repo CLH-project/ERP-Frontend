@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { TextField, Button, ErrorMessagePop, MaskedTextField } from "@/components";
+import { TextField, Button, ErrorMessagePop, MaskedTextField, Alert } from "@/components";
 import * as Yup from "yup";
 import axios from "axios";
 
@@ -19,10 +19,10 @@ export const ClienteCadastroForm: React.FC = () => {
                 telefone: Yup.string().required()
             })}
 
-             onSubmit={
-            async (values, { setSubmitting, setErrors }) => {
-                    
-                    
+            onSubmit={
+                async (values, { setSubmitting, setErrors }) => {
+
+
                     axios.post("http://localhost:8080/clientes", values)
                         .then((response) => {
                             if (response.status === 201) {
@@ -32,13 +32,13 @@ export const ClienteCadastroForm: React.FC = () => {
                         })
                         .catch((error) => {
 
-                            if (error.response && error.response.status === 400 && error.response.data && error.response.data.messages) {
+                            if (error.status === 400) {
                                 const message = error.response.data.messages;
-                                const fieldErrors = {nome: "", cpf: "", telefone: "" };
+                                const fieldErrors = { nome: "", cpf: "", telefone: "" };
 
-                                if(message.nome) {fieldErrors.nome = message.nome;}
-                                if(message.cpf) {fieldErrors.cpf = message.cpf;}
-                                if(message.telefone) {fieldErrors.telefone = message.telefone;}
+                                if (message.nome) { fieldErrors.nome = message.nome; }
+                                if (message.cpf) { fieldErrors.cpf = message.cpf; }
+                                if (message.telefone) { fieldErrors.telefone = message.telefone; }
 
                                 setErrors(fieldErrors);
                                 setSucessMessage("")
@@ -68,12 +68,12 @@ export const ClienteCadastroForm: React.FC = () => {
                         <ErrorMessagePop name="telefone" component="div" />
                     </div>
                     <Button functionName="Adicionar Cliente" type="submit" disabled={isSubmitting} />
-                    {SucessMessage && <div className="text-center p-4 rounded-2xl bg-green-200 text-green-800">{SucessMessage}</div>}
+                    {SucessMessage && <Alert SuccessMessage={SucessMessage}/>}
                 </Form>
-                
+
             )}
 
         </Formik>
-        
+
     )
 }
