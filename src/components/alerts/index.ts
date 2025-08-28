@@ -1,1 +1,1 @@
-export {Alert} from './alerts'
+export {SuccessAlert, ErrorAlert} from './alerts'

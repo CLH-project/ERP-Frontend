@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { TextField, Button, ErrorMessagePop, MaskedTextField, Alert } from "@/components";
+import { TextField, Button, MaskedTextField, SuccessAlert, ErrorAlert} from "@/components";
 import * as Yup from "yup";
 import axios from "axios";
 
@@ -53,22 +53,22 @@ export const ClienteCadastroForm: React.FC = () => {
                     <div >
                         <label htmlFor="nome">Nome do Cliente</label>
                         <TextField name="nome" type="text" placeholder="Digite o nome do cliente" />
-                        <ErrorMessagePop name="nome" component="div" />
+                        <ErrorAlert name="nome" component="div"/>
                     </div>
 
                     <div >
                         <label htmlFor="cpf">CPF do Cliente</label>
                         <MaskedTextField name="cpf" mask="XXX.XXX.XXX-XX" placeholder="Digite o CPF do cliente" />
-                        <ErrorMessagePop name="cpf" component="div" />
+                        <ErrorAlert name="cpf" component="div"/>
                     </div>
 
                     <div>
                         <label htmlFor="nome">Telefone do Cliente</label>
                         <MaskedTextField name="telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do cliente" />
-                        <ErrorMessagePop name="telefone" component="div" />
+                        <ErrorAlert name="telefone" component="div"/>
                     </div>
                     <Button functionName="Adicionar Cliente" type="submit" disabled={isSubmitting} />
-                    {SucessMessage && <Alert SuccessMessage={SucessMessage}/>}
+                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage}/>}
                 </Form>
 
             )}
