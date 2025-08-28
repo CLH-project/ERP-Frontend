@@ -1,7 +1,7 @@
 'use client'
 
 import { Formik, Form, ErrorMessage } from "formik";
-import { TextField, Button } from "@/components";
+import { TextField, Button, ErrorAlert } from "@/components";
 
 import React from "react";
 import * as Yup from "yup";
@@ -59,19 +59,15 @@ export const LoginForm: React.FC = () => {
                 <Form className="flex flex-col gap-5"> 
                     <div >
                         <TextField name="username" type="text" placeholder="Digite seu usuário" />
-                        <ErrorMessage className=" mt-2 py-4 text-center border-gray-300 rounded-2xl bg-red-800 text-amber-50 " name="username" component="div" />
+                        <ErrorAlert name="username" component="div"/>
                     </div>
 
                     <div>
                         <TextField  name="password" type="password" placeholder="Digite sua senha"></TextField>
-                        <ErrorMessage className=" mt-2 py-4 text-center border-gray-300 rounded-2xl bg-red-800 text-amber-50" name="password" component="div" />
+                        <ErrorAlert name="password" component="div"/>
                     </div>
 
-                    <Button
-                        functionName="login"
-                        type="submit"
-                        disabled={isSubmitting}
-                    />       
+                    <Button functionName="login" type="submit" disabled={isSubmitting}/>       
                 </Form>
             )}
         </Formik>
