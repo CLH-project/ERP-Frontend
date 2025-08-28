@@ -12,29 +12,31 @@ export const FornecedorCadastroForm: React.FC = () => {
 
     return (
         <Formik
-            initialValues={{ nome: "",
-                             cnpj: "", 
-                             contato: {
-                                email: "",
-                                telefone: ""
-                             }
-                            }}
+            initialValues={{
+                nome: "",
+                cnpj: "",
+                contato: {
+                    email: "",
+                    telefone: ""
+                }
+            }}
             validationSchema={Yup.object({
                 nome: Yup.string().required(),
                 cnpj: Yup.string().required(),
                 contato: Yup.object({
-                    email: Yup.string().required(),
-                    telefone: Yup.string().required()
+                    email: Yup.string().email("Digite um email válido").required(),
+                    telefone: Yup.string().min(15, "Digite um telefone válido").required()
                 })
             })}
 
-             onSubmit={
-            async (values, { setSubmitting, setErrors }) => {
-                console.log(values)
+            onSubmit={
+                async (values, { setSubmitting, setErrors }) => {
                     axios.post("http://localhost:8080/fornecedor", values)
                         .then((response) => {
 
-
+                            if (response.status === 201) {
+                                setSucessMessage(response.data.message);
+                            }
 
                             setSubmitting(false);
                         })
@@ -42,27 +44,20 @@ export const FornecedorCadastroForm: React.FC = () => {
 
                             if (error.status === 400) {
                                 const message = error.response.data;
-                                console.log(message.nome)
-                                const fieldErrors = {
-                                    nome: "",
-                                    cnpj: "",
-                                    email: "",
-                                    telefone:"",
-                                    
-                                };
 
-                                if(message.nome) fieldErrors.nome = message.nome;
-                                if(message.cnpj) fieldErrors.cnpj = message.cnpj;
+                                const fieldErrors: Record<string, string> = {};
 
-                                if(message.contato.email) fieldErrors.email = message.email;
-                                if(message.contato.telefone) fieldErrors.telefone = message.telefone;
+                                message.forEach((errorObj: Record<string, string>) => {
+                                    const [field, message] = Object.entries(errorObj)[0]; // pega o primeiro par chave-valor
+                                    fieldErrors[field] = message;
+                                });
 
                                 setErrors(fieldErrors);
                             }
                             setSubmitting(false);
                         });
                 }}
-                >
+        >
             {({ isSubmitting }) => (
                 <Form className="flex flex-col gap-5">
                     <div >
@@ -89,7 +84,7 @@ export const FornecedorCadastroForm: React.FC = () => {
                         <ErrorAlert name="contato.telefone" component="div" />
                     </div>
                     <Button functionName="Adicionar Fornecedor" type="submit" disabled={isSubmitting} />
-                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage}/>}
+                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                 </Form>
             )}
         </Formik>
