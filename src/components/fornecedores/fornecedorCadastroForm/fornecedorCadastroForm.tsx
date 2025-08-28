@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { TextField, Button, ErrorMessagePop, MaskedTextField } from "@/components";
+import { TextField, Button, MaskedTextField, ErrorAlert, SuccessAlert } from "@/components";
 import * as Yup from "yup";
 import axios from "axios";
 
@@ -68,28 +68,28 @@ export const FornecedorCadastroForm: React.FC = () => {
                     <div >
                         <label htmlFor="nome">Nome do Fornecedor</label>
                         <TextField name="nome" type="text" placeholder="Digite o nome do fornecedor" />
-                        <ErrorMessagePop name="nome" component="div" />
+                        <ErrorAlert name="nome" component="div" />
                     </div>
 
                     <div >
                         <label htmlFor="cnpj">CNPJ do Fornecedor</label>
                         <MaskedTextField name="cnpj" mask="XX.XXX.XXX/XXXX-XX" placeholder="Digite o CNPJ do fornecedor" />
-                        <ErrorMessagePop name="cnpj" component="div" />
+                        <ErrorAlert name="cnpj" component="div" />
                     </div>
 
                     <div>
                         <label htmlFor="contato.email">Email do Fornecedor</label>
                         <TextField name="contato.email" placeholder="Digite o email do fornecedor" />
-                        <ErrorMessagePop name="contato.email" component="div" />
+                        <ErrorAlert name="contato.email" component="div" />
                     </div>
 
                     <div>
                         <label htmlFor="contato.telefone">Telefone do Fornecedor</label>
                         <MaskedTextField name="contato.telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do fornecedor" />
-                        <ErrorMessagePop name="contato.telefone" component="div" />
+                        <ErrorAlert name="contato.telefone" component="div" />
                     </div>
                     <Button functionName="Adicionar Fornecedor" type="submit" disabled={isSubmitting} />
-                    {SucessMessage && <div className="text-center p-4 rounded-2xl bg-green-200 text-green-800">{SucessMessage}</div>}
+                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage}/>}
                 </Form>
             )}
         </Formik>
