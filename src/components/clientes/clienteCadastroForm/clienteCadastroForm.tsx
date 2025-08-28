@@ -14,9 +14,9 @@ export const ClienteCadastroForm: React.FC = () => {
         <Formik
             initialValues={{ nome: "", cpf: "", telefone: "" }}
             validationSchema={Yup.object({
-                nome: Yup.string().required(),
-                cpf: Yup.string().required(),
-                telefone: Yup.string().required()
+                nome: Yup.string().required("Campo de nome obrigatório"),
+                cpf: Yup.string().required("Campo de cpf obrigatório"),
+                telefone: Yup.string().min(15, "Digite um telefone válido").required("Campo de telefone obrigatório")
             })}
 
             onSubmit={
