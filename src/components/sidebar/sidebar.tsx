@@ -89,13 +89,16 @@ export const Sidebar: React.FC = () => {
                         </button>
                     </div>
 
-                    <div>
+                    <div className='flex flex-col'>
+                        <button onClick={() => {router.push("/inicio")}} 
+                                 className=" mb-4 w-full text-left px-2 py-3 bg-gray-400 hover:bg-gray-700 rounded-2xl flex items-center hover:cursor-pointer">Início
+                        </button>
+                        
                         {menu.map((item, index) => (
                             <div key={index} className="mb-4">
                                 <button
                                     onClick={() => toggleSubmenu(index)}
-                                    className="w-full text-left px-2 py-3 bg-gray-400 hover:bg-gray-700 rounded-2xl flex items-center hover:cursor-pointer"
-                                >
+                                    className="w-full text-left px-2 py-3 bg-gray-400 hover:bg-gray-700 rounded-2xl flex items-center hover:cursor-pointer">
                                     <span className="mr-2">{item.icone}</span>
                                     {item.titulo}
                                 </button>
@@ -106,8 +109,7 @@ export const Sidebar: React.FC = () => {
                                             <button
                                                 key={i}
                                                 className="w-full text-left px-3 py-1 text-sm hover:bg-gray-600 rounded hover:cursor-pointer"
-                                                onClick={() => handleActionClick(item.titulo, acao)}
-                                            >
+                                                onClick={() => handleActionClick(item.titulo, acao)}>
                                                 {acao}
                                             </button>
                                         ))}
@@ -116,7 +118,7 @@ export const Sidebar: React.FC = () => {
                             </div>
                         ))}
                     </div>
-                    
+
                     <Button functionName='Sair' onClick={() => router.push('/login')} />
                 </div>
             )}
