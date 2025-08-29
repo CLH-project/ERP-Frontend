@@ -5,7 +5,7 @@ import { LoginForm } from "@/components"
 export default function login() {
 
        return (
-        <div className=" min-h-screen flex flex-col items-center justify-between bg-gray-100
+        <div className=" min-h-screen flex flex-col items-center justify-between bg-[#240D13]
                          lg:flex-row lg:justify-around "
             >
             
@@ -15,16 +15,16 @@ export default function login() {
                 </div>
                 
                 <div>
-                    <h2 className="text-2xl font-bold">Se beber, não dirija</h2>
+                    <h2 className="text-3xl font-bold text-[#E6E6E6]">Se beber, não dirija</h2>
                 </div>
             </div>
 
-            <div className="rounded-4xl px-8 bg-white w-full py-20 
+            <div className="rounded-4xl px-8 bg-white w-full py-25 
                             sm:px-8 
                             md:px-16 
                             lg:w-[40rem]"
             >
-                <h1 className="text-3xl font-bold mb-6">Bem vindo!</h1>
+                <h1 className="text-3xl font-bold mb-10 text-[#333333]">Bem vindo!</h1>
                 <LoginForm />
             </div>
         </div>
