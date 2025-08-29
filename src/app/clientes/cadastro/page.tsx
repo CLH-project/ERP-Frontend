@@ -8,7 +8,7 @@ export default function CadastroClientes() {
     const router = useRouter();
 
     return (
-        <div className="w-[90%] h-screen flex flex-col items-center mx-auto">
+        <div className="w-full h-screen flex flex-col items-center">
             <Header/>
 
             <div>
