@@ -10,7 +10,7 @@ interface FieldProps {
 export const TextField: React.FC<FieldProps> = ({ name, type, placeholder }) => {
     return (
         <Field
-            className="text-center border bg-white border-gray-300 rounded-2xl p-3 w-full focus:outline-none focus:ring-2"
+            className="text-center bg-white border shadow-md border-[#CDCDCD] rounded-3xl py-4 w-full focus:outline-none"
             name={name} type={type} placeholder={placeholder}>
         </Field>
     )
@@ -34,7 +34,7 @@ export const MaskedTextField: React.FC<MaskedTextFieldProps> = ({ name, mask, pl
         onChange={(e) => helpers.setValue(e.target.value)}
         onBlur={() => helpers.setTouched(true)}
         placeholder={placeholder}
-        className="text-center border bg-white border-gray-300 rounded-2xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="text-center bg-white border shadow-md border-[#CDCDCD] rounded-3xl py-4 w-full focus:outline-none"
       />
     )
 };

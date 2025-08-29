@@ -79,9 +79,9 @@ export const Sidebar: React.FC = () => {
             </button>
 
             {aberto && (
-                <div className="flex flex-col justify-between fixed top-0 left-0 h-screen w-64 bg-gray-200 text-white z-[1000] shadow-lg p-4 overflow-y-auto">
+                <div className="flex flex-col justify-between fixed top-0 left-0 h-screen w-64 bg-white text-white z-[1000] shadow-lg p-4 overflow-y-auto">
                     <div className="flex justify-between items-center mb-6">
-                        <span className="text-xl font-bold">ERP CLH</span>
+                        <span className="text-xl font-bold text-[#725743]">ERP CLH</span>
                         <button
                             onClick={toggleSidebar}
                             className={aberto ? "hover:cursor-pointer hover:opacity-70" : "none"}>
@@ -91,24 +91,24 @@ export const Sidebar: React.FC = () => {
 
                     <div className='flex flex-col'>
                         <button onClick={() => {router.push("/inicio")}} 
-                                 className=" mb-4 w-full text-left px-2 py-3 bg-gray-400 hover:bg-gray-700 rounded-2xl flex items-center hover:cursor-pointer">Início
+                                 className=" mb-4 w-full text-left px-2 py-3 bg-[#725743] hover:bg-[#7e5f47] rounded-2xl flex items-center hover:cursor-pointer">Início
                         </button>
                         
                         {menu.map((item, index) => (
-                            <div key={index} className="mb-4">
+                            <div key={index} className=" bg-[#725743] mb-4 rounded-2xl">
                                 <button
                                     onClick={() => toggleSubmenu(index)}
-                                    className="w-full text-left px-2 py-3 bg-gray-400 hover:bg-gray-700 rounded-2xl flex items-center hover:cursor-pointer">
+                                    className="w-full text-left px-2 py-3 bg-[#725743] hover:bg-[#7e5f47] rounded-2xl flex items-center hover:cursor-pointer">
                                     <span className="mr-2">{item.icone}</span>
                                     {item.titulo}
                                 </button>
 
                                 {ativo === index && (
-                                    <div className=" mt-2 py-2">
+                                    <div className=" mt-2 py-2 px-2">
                                         {item.acoes.map((acao, i) => (
                                             <button
                                                 key={i}
-                                                className="w-full text-left px-3 py-1 text-sm hover:bg-gray-600 rounded hover:cursor-pointer"
+                                                className="w-full text-left px-3 py-1 text-sm bg-[#725743] rounded-xl hover:cursor-pointer hover:bg-[#7e5f47]"
                                                 onClick={() => handleActionClick(item.titulo, acao)}>
                                                 {acao}
                                             </button>

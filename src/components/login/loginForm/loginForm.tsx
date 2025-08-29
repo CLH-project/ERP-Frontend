@@ -14,8 +14,8 @@ export const LoginForm: React.FC = () => {
 
     const validationSchema = Yup.object(
         {
-            username: Yup.string().required(),
-            password: Yup.string().required(),
+            username: Yup.string().required("Digite o nome de usuário"),
+            password: Yup.string().required("Digite a senha"),
         }
     )
 
