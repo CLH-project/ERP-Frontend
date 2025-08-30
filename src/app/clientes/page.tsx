@@ -7,10 +7,10 @@ export default function ListaClientes() {
   const router = useRouter();
 
   return (
-    <div className="w-[90%] h-screen flex flex-col items-center mx-auto">
+    <div className=" w-full flex flex-col ">
       <Header />
-      <div>
-        <div className="w-full">
+      <div className="mt-10 flex flex-col">
+        <div className="w-full px-10">
           <h1 className="text-2xl font-bold mb-10 ml-5">Clientes</h1>
         </div>
         <TableClientes />
