@@ -1,5 +1,6 @@
 'use client';
 
+import { ModalConfirm } from "@/components/alerts/alerts";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -41,8 +42,9 @@ export const TableClientes: React.FC = () => {
     }
   };
 
+  // Deletar usuário
+  const [showModal, setShowModal] = useState(false);
   const handleDelete = async (id: string) => {
-    if (confirm("Deseja apagar o cliente")) {
       try {
         console.log("aqui")
         await axios.delete(`http://localhost:8080/clientes/${id}`);
@@ -50,7 +52,6 @@ export const TableClientes: React.FC = () => {
       } catch (error) {
         console.log(error);
       }
-    }
   }
 
   const [filtroTexto, setFiltroTexto] = useState('');
@@ -101,14 +102,18 @@ export const TableClientes: React.FC = () => {
 
               <tbody className="text-center">
                 {clientesFiltrados.map((cliente, index) => (
-                  <tr key={index} className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
-
+                  <tr key={index} className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors cursor-pointer">
                     <td className="px-4 py-3">{cliente.id}</td>
                     <td className="px-4 py-3">{cliente.nome}</td>
                     <td className="px-4 py-3">{cliente.cpf}</td>
                     <td className="px-4 py-3">{cliente.telefone}</td>
                     <td className="px-4 py-3">
-                      <button className="w-4 hover:opacity-70 transition-opacity" onClick={() => handleDelete(cliente.id)}><img src={"./icons/remove-icon.svg"}/></button>
+                      <button className="w-4 hover:opacity-70 transition-opacity cursor-pointer" onClick={() => setShowModal(true)}>
+                        <img src={"./icons/remove-icon.svg"}/>
+                      </button>
+                      <ModalConfirm title="Deletar" message="Deseja apagar os dados do cliente?"
+                                    isOpen={showModal}
+                                    onConfirm={() => handleDelete(cliente.id)} onCancel={() => setShowModal(false)}/>
                     </td>
                   </tr>
                 ))}
