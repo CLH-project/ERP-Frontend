@@ -102,6 +102,7 @@ export const TableFornecedores: React.FC = () => {
                 <th scope="col" className="px-4 py-2">CNPJ</th>
                 <th scope="col" className="px-4 py-2">Email</th>
                 <th scope="col" className="px-4 py-2">Telefone</th>
+                <th scope="col" className="px-4 py-2">Ações</th>
               </tr>
             </thead>
 
@@ -113,7 +114,7 @@ export const TableFornecedores: React.FC = () => {
                   <td scope="row" className="px-4 py-3">{fornecedor.cnpj}</td>
                   <td scope="row" className="px-4 py-3">{fornecedor.email}</td>
                   <td scope="row" className="px-4 py-3">{fornecedor.telefone}</td>
-                  <td scope="row" className="px-4 py-3"><button className="text-red-600 hover:opacity-50 cursor-pointer" onClick={() => handleDelete(fornecedor.id)}>deletar</button></td>
+                  <td scope="row" className="px-4 py-3"><button className="hover:opacity-50 cursor-pointer w-4"  onClick={() => handleDelete(fornecedor.id)}><img src={"./icons/remove-icon.svg"}/></button></td>
                 </tr>
               ))}
             </tbody>

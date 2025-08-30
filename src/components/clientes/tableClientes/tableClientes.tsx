@@ -31,8 +31,6 @@ export const TableClientes: React.FC = () => {
     }
   };
 
-
-  // Mudança de página da tabela
   useEffect(() => {
     fetchClientes(pager.currentPage);
   }, [pager.currentPage]);
@@ -43,8 +41,6 @@ export const TableClientes: React.FC = () => {
     }
   };
 
-
-  // Exclusão de cliente pelo id do mesmo
   const handleDelete = async (id: string) => {
     if (confirm("Deseja apagar o cliente")) {
       try {
@@ -57,7 +53,6 @@ export const TableClientes: React.FC = () => {
     }
   }
 
-  // Filtro do select de consulta dos clientes
   const [filtroTexto, setFiltroTexto] = useState('');
   const [filtroCampo, setFiltroCampo] = useState('nome');
 
@@ -113,8 +108,7 @@ export const TableClientes: React.FC = () => {
                     <td className="px-4 py-3">{cliente.cpf}</td>
                     <td className="px-4 py-3">{cliente.telefone}</td>
                     <td className="px-4 py-3">
-                    
-                    <button className="text-red-600 hover:opacity-70 transition-opacity" onClick={() => handleDelete(cliente.id)}> deletar </button>
+                      <button className="w-4 hover:opacity-70 transition-opacity" onClick={() => handleDelete(cliente.id)}><img src={"./icons/remove-icon.svg"}/></button>
                     </td>
                   </tr>
                 ))}
