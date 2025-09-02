@@ -13,14 +13,14 @@ interface Fornecedor {
 }
 
 export const TableFornecedores: React.FC = () => {
-  const [fornecedor, setFornecedores] = useState<Fornecedor[]>([]);
+  const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]);
   const [pager, setPager] = useState({ currentPage: 1, totalPages: 0, perPage: 10, total: 0 });
   const [loading, setLoading] = useState(false);
   const [filtroTexto, setFiltroTexto] = useState('');
   const [filtroCampo, setFiltroCampo] = useState('todos');
   const [showModal, setShowModal] = useState(false);
 
-  const fetchFornecedores = async (page = 1) => {
+  const pesquisarFornecedores = async (page = 1) => {
     setLoading(true);
     try {
       if (filtroCampo === 'todos') {
@@ -33,6 +33,9 @@ export const TableFornecedores: React.FC = () => {
             [filtroCampo]: filtroTexto,
           },
         });
+
+
+
         setFornecedores(response.data.data);
         setPager({ currentPage: 1, totalPages: 1, perPage: response.data.data.length, total: response.data.data.length });
       }
@@ -43,20 +46,23 @@ export const TableFornecedores: React.FC = () => {
     }
   };
 
-  useEffect(() => { fetchFornecedores(pager.currentPage); }, []);
+  useEffect(() => { pesquisarFornecedores(1); }, []);
 
-  const handlePageChange = (page: number) => {
+  const mudancaPagina = (page: number) => {
     if (page >= 1 && page <= pager.totalPages) {
       setPager((prev) => ({ ...prev, currentPage: page }));
-      fetchFornecedores(page);
+      pesquisarFornecedores(page);
     }
   };
+
+  const [fornecedorParaDeletar, setFornecedorParaDeletar] = useState< Fornecedor | null>(null);
 
   const handleDelete = async (id: string) => {
     try {
       await axios.delete(`http://localhost:8080/fornecedor/${id}`);
       setShowModal(false);
-      fetchFornecedores(pager.currentPage);
+
+      pesquisarFornecedores(pager.currentPage);
     } catch (error) {
       alert("Erro ao apagar");
     }
@@ -71,21 +77,12 @@ export const TableFornecedores: React.FC = () => {
           <option value="cnpj">CNPJ</option>
         </select>
 
-        <input
-          className="px-4 py-2 rounded-xl border w-full sm:w-auto"
-          type="text"
-          placeholder={`Filtrar por ${filtroCampo}`}
-          value={filtroTexto}
-          onChange={(e) => setFiltroTexto(e.target.value)}
-          disabled={filtroCampo === 'todos'}
-        />
+        <input className="px-4 py-2 rounded-xl border w-full sm:w-auto"
+          type="text" placeholder={`Filtrar por ${filtroCampo}`} value={filtroTexto}
+          onChange={(e) => setFiltroTexto(e.target.value)} />
 
-        <button
-          className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
-          onClick={() => fetchFornecedores(1)}
-        >
-          Pesquisar
-        </button>
+        <button className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
+          onClick={() => pesquisarFornecedores(1)}>Pesquisar</button>
       </div>
 
       {loading ? (
@@ -104,24 +101,35 @@ export const TableFornecedores: React.FC = () => {
                   <th className="px-4 py-2">Ações</th>
                 </tr>
               </thead>
+
               <tbody className="text-center">
-                {fornecedor.map((f, index) => (
+                { fornecedores.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="text-center">Nenhum fornecedor encontrado</td>
+                  </tr>
+                ) :
+                fornecedores.map((fornecedor, index) => (
                   <tr key={index} className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600">
-                    <td className="px-4 py-3">{f.id}</td>
-                    <td className="px-4 py-3">{f.nome}</td>
-                    <td className="px-4 py-3">{f.cnpj}</td>
-                    <td className="px-4 py-3">{f.email}</td>
-                    <td className="px-4 py-3">{f.telefone}</td>
+                    <td className="px-4 py-3">{fornecedor.id}</td>
+                    <td className="px-4 py-3">{fornecedor.nome}</td>
+                    <td className="px-4 py-3">{fornecedor.cnpj}</td>
+                    <td className="px-4 py-3">{fornecedor.email}</td>
+                    <td className="px-4 py-3">{fornecedor.telefone}</td>
                     <td className="px-4 py-3">
-                      <button className="hover:opacity-50 cursor-pointer w-4" onClick={() => setShowModal(true)}>
+                      <button className="hover:opacity-50 cursor-pointer w-4" onClick={() => setFornecedorParaDeletar(fornecedor)}>
                         <img src="./icons/remove-icon.svg" />
                       </button>
                       <ModalConfirm
                         title="Deletar"
-                        message="Deseja apagar o fornecedor?"
-                        isOpen={showModal}
-                        onConfirm={() => handleDelete(f.id)}
-                        onCancel={() => setShowModal(false)}
+                        message={`Deseja apagar os dados do fornecedor ${fornecedorParaDeletar?.nome}?`}
+                        onConfirm={() => {
+                          if (fornecedorParaDeletar !== null) {
+                            handleDelete(fornecedorParaDeletar.id);   
+                          }
+                          setFornecedorParaDeletar(null);
+                        }}
+                        isOpen={fornecedorParaDeletar !== null}
+                        onCancel={() => setFornecedorParaDeletar(null)}
                       />
                     </td>
                   </tr>
@@ -131,11 +139,11 @@ export const TableFornecedores: React.FC = () => {
           </div>
 
           <div className="flex gap-6 p-3">
-            <button onClick={() => handlePageChange(pager.currentPage - 1)} disabled={pager.currentPage === 1}>
+            <button onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1}>
               ⬅ Anterior
             </button>
             <span>Página {pager.currentPage} de {pager.totalPages}</span>
-            <button onClick={() => handlePageChange(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages}>
+            <button onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages}>
               Próxima ➡
             </button>
           </div>
