@@ -45,7 +45,7 @@ export const FornecedorCadastroForm: React.FC = () => {
                             setSubmitting(false);
                         })
                         .catch((error) => {
-                            console.log(values)
+                           
 
                             if (error.response.status === 400) {
 
