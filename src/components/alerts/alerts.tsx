@@ -40,7 +40,7 @@ export const ErrorAlert: React.FC<ErrorAlertsProps> = ({ name, component }) => {
     )
 }
 
-interface SucessConfirmModal {
+interface ModalConfirm {
     title?: string,
     message?: string,
     onConfirm: () => void,
@@ -48,7 +48,7 @@ interface SucessConfirmModal {
     isOpen: boolean,
 }
 
-export const ModalConfirm: React.FC<SucessConfirmModal> = ({ title, message, onConfirm, onCancel, isOpen }) => {
+export const ModalConfirm: React.FC<ModalConfirm> = ({ title, message, onConfirm, onCancel, isOpen }) => {
     return (
         <div
             id="popup-modal"
