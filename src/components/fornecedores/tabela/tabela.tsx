@@ -17,6 +17,7 @@ export const TabelaFornecedores: React.FC = () => {
   const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]);
   const [pager, setPager] = useState({ currentPage: 1, totalPages: 0, perPage: 10, total: 0 });
   const [loading, setLoading] = useState(false);
+  
   const [filtroTexto, setFiltroTexto] = useState('');
   const [filtroCampo, setFiltroCampo] = useState('todos');
 

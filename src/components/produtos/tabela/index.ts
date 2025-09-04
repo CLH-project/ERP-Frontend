@@ -1,0 +1,1 @@
+export {TabelaProdutos} from "./tabela"
