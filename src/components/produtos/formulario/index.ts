@@ -1,0 +1,1 @@
+export {FormCadastroProduto} from "./formCadastro"

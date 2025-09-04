@@ -45,11 +45,11 @@ export const TabelaProdutos: React.FC = () => {
     const handleDelete = async (id: string) => {
         try {
             await axios.delete(`http://localhost:8080/produtos/${id}`);
+            pesquisarProdutos(1);
         } catch (error) {
-            // Trocar por alerta de erro
             console.log(error);
         }
-    }
+    } 
 
     return (
         <div className="flex flex-col items-center w-full">
@@ -59,7 +59,7 @@ export const TabelaProdutos: React.FC = () => {
                 <>
                     <div className="shadow-md rounded-2xl border border-zinc-300 p-1 overflow-x-auto w-full max-w-[90%] mx-auto">
                         <table className="w-full table-auto text-sm sm:text-base">
-                            <thead className="text-center bg-gray-100 dark:bg-gray-700">
+                            <thead className=" text-center bg-gray-100">
                                 <tr>
                                     <th scope="col" className="px-4 py-2">ID</th>
                                     <th scope="col" className="px-4 py-2">Produto</th>
@@ -78,7 +78,7 @@ export const TabelaProdutos: React.FC = () => {
                                     </tr>
                                 ) :
                                     produtos.map((produto, index) => (
-                                        <tr key={index} className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors cursor-pointer">
+                                        <tr key={index} className="bg-white  hover:bg-gray-100  transition-colors cursor-pointer">
                                             <td className="px-4 py-3">{produto.id}</td>
                                             <td className="px-4 py-3">{produto.nome}</td>
                                             <td className="px-4 py-3">{produto.marca}</td>
