@@ -1,0 +1,1 @@
+export {TabelaClientes} from './tabela';

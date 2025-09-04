@@ -1,0 +1,1 @@
+export {FormCadastroFornecedor} from './formCadastro'

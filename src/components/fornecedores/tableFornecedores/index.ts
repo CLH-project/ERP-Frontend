@@ -1,1 +1,0 @@
-export {TableFornecedores} from './tableFornecedores'

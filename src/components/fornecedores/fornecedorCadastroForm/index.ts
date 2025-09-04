@@ -1,1 +1,0 @@
-export {FornecedorCadastroForm} from './fornecedorCadastroForm'

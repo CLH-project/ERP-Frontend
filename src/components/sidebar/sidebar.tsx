@@ -23,16 +23,14 @@ export const Sidebar: React.FC = () => {
         {
             titulo: 'Produtos',
             icone: '📦',
-            acoes: ['Cadastrar', 'Listar'],
+            acoes: ['Listar'],
         },
         {
             titulo: 'Fornecedores',
             icone: '👤',
             acoes: ['Cadastrar', 'Listar']
-
         }
     ];
-
 
     // Função para lidar com o clique em uma ação do submenu
     // Ela verifica qual ação foi clicada e redireciona para a rota correspondente
@@ -48,8 +46,7 @@ export const Sidebar: React.FC = () => {
                 Caixa: '/caixa',
             },
             Produtos: {
-                Cadastrar: '/cadastrarproduto',
-                Listar: '/listarprodutos',
+                Listar: '/produtos',
             },
             Fornecedores: {
                 Cadastrar: '/fornecedores/cadastro',
@@ -118,7 +115,6 @@ export const Sidebar: React.FC = () => {
                             </div>
                         ))}
                     </div>
-
                     <Button functionName='Sair' onClick={() => router.push('/login')} />
                 </div>
             )}

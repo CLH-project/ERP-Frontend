@@ -1,6 +1,6 @@
 'use client'
 
-import {Button, ClienteCadastroForm, Header } from "@/components";
+import {Button, FormCadastroCliente, Header } from "@/components";
 import { useRouter } from "next/navigation";
 
 export default function CadastroClientes() {
@@ -17,7 +17,7 @@ export default function CadastroClientes() {
                 </div>
                 
                 <div className="flex flex-col items-center justify-center px-5 py-6 bg-gray-200 rounded-2xl">
-                    <ClienteCadastroForm />
+                    <FormCadastroCliente />
                 </div>
                     
                 <div className="w-full flex justify-center mt-5">
