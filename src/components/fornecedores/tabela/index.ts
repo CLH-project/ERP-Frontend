@@ -1,0 +1,1 @@
+export {TabelaFornecedores as TableFornecedores} from './tabela'

@@ -6,7 +6,7 @@ import { TextField, Button, MaskedTextField, SuccessAlert, ErrorAlert} from "@/c
 import * as Yup from "yup";
 import axios from "axios";
 
-export const ClienteCadastroForm: React.FC = () => {
+export const FormCadastroCliente: React.FC = () => {
 
     const [SucessMessage, setSucessMessage] = useState("")
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { ModalConfirm } from "@/components/alerts/alerts";
+import { LoadingSpinner } from "@/components/spinner";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -11,7 +12,7 @@ interface Cliente {
   telefone: string
 }
 
-export const TableClientes: React.FC = () => {
+export const TabelaClientes: React.FC = () => {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [pager, setPager] = useState({ currentPage: 1, totalPages: 0, perPage: 10, total: 0 });
   const [loading, setLoading] = useState(false);
@@ -41,6 +42,7 @@ export const TableClientes: React.FC = () => {
         }
       }
     } catch (error) {
+      // Trocar por alerta de erro
       console.log(error)
       alert();
     } finally {
@@ -64,6 +66,7 @@ export const TableClientes: React.FC = () => {
       await axios.delete(`http://localhost:8080/clientes/${id}`);
       pesquisarClientes(pager.currentPage)
     } catch (error) {
+      // Trocar por alerta de erro
       console.log(error);
     }
   }
@@ -71,7 +74,7 @@ export const TableClientes: React.FC = () => {
   return (
     <div className="flex flex-col items-center w-full">
       {loading ? (
-        <p>Carregando...</p>
+        <LoadingSpinner />
       ) : (
         <>
           <div className="flex gap-2 mt-5 mb-5 px-4">
@@ -90,11 +93,11 @@ export const TableClientes: React.FC = () => {
               disabled={filtroCampo === 'todos'}
             />
 
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
+            <button className="px-4 text-md bg-[#725743] rounded-2xl text-white font-bold py-3 hover:cursor-pointer hover:opacity-90"
               onClick={() => pesquisarClientes(1)}>Pesquisar</button>
           </div>
 
-          <div className="rounded-2xl border border-zinc-300 p-1 overflow-x-auto w-full max-w-[90%] mx-auto">
+          <div className="shadow-md rounded-2xl border border-zinc-300 p-1 overflow-x-auto w-full max-w-[90%] mx-auto">
             <table className="w-full table-auto text-sm sm:text-base">
               <thead className="text-center bg-gray-100 dark:bg-gray-700">
                 <tr>

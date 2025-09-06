@@ -1,6 +1,7 @@
 'use client';
 
 import { ModalConfirm } from "@/components/alerts/alerts";
+import { LoadingSpinner } from "@/components";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -12,13 +13,13 @@ interface Fornecedor {
   telefone: string;
 }
 
-export const TableFornecedores: React.FC = () => {
+export const TabelaFornecedores: React.FC = () => {
   const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]);
   const [pager, setPager] = useState({ currentPage: 1, totalPages: 0, perPage: 10, total: 0 });
   const [loading, setLoading] = useState(false);
+  
   const [filtroTexto, setFiltroTexto] = useState('');
   const [filtroCampo, setFiltroCampo] = useState('todos');
-  const [showModal, setShowModal] = useState(false);
 
   const pesquisarFornecedores = async (page = 1) => {
     setLoading(true);
@@ -34,12 +35,11 @@ export const TableFornecedores: React.FC = () => {
           },
         });
 
-
-
         setFornecedores(response.data.data);
         setPager({ currentPage: 1, totalPages: 1, perPage: response.data.data.length, total: response.data.data.length });
       }
     } catch (error) {
+      // Trocar por alerta de erro real
       alert("Erro ao retornar os fornecedores");
     } finally {
       setLoading(false);
@@ -55,15 +55,16 @@ export const TableFornecedores: React.FC = () => {
     }
   };
 
-  const [fornecedorParaDeletar, setFornecedorParaDeletar] = useState< Fornecedor | null>(null);
+  const [fornecedorParaDeletar, setFornecedorParaDeletar] = useState<Fornecedor | null>(null);
 
   const handleDelete = async (id: string) => {
     try {
       await axios.delete(`http://localhost:8080/fornecedor/${id}`);
-      setShowModal(false);
+      setFornecedorParaDeletar(null);
 
       pesquisarFornecedores(pager.currentPage);
     } catch (error) {
+      // Trocar por alerta de erro real
       alert("Erro ao apagar");
     }
   };
@@ -81,15 +82,15 @@ export const TableFornecedores: React.FC = () => {
           type="text" placeholder={`Filtrar por ${filtroCampo}`} value={filtroTexto}
           onChange={(e) => setFiltroTexto(e.target.value)} />
 
-        <button className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
+        <button className="px-4 text-md bg-[#725743] rounded-2xl text-white font-bold py-3 hover:cursor-pointer hover:opacity-90"
           onClick={() => pesquisarFornecedores(1)}>Pesquisar</button>
       </div>
 
       {loading ? (
-        <p>Carregando...</p>
+        <LoadingSpinner />
       ) : (
         <>
-          <div className="rounded-2xl border border-zinc-300 p-1 overflow-x-auto w-full max-w-[90%] mx-auto">
+          <div className="rounded-2xl border border-zinc-300 p-1 overflow-x-auto w-full max-w-[90%] mx-auto shadow-md">
             <table className="w-full table-auto text-sm sm:text-base">
               <thead className="text-center">
                 <tr>

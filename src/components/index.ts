@@ -1,11 +1,15 @@
 //Cliente exports
-export {ClienteCadastroForm} from "./clientes/clienteCadastroForm"
-export {TableClientes} from "./clientes/tableClientes"
+export {FormCadastroCliente} from "./clientes/formulario"
+export {TabelaClientes} from "./clientes/tabela"
 export {Header} from "./header"
 
 //Fornecedor exports
-export {FornecedorCadastroForm} from "./fornecedores/fornecedorCadastroForm"
-export {TableFornecedores} from "./fornecedores/tableFornecedores"
+export {FormCadastroFornecedor} from "./fornecedores/formulario"
+export {TableFornecedores} from "./fornecedores/tabela"
+
+//Produto exports
+export {TabelaProdutos} from "./produtos/tabela"
+export {FormCadastroProduto} from "./produtos/formulario/formCadastro"
  
 //Login exports
 export {LoginForm} from "./login/loginForm"
@@ -15,4 +19,5 @@ export {TextField, MaskedTextField} from "./field"
 export {ErrorMessagePop} from "./errorMessage/errorMessage"
 export {Button} from "./button"
 export {Sidebar} from "./sidebar"
-export {SuccessAlert, ErrorAlert, SuccessAlertModal} from "./alerts"
+export {SuccessAlert, ErrorAlert, ModalConfirm} from "./alerts"
+export {LoadingSpinner} from "./spinner"
