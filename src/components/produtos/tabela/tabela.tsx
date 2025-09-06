@@ -57,17 +57,18 @@ export const TabelaProdutos: React.FC = () => {
                 <LoadingSpinner />
             ) : (
                 <>
-                    <div className="shadow-md rounded-2xl border border-zinc-300 p-1 overflow-x-auto w-full max-w-[90%] mx-auto">
+                    <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto">
                         <table className="w-full table-auto text-sm sm:text-base">
                             <thead className=" text-center bg-gray-100">
                                 <tr>
                                     <th scope="col" className="px-4 py-2">ID</th>
-                                    <th scope="col" className="px-4 py-2">Produto</th>
-                                    <th scope="col" className="px-4 py-2">Marca</th>
-                                    <th scope="col" className="px-4 py-2">Valor</th>
+                                    <th scope="col" className="px-4 py-2">produto</th>
+                                    <th scope="col" className="px-4 py-2">marca</th>
+                                    <th scope="col" className="px-4 py-2">valor</th>
                                     <th scope="col" className="px-4 py-2">estoque</th>
                                     <th scope="col" className="px-4 py-2">categoria</th>
                                     <th scope="col" className="px-4 py-2">fornecedor</th>
+                                    <th scope="col" className="px-4 py-2">ações</th>
                                 </tr>
                             </thead>
 
