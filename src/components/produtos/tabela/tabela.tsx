@@ -37,6 +37,7 @@ export const TabelaProdutos: React.FC = () => {
     const mudancaPagina = (page: number) => {
         if (page >= 1 && page <= pager.totalPages) {
             setPager((prev) => ({ ...prev, currentPage: page }));
+            pesquisarProdutos(page);
         }
     };
 
@@ -75,7 +76,7 @@ export const TabelaProdutos: React.FC = () => {
                             <tbody className="text-center">
                                 {produtos.length === 0 ? (
                                     <tr >
-                                        <td colSpan={7} className="text-center py-4">Nenhum produto encontrado</td>
+                                        <td colSpan={8} className="text-center py-4">Nenhum produto encontrado</td>
                                     </tr>
                                 ) :
                                     produtos.map((produto, index) => (

@@ -24,8 +24,8 @@ export const FormCadastroProduto: React.FC = () => {
             </button>
 
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20">
-                    <div className="bg-white p-8 rounded-2xl shadow-md">
+                <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
+                    <div className="bg-gray-50 rounded-2xl shadow-md px-4 py-6">
 
                         <Formik
                             initialValues={{
@@ -53,14 +53,14 @@ export const FormCadastroProduto: React.FC = () => {
                                     });
 
                                     const fornecedorEncontrado: Fornecedor = getResp.data.data[0]
-                                    // Recebo do backend um array contendo um objeto que é o que foi encontrado
+                                    // Recebendo do backend um array contendo um objeto que é o que foi encontrado
 
                                     if (!fornecedorEncontrado || fornecedorEncontrado.id === "") {
                                         setErrors({ fornecedor_nome: getResp.data.erro });
                                         return;
                                     }
 
-                                    const produtoPayload = {
+                                    const produtoBody = {
                                         nome: values.nome,
                                         marca: values.marca,
                                         valor_unico: values.valor_unico,
@@ -69,7 +69,7 @@ export const FormCadastroProduto: React.FC = () => {
                                         fornecedor_id: fornecedorEncontrado.id,
                                     };
 
-                                    const postResponse = await axios.post('http://localhost:8080/produtos', produtoPayload);
+                                    const postResponse = await axios.post('http://localhost:8080/produtos', produtoBody);
 
                                     if (postResponse.status === 200) {
                                         setSucessMessage(postResponse.data.message)
@@ -87,6 +87,10 @@ export const FormCadastroProduto: React.FC = () => {
                             }}>
                             {({ isSubmitting }) => (
                                 <Form className="flex flex-col gap-5 ">
+                                    <div className="flex justify-between mb-5">
+                                        <h1 className="text-xl font-bold">Novo Produto</h1>
+                                        <button className="cursor-pointer hover:opacity-20" onClick={()=> setIsOpen(false)}><img src="icons/close-button.svg"/></button>
+                                    </div>
                                     <div>
                                         <TextField name="nome" type="text" placeholder="Digite o nome do produto" />
                                         <ErrorAlert name="nome" component="div" />

@@ -97,9 +97,9 @@ export const TabelaClientes: React.FC = () => {
               onClick={() => pesquisarClientes(1)}>Pesquisar</button>
           </div>
 
-          <div className="shadow-md rounded-2xl border border-zinc-300 p-1 overflow-x-auto w-full max-w-[90%] mx-auto">
+          <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto">
             <table className="w-full table-auto text-sm sm:text-base">
-              <thead className="text-center bg-gray-100 dark:bg-gray-700">
+              <thead className="text-center bg-gray-100">
                 <tr>
                   <th scope="col" className="px-4 py-2">ID</th>
                   <th scope="col" className="px-4 py-2">Nome</th>
@@ -116,7 +116,7 @@ export const TabelaClientes: React.FC = () => {
                   </tr>
                 ) : 
                  clientes.map((cliente, index) => (
-                  <tr key={index} className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors cursor-pointer">
+                  <tr key={index} className="bg-white  hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors cursor-pointer">
                     <td className="px-4 py-3">{cliente.id}</td>
                     <td className="px-4 py-3">{cliente.nome}</td>
                     <td className="px-4 py-3">{cliente.cpf}</td>
