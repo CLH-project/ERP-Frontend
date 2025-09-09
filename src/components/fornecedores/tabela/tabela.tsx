@@ -25,11 +25,11 @@ export const TabelaFornecedores: React.FC = () => {
     setLoading(true);
     try {
       if (filtroCampo === 'todos') {
-        const response = await axios.get(`http://localhost:8080/fornecedor?page=${page}`);
-        setFornecedores(response.data.data);
+        const response = await axios.get(`http://localhost:8080/fornecedores?page=${page}`);
+        setFornecedores(response.data.fornecedores);
         setPager(response.data.pager);
       } else {
-        const response = await axios.get(`http://localhost:8080/fornecedor/filter`, {
+        const response = await axios.get(`http://localhost:8080/fornecedores/filter`, {
           params: {
             [filtroCampo]: filtroTexto,
           },
@@ -71,8 +71,8 @@ export const TabelaFornecedores: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="flex gap-2 mt-5 mb-5 px-4">
-        <select className="px-4 py-2 rounded-xl border w-full sm:w-auto" value={filtroCampo} onChange={(e) => setFiltroCampo(e.target.value)}>
+      <div className="w-full flex flex-col gap-2 mt-5 mb-5">
+        <select className="px-4 py-2 rounded-xl border w-full sm:w-auto cursor-pointer" value={filtroCampo} onChange={(e) => setFiltroCampo(e.target.value)}>
           <option value="todos">Todos</option>
           <option value="nome">Nome</option>
           <option value="cnpj">CNPJ</option>

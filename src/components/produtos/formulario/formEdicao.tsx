@@ -1,9 +1,11 @@
 'use client'
 
 import { Button, ErrorAlert, SuccessAlert, TextField } from "@/components";
+import { searchFornecedor } from "@/services/searchFornecedor";
 import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react"
 import * as Yup from "yup";
+import axios from 'axios';
 
 interface Fornecedor {
     id: string;
@@ -15,8 +17,7 @@ interface Fornecedor {
 
 interface Produto {
     id: string,
-    fornecedor_id: string
-    fornecedor_nome: string;
+    fornecedor: string
     nome: string,
     marca: string,
     valor_unico: string,
@@ -35,11 +36,11 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
 
     useEffect(() => {
         setProdutoEditar(produto);
-        console.log(produtoEditar)
     })
+
     return (
         <div className="flex items-center">
-            <button onClick={() => { setIsOpen(true) }} type="button">
+            <button className="cursor-pointer hover:opacity-50" onClick={() => { setIsOpen(true) }} type="button">
                 <img className="w-4" src="icons/edit-icon.svg" alt="icone-editar" />
             </button>
 
@@ -54,7 +55,7 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
                                 valor_unico: produto ? produto.valor_unico : 0,
                                 estoque: produto ? produto.estoque : 0,
                                 categoria: produto ? produto.categoria : "Categoria",
-                                fornecedor_nome: produto ? produto.fornecedor_id : "",
+                                fornecedor_nome: produto ? produto.fornecedor : "",
                                 fornecedor_id: "",
                             }}
 
@@ -67,7 +68,45 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
                             })}
 
                             onSubmit={async (values, { setSubmitting, setErrors }) => {
+                                try {
+                                    const getResp = await searchFornecedor(values.fornecedor_nome);
 
+                                    if (!getResp || !getResp.data || !Array.isArray(getResp.data.fornecedores)) {
+                                        setErrors({ fornecedor_id: "Erro ao buscar fornecedor." });
+                                        return;
+                                    }
+
+                                    const fornecedorEncontrado: Fornecedor = getResp.data.fornecedores[0]
+
+                                    if (!fornecedorEncontrado || !fornecedorEncontrado.id) {
+                                        setErrors({ fornecedor_id: getResp.data.erro || "Fornecedor não encontrado." });
+                                        return;
+                                    }
+
+                                    const produtoAtualizado = {
+                                        nome: values.nome,
+                                        marca: values.marca,
+                                        valor_unico: values.valor_unico,
+                                        estoque: values.estoque,
+                                        categoria: values.categoria,
+                                        fornecedor_id: fornecedorEncontrado.id,
+                                    }
+
+                                    const putResponse = await axios.put(`http://localhost:8080/produtos/${produto.id}`, produtoAtualizado)
+
+                                    if (putResponse.status === 200) {
+                                        setSucessMessage(putResponse.data.message);
+                                    }
+
+                                } catch (error: any) {
+                                    if (error.response?.status === 400 && error.response.data?.errors) {
+                                        setErrors(error.response.data.errors);
+                                    } else {
+                                        alert('Erro inesperado: ');
+                                    }
+                                } finally {
+                                    setSubmitting(false);
+                                }
                             }}>
                             {({ isSubmitting }) => (
                                 <Form className="flex flex-col gap-5 ">
@@ -112,7 +151,7 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
                                             <ErrorAlert name="categoria" component="div" />
                                         </div>
                                     </div>
-                                    <Button functionName="Adicionar Produto" type="submit" disabled={isSubmitting} />
+                                    <Button functionName="Confirmar Edição" type="submit" disabled={isSubmitting} />
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}
