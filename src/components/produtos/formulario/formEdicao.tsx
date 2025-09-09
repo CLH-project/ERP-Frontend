@@ -17,7 +17,7 @@ interface Fornecedor {
 
 interface Produto {
     id: string,
-    fornecedor_id: string
+    fornecedor: string
     nome: string,
     marca: string,
     valor_unico: string,
@@ -36,7 +36,6 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
 
     useEffect(() => {
         setProdutoEditar(produto);
-        console.log(produtoEditar)
     })
 
     return (
@@ -56,7 +55,7 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
                                 valor_unico: produto ? produto.valor_unico : 0,
                                 estoque: produto ? produto.estoque : 0,
                                 categoria: produto ? produto.categoria : "Categoria",
-                                fornecedor_nome: "",
+                                fornecedor_nome: produto ? produto.fornecedor : "",
                                 fornecedor_id: "",
                             }}
 
@@ -68,20 +67,19 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
                                 fornecedor_nome: Yup.string().required("Nome do fornecedor obrigatório"),
                             })}
 
-                            onSubmit={ async (values, { setSubmitting, setErrors }) => {
+                            onSubmit={async (values, { setSubmitting, setErrors }) => {
                                 try {
                                     const getResp = await searchFornecedor(values.fornecedor_nome);
 
-                                    if (!getResp || !getResp.data || !Array.isArray(getResp.data.data)) {
-                                        setErrors({ fornecedor_nome: "Erro ao buscar fornecedor." });
+                                    if (!getResp || !getResp.data || !Array.isArray(getResp.data.fornecedores)) {
+                                        setErrors({ fornecedor_id: "Erro ao buscar fornecedor." });
                                         return;
                                     }
 
-                                    const fornecedorEncontrado: Fornecedor = getResp.data.data[0]
+                                    const fornecedorEncontrado: Fornecedor = getResp.data.fornecedores[0]
 
                                     if (!fornecedorEncontrado || !fornecedorEncontrado.id) {
-                                        console.log(getResp);
-                                        setErrors({ fornecedor_nome: getResp.data.erro || "Fornecedor não encontrado." });
+                                        setErrors({ fornecedor_id: getResp.data.erro || "Fornecedor não encontrado." });
                                         return;
                                     }
 
@@ -91,9 +89,8 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
                                         valor_unico: values.valor_unico,
                                         estoque: values.estoque,
                                         categoria: values.categoria,
-                                        fornecedor_id: 5,
+                                        fornecedor_id: fornecedorEncontrado.id,
                                     }
-
 
                                     const putResponse = await axios.put(`http://localhost:8080/produtos/${produto.id}`, produtoAtualizado)
 

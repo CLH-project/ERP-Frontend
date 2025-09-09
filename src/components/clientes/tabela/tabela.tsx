@@ -77,7 +77,7 @@ export const TabelaClientes: React.FC = () => {
         <LoadingSpinner />
       ) : (
         <>
-          <div className="flex gap-2 mt-5 mb-5 px-4">
+          <div className="w-full flex flex-col gap-2 mt-5 mb-5">
             <select className="px-4 py-2 rounded-xl border w-full sm:w-auto" value={filtroCampo} onChange={(e) => setFiltroCampo(e.target.value)}>
               <option value="todos">Todos</option>
               <option value="id">ID</option>
