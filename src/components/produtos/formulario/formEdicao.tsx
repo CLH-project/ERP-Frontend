@@ -1,7 +1,7 @@
+'use client'
+
 import { Button, ErrorAlert, SuccessAlert, TextField } from "@/components";
-import { searchFornecedor } from "@/services/searchFornecedor";
-import axios from "axios";
-import { Formik, Form, Field, useField } from "formik";
+import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react"
 import * as Yup from "yup";
 
@@ -13,18 +13,34 @@ interface Fornecedor {
     telefone: string;
 }
 
-export const FormCadastroProduto: React.FC = () => {
+interface Produto {
+    id: string,
+    fornecedor_id: string
+    fornecedor_nome: string;
+    nome: string,
+    marca: string,
+    valor_unico: string,
+    estoque: string,
+    categoria: string,
+}
+
+interface FormProps {
+    produto: Produto;
+}
+
+export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [SucessMessage, setSucessMessage] = useState("")
+    const [produtoEditar, setProdutoEditar] = useState<Produto>({} as Produto);
 
     useEffect(() => {
-        setSucessMessage("")
-    }, [isOpen])
-
+        setProdutoEditar(produto);
+        console.log(produtoEditar)
+    })
     return (
-        <div>
-            <button onClick={() => { setIsOpen(true) }} className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                Novo produto
+        <div className="flex items-center">
+            <button onClick={() => { setIsOpen(true) }} type="button">
+                <img className="w-4" src="icons/edit-icon.svg" alt="icone-editar" />
             </button>
 
             {isOpen && (
@@ -33,13 +49,13 @@ export const FormCadastroProduto: React.FC = () => {
 
                         <Formik
                             initialValues={{
-                                nome: "",
-                                marca: "",
-                                valor_unico: 0,
-                                estoque: 0,
-                                categoria: "",
+                                nome: produto ? produto.nome : "",
+                                marca: produto ? produto.marca : "",
+                                valor_unico: produto ? produto.valor_unico : 0,
+                                estoque: produto ? produto.estoque : 0,
+                                categoria: produto ? produto.categoria : "Categoria",
+                                fornecedor_nome: produto ? produto.fornecedor_id : "",
                                 fornecedor_id: "",
-                                fornecedor_nome: "",
                             }}
 
                             validationSchema={Yup.object({
@@ -51,52 +67,12 @@ export const FormCadastroProduto: React.FC = () => {
                             })}
 
                             onSubmit={async (values, { setSubmitting, setErrors }) => {
-                                try {
-                                    const getResp = await searchFornecedor(values.fornecedor_nome);
-                                    // Recebendo do backend um array contendo um objeto que é o que foi encontrado
 
-                                    if (!getResp || !getResp.data || !Array.isArray(getResp.data.data)) {
-                                        setErrors({ fornecedor_nome: "Erro ao buscar fornecedor." });
-                                        return;
-                                    }
-
-                                    const fornecedorEncontrado: Fornecedor = getResp.data.data[0]
-
-                                    if (!fornecedorEncontrado || !fornecedorEncontrado.id) {
-                                        console.log(getResp);
-                                        setErrors({ fornecedor_nome: getResp.data.erro || "Fornecedor não encontrado." });
-                                        return;
-                                    }
-
-                                    const produtoBody = {
-                                        nome: values.nome,
-                                        marca: values.marca,
-                                        valor_unico: values.valor_unico,
-                                        estoque: values.estoque,
-                                        categoria: values.categoria,
-                                        fornecedor_id: fornecedorEncontrado.id,
-                                    };
-
-                                    const postResponse = await axios.post('http://localhost:8080/produtos', produtoBody);
-
-                                    if (postResponse.status === 200) {
-                                        setSucessMessage(postResponse.data.message)
-                                    }
-
-                                } catch (error: any) {
-                                    if (error.response?.status === 400 && error.response.data?.errors) {
-                                        setErrors(error.response.data.errors);
-                                    } else {
-                                        alert('Erro inesperado: ');
-                                    }
-                                } finally {
-                                    setSubmitting(false)
-                                }
                             }}>
                             {({ isSubmitting }) => (
                                 <Form className="flex flex-col gap-5 ">
                                     <div className="flex justify-between mb-5">
-                                        <h1 className="text-xl font-bold">Novo Produto</h1>
+                                        <h1 className="text-xl font-bold">Editar Produto</h1>
                                         <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
                                     </div>
                                     <div>

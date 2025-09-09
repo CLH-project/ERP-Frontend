@@ -1,16 +1,16 @@
-import { LoadingSpinner, ModalConfirm } from "@/components";
+import { FormEdicaoProduto, LoadingSpinner, ModalConfirm } from "@/components";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
 interface Produto {
     id: string,
     fornecedor_id: string
+    fornecedor_nome: string;
     nome: string,
     marca: string,
     valor_unico: string,
     estoque: string,
     categoria: string,
-
 }
 
 export const TabelaProdutos: React.FC = () => {
@@ -21,10 +21,10 @@ export const TabelaProdutos: React.FC = () => {
     const pesquisarProdutos = async (page = 1) => {
         setLoading(true);
         try {
-             const response = await axios.get(`http://localhost:8080/produtos?page=${page}`);   
-             setProdutos(response.data.produtos)
-             setPager(response.data.pager);
-             console.log(response)
+            const response = await axios.get(`http://localhost:8080/produtos?page=${page}`);
+            setProdutos(response.data.produtos)
+            setPager(response.data.pager);
+            console.log(response)
         } catch {
 
         } finally {
@@ -32,7 +32,7 @@ export const TabelaProdutos: React.FC = () => {
         }
     }
 
-    useEffect(() =>{pesquisarProdutos(1)}, [])
+    useEffect(() => { pesquisarProdutos(1) }, [])
 
     const mudancaPagina = (page: number) => {
         if (page >= 1 && page <= pager.totalPages) {
@@ -50,7 +50,7 @@ export const TabelaProdutos: React.FC = () => {
         } catch (error) {
             console.log(error);
         }
-    } 
+    }
 
     return (
         <div className="flex flex-col items-center w-full">
@@ -88,13 +88,13 @@ export const TabelaProdutos: React.FC = () => {
                                             <td className="px-4 py-3">{produto.estoque}</td>
                                             <td className="px-4 py-3">{produto.categoria}</td>
                                             <td className="px-4 py-3">{produto.fornecedor_id}</td>
-                                            <td className="px-4 py-3 flex justify-center gap-3">
+                                            <td className="px-4 py-3 flex items-center justify-center gap-3">
                                                 <button className="w-4 hover:opacity-70 transition-opacity cursor-pointer" onClick={() => setProdutoParaDeletar(produto)}>
-                                                    <img src={"./icons/remove-icon.svg"} />
+                                                    <img className="w-4" src={"./icons/remove-icon.svg"} />
                                                 </button>
-                                                <button className="w-4 hover:opacity-70 transition-opacity cursor-pointer">
-                                                    <img src={"./icons/edit-icon.svg"} />
-                                                </button>
+                                            
+                                                    <FormEdicaoProduto produto={produto} />
+                                                
                                                 <ModalConfirm title="Deletar" message={`Deseja apagar o produto ${produtoParaDeletar?.nome}?`}
                                                     isOpen={produtoParaDeletar !== null}
                                                     onConfirm={() => {
