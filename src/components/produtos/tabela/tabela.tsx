@@ -92,9 +92,7 @@ export const TabelaProdutos: React.FC = () => {
                                                 <button className="w-4 hover:opacity-70 transition-opacity cursor-pointer" onClick={() => setProdutoParaDeletar(produto)}>
                                                     <img className="w-4" src={"./icons/remove-icon.svg"} />
                                                 </button>
-                                            
-                                                    <FormEdicaoProduto produto={produto} />
-                                                
+                                                <FormEdicaoProduto produto={produto} />
                                                 <ModalConfirm title="Deletar" message={`Deseja apagar o produto ${produtoParaDeletar?.nome}?`}
                                                     isOpen={produtoParaDeletar !== null}
                                                     onConfirm={() => {
