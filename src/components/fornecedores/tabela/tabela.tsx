@@ -90,9 +90,9 @@ export const TabelaFornecedores: React.FC = () => {
         <LoadingSpinner />
       ) : (
         <>
-          <div className="rounded-2xl border border-zinc-300 p-1 overflow-x-auto w-full max-w-[90%] mx-auto shadow-md">
+          <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto">
             <table className="w-full table-auto text-sm sm:text-base">
-              <thead className="text-center">
+              <thead className="text-center bg-gray-100">
                 <tr>
                   <th className="px-4 py-2">ID</th>
                   <th className="px-4 py-2">Nome</th>
@@ -110,7 +110,7 @@ export const TabelaFornecedores: React.FC = () => {
                   </tr>
                 ) :
                 fornecedores.map((fornecedor, index) => (
-                  <tr key={index} className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600">
+                  <tr key={index} className="bg-white hover:bg-gray-100 dark:hover:bg-gray-600">
                     <td className="px-4 py-3">{fornecedor.id}</td>
                     <td className="px-4 py-3">{fornecedor.nome}</td>
                     <td className="px-4 py-3">{fornecedor.cnpj}</td>

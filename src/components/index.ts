@@ -10,6 +10,7 @@ export {TableFornecedores} from "./fornecedores/tabela"
 //Produto exports
 export {TabelaProdutos} from "./produtos/tabela"
 export {FormCadastroProduto} from "./produtos/formulario/formCadastro"
+export {FormEdicaoProduto} from "./produtos/formulario/formEdicao"
  
 //Login exports
 export {LoginForm} from "./login/loginForm"

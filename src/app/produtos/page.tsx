@@ -9,7 +9,7 @@ export default function produtos() {
   const router = useRouter();
 
   return (
-    <div className="w-full flex flex-col ">
+    <div className=" w-full h-screen flex flex-col px-20">
       <Header />
       <div className="mt-10 flex flex-col">
         <div className="px-5">
