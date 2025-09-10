@@ -65,7 +65,6 @@ export const TabelaProdutos: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center w-full">
-
             <div className="w-full flex flex-col gap-2 mt-5 mb-5">
                 <select className="px-4 py-2 rounded-xl border w-full sm:w-auto cursor-pointer" value={filtroCampo} onChange={(e) => setFiltroCampo(e.target.value)}>
                     <option value="todos">Todos</option>
@@ -79,7 +78,6 @@ export const TabelaProdutos: React.FC = () => {
                 <button className="px-4 text-md bg-[#725743] rounded-2xl text-white font-bold py-3 hover:cursor-pointer hover:opacity-90"
                     onClick={() => pesquisarProdutos(1)}>Pesquisar</button>
             </div>
-
             {loading ? (
                 <LoadingSpinner />
             ) : (
@@ -133,7 +131,6 @@ export const TabelaProdutos: React.FC = () => {
                             </tbody>
                         </table>
                     </div>
-
                     <div className=" flex gap-6 p-3">
                         <button className="hover:opacity-50 cursor-pointer" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1}>
                             ⬅ Anterior

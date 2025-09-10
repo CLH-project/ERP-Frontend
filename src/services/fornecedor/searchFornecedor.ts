@@ -8,6 +8,6 @@ export async function searchFornecedor(fornecedor_nome: string) {
 
         return getResp;
     } catch (error) {
-        console.log(error)
+        return error;
     }
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { Button, ErrorAlert, SuccessAlert, TextField } from "@/components";
-import { searchFornecedor } from "@/services/searchFornecedor";
+import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react"
 import * as Yup from "yup";
