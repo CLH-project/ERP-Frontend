@@ -1,5 +1,5 @@
 import { Button, ErrorAlert, SuccessAlert, TextField } from "@/components";
-import { searchFornecedor } from "@/services/searchFornecedor";
+import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 import axios from "axios";
 import { Formik, Form, Field, useField } from "formik";
 import { useEffect, useState } from "react"
