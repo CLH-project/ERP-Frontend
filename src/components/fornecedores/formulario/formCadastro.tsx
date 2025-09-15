@@ -32,7 +32,7 @@ export const FormCadastroFornecedor: React.FC = () => {
 
             onSubmit={
                 async (values, { setSubmitting, setErrors }) => {
-                    axios.post("http://localhost:8080/fornecedor", values)
+                    axios.post("http://localhost:8080/fornecedores", values)
 
                         .then((response) => {
 

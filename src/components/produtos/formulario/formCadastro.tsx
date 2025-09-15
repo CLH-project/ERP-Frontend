@@ -1,7 +1,7 @@
 import { Button, ErrorAlert, SuccessAlert, TextField } from "@/components";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 import axios from "axios";
-import { Formik, Form, Field, useField } from "formik";
+import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react"
 import * as Yup from "yup";
 
@@ -23,7 +23,7 @@ export const FormCadastroProduto: React.FC = () => {
 
     return (
         <div>
-            <button onClick={() => { setIsOpen(true) }} className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+            <button onClick={() => {setIsOpen(true)}} className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                 Novo produto
             </button>
 
@@ -52,7 +52,7 @@ export const FormCadastroProduto: React.FC = () => {
 
                             onSubmit={async (values, { setSubmitting, setErrors }) => {
                                 try {
-                                    const getResp = await searchFornecedor(values.fornecedor_nome);
+                                    const getResp: any = await searchFornecedor(values.fornecedor_nome);
                                     // Recebendo do backend um array contendo um objeto que é o que foi encontrado
 
                                     if (!getResp || !getResp.data || !Array.isArray(getResp.data.data)) {
