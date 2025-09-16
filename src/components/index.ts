@@ -4,12 +4,12 @@ export {TabelaClientes} from "./clientes/tabela"
 export {Header} from "./header"
 
 //Fornecedor exports
-export {FormCadastroFornecedor} from "./fornecedores/formulario"
+export {CadastroFornecedorModal} from "./fornecedores/formulario"
 export {TableFornecedores} from "./fornecedores/tabela"
 
 //Produto exports
 export {TabelaProdutos} from "./produtos/tabela"
-export {FormCadastroProduto} from "./produtos/formulario/formCadastro"
+export {CadastroProdutoModal} from "./produtos/formulario/formCadastro"
 export {FormEdicaoProduto} from "./produtos/formulario/formEdicao"
  
 //Login exports
