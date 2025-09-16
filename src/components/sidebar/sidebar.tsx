@@ -61,59 +61,49 @@ export const Sidebar: React.FC = () => {
         }
     }
 
-    const [aberto, setAberto] = useState(false);
-    const [ativo, setAtivo] = useState<number | null>(null);
-
-    const toggleSidebar = () => setAberto(!aberto);
-    const toggleSubmenu = (index: number) => setAtivo(ativo === index ? null : index);
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleSidebar = () => setIsOpen(!isOpen);
 
     return (
         <div>
             <button
                 onClick={toggleSidebar}
-                className={aberto ? "display-none" : "hover:cursor-pointer hover:opacity-70"}>
+                className={isOpen ? "display-none" : "hover:cursor-pointer hover:opacity-70"}>
                 <img src="/icons/hamburger-menu.svg" alt="" />
             </button>
 
-            {aberto && (
+            {isOpen && (
                 <div className="flex flex-col justify-between fixed top-0 left-0 h-screen w-64 bg-white text-white z-[1000] shadow-lg p-4 overflow-y-auto">
                     <div className="flex justify-between items-center mb-6">
                         <span className="text-xl font-bold text-[#725743]">ERP CLH</span>
                         <button
                             onClick={toggleSidebar}
-                            className={aberto ? "hover:cursor-pointer hover:opacity-70" : "none"}>
+                            className={isOpen ? "hover:cursor-pointer hover:opacity-70" : "none"}>
                             <img src="/icons/close-button.svg" alt="" />
                         </button>
                     </div>
 
                     <div className='flex flex-col'>
-                        <button onClick={() => {router.push("/inicio")}} 
-                                 className=" mb-4 w-full text-left px-2 py-3 bg-[#725743] hover:bg-[#7e5f47] rounded-2xl flex items-center hover:cursor-pointer">Início
+                        <button onClick={() => { router.push("/inicio") }}
+                            className=" mb-4 w-full text-left px-2 py-3 bg-[#725743] hover:bg-[#7e5f47] rounded-2xl flex items-center hover:cursor-pointer">Início
                         </button>
-                        
-                        {menu.map((item, index) => (
-                            <div key={index} className=" bg-[#725743] mb-4 rounded-2xl">
-                                <button
-                                    onClick={() => toggleSubmenu(index)}
-                                    className="w-full text-left px-2 py-3 bg-[#725743] hover:bg-[#7e5f47] rounded-2xl flex items-center hover:cursor-pointer">
-                                    <span className="mr-2">{item.icone}</span>
-                                    {item.titulo}
-                                </button>
 
-                                {ativo === index && (
-                                    <div className=" mt-2 py-2 px-2">
-                                        {item.acoes.map((acao, i) => (
-                                            <button
-                                                key={i}
-                                                className="w-full text-left px-3 py-1 text-sm bg-[#725743] rounded-xl hover:cursor-pointer hover:bg-[#7e5f47]"
-                                                onClick={() => handleActionClick(item.titulo, acao)}>
-                                                {acao}
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
+                        <button onClick={() => { router.push("/clientes") }}
+                            className=" mb-4 w-full text-left px-2 py-3 bg-[#725743] hover:bg-[#7e5f47] rounded-2xl flex items-center hover:cursor-pointer">Clientes
+                        </button>
+
+                        <button onClick={() => { router.push("/produtos") }}
+                            className=" mb-4 w-full text-left px-2 py-3 bg-[#725743] hover:bg-[#7e5f47] rounded-2xl flex items-center hover:cursor-pointer">Produtos
+                        </button>
+
+                        <button onClick={() => { router.push("/fornecedores") }}
+                            className=" mb-4 w-full text-left px-2 py-3 bg-[#725743] hover:bg-[#7e5f47] rounded-2xl flex items-center hover:cursor-pointer">Fornecedores
+                        </button>
+
+                        <button onClick={() => { router.push("/vendas") }}
+                            className=" mb-4 w-full text-left px-2 py-3 bg-[#725743] hover:bg-[#7e5f47] rounded-2xl flex items-center hover:cursor-pointer">Vendas
+                        </button>
+
                     </div>
                     <Button functionName='Sair' onClick={() => router.push('/login')} />
                 </div>

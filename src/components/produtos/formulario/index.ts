@@ -1,2 +1,2 @@
-export {FormCadastroProduto} from "./formCadastro"
+export {CadastroProdutoModal} from "./formCadastro"
 export {FormEdicaoProduto} from "./formEdicao"

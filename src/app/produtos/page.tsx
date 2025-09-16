@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Header, TabelaProdutos, FormCadastroProduto } from "@/components";
+import { Button, Header, TabelaProdutos, CadastroProdutoModal } from "@/components";
 import { useRouter } from "next/navigation"
 
 export default function produtos() {
@@ -14,8 +14,8 @@ export default function produtos() {
           <h1 className="text-2xl font-bold mb-10">Produtos</h1>
         </div>
         <div className="px-5">
-          <div className="mb-5">
-            <FormCadastroProduto />
+          <div>
+            <CadastroProdutoModal />
           </div>
           <div>
             <TabelaProdutos />

@@ -1,1 +1,1 @@
-export {FormCadastroCliente} from "./formCadastro";
+export {CadastroClienteModal} from "./modalCadastro"

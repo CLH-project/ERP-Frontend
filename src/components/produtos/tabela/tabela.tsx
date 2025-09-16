@@ -65,7 +65,7 @@ export const TabelaProdutos: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center w-full">
-            <div className="w-full flex flex-col gap-2 mt-5 mb-5">
+            <div className="w-full flex flex-col gap-2 mt-3 mb-5">
                 <select className="px-4 py-2 rounded-xl border w-full sm:w-auto cursor-pointer" value={filtroCampo} onChange={(e) => setFiltroCampo(e.target.value)}>
                     <option value="todos">Todos</option>
                     <option value="nome">Produto</option>
