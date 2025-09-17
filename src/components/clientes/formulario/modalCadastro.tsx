@@ -15,7 +15,7 @@ export const CadastroClienteModal: React.FC = () => {
 
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
-                    <div className="w-full md:w-3xl bg-gray-50 rounded-2xl shadow-md px-6 py-8">
+                    <div className="w-full md:w-3xl bg-[#F3F3F3] rounded-2xl shadow-2xl px-6 py-8">
                         <Formik
                             initialValues={{ nome: "", cpf: "", telefone: "" }}
                             validationSchema={Yup.object({
@@ -60,20 +60,20 @@ export const CadastroClienteModal: React.FC = () => {
                                         <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
                                     </div>
                                     <div >
-                                        <TextField name="nome" type="text" placeholder="Digite o nome do cliente" />
+                                        <TextField name="nome" type="text" placeholder="Digite o nome do cliente" label="Nome"/>
                                         <ErrorAlert name="nome" component="div" />
                                     </div>
 
                                     <div >
-                                        <MaskedTextField name="cpf" mask="XXX.XXX.XXX-XX" placeholder="Digite o CPF do cliente" />
+                                        <MaskedTextField name="cpf" mask="XXX.XXX.XXX-XX" placeholder="Digite o CPF do cliente" label="CPF"/>
                                         <ErrorAlert name="cpf" component="div" />
                                     </div>
 
                                     <div>
-                                        <MaskedTextField name="telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do cliente" />
+                                        <MaskedTextField name="telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do cliente" label="Telefone" />
                                         <ErrorAlert name="telefone" component="div" />
                                     </div>
-                                    <Button functionName="Adicionar Cliente" type="submit" disabled={isSubmitting} />
+                                    <Button functionName="Adicionar Cliente" theme="back" type="submit" disabled={isSubmitting} />
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}

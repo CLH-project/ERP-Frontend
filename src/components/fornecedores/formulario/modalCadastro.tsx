@@ -14,7 +14,7 @@ export const CadastroFornecedorModal: React.FC = () => {
 
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
-                    <div className="w-full md:w-3xl bg-gray-50 rounded-2xl shadow-md px-6 py-8">
+                    <div className="w-full md:w-3xl bg-[#f3f3f3] rounded-2xl shadow-2x px-6 py-8">
                         <Formik
 
                             initialValues={{
@@ -78,26 +78,22 @@ export const CadastroFornecedorModal: React.FC = () => {
                                         <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
                                     </div>
                                     <div >
-                                        <label htmlFor="nome">Nome do Fornecedor</label>
-                                        <TextField name="nome" type="text" placeholder="Digite o nome do fornecedor" />
+                                        <TextField name="nome" type="text" placeholder="Digite o nome do fornecedor" label="Nome"/>
                                         <ErrorAlert name="nome" component="div" />
                                     </div>
 
                                     <div >
-                                        <label htmlFor="cnpj">CNPJ do Fornecedor</label>
-                                        <MaskedTextField name="cnpj" mask="XX.XXX.XXX/XXXX-XX" placeholder="Digite o CNPJ do fornecedor" />
+                                        <MaskedTextField name="cnpj" mask="XX.XXX.XXX/XXXX-XX" placeholder="Digite o CNPJ do fornecedor" label="CNPJ" />
                                         <ErrorAlert name="cnpj" component="div" />
                                     </div>
 
                                     <div>
-                                        <label htmlFor="contato.email">Email do Fornecedor</label>
-                                        <TextField name="contato.email" placeholder="Digite o email do fornecedor" />
+                                        <TextField name="contato.email" placeholder="Digite o email do fornecedor" label="Email"/>
                                         <ErrorAlert name="contato.email" component="div" />
                                     </div>
 
                                     <div>
-                                        <label htmlFor="contato.telefone">Telefone do Fornecedor</label>
-                                        <MaskedTextField name="contato.telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do fornecedor" />
+                                        <MaskedTextField name="contato.telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do fornecedor" label="Telefone" />
                                         <ErrorAlert name="contato.telefone" component="div" />
                                     </div>
                                     <Button functionName="Adicionar Fornecedor" type="submit" disabled={isSubmitting} />

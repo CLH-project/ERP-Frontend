@@ -1,9 +1,10 @@
 'use client';
 
 import { ModalConfirm } from "@/components/alerts/alerts";
-import { LoadingSpinner } from "@/components";
+import { LoadingSpinner, PaginateButton } from "@/components";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 
 interface Fornecedor {
   id: string;
@@ -17,7 +18,7 @@ export const TabelaFornecedores: React.FC = () => {
   const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]);
   const [pager, setPager] = useState({ currentPage: 1, totalPages: 0, perPage: 10, total: 0 });
   const [loading, setLoading] = useState(false);
-  
+
   const [filtroTexto, setFiltroTexto] = useState('');
   const [filtroCampo, setFiltroCampo] = useState('todos');
 
@@ -29,14 +30,11 @@ export const TabelaFornecedores: React.FC = () => {
         setFornecedores(response.data.fornecedores);
         setPager(response.data.pager);
       } else {
-        const response = await axios.get(`http://localhost:8080/fornecedores/filter`, {
-          params: {
-            [filtroCampo]: filtroTexto,
-          },
-        });
+        const response: any = await searchFornecedor("nome", filtroTexto);
+        console.log(response)
 
-        setFornecedores(response.data.data);
-        setPager({ currentPage: 1, totalPages: 1, perPage: response.data.data.length, total: response.data.data.length });
+        setFornecedores(response.data.fornecedores);
+        setPager({ currentPage: 1, totalPages: 1, perPage: 10, total: 1 });
       }
     } catch (error) {
       // Trocar por alerta de erro real
@@ -72,14 +70,9 @@ export const TabelaFornecedores: React.FC = () => {
   return (
     <div className="flex flex-col items-center w-full">
       <div className="w-full flex flex-col gap-2 mt-5 mb-5">
-        <select className="px-4 py-2 rounded-xl border w-full sm:w-auto cursor-pointer" value={filtroCampo} onChange={(e) => setFiltroCampo(e.target.value)}>
-          <option value="todos">Todos</option>
-          <option value="nome">Nome</option>
-          <option value="cnpj">CNPJ</option>
-        </select>
 
         <input className="px-4 py-2 rounded-xl border w-full sm:w-auto"
-          type="text" placeholder={`Filtrar por ${filtroCampo}`} value={filtroTexto}
+          type="text" placeholder={"Pesquisar por nome ou cnpj"} value={filtroTexto}
           onChange={(e) => setFiltroTexto(e.target.value)} />
 
         <button className="px-4 text-md bg-[#725743] rounded-2xl text-white font-bold py-3 hover:cursor-pointer hover:opacity-90"
@@ -90,63 +83,61 @@ export const TabelaFornecedores: React.FC = () => {
         <LoadingSpinner />
       ) : (
         <>
-          <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto">
-            <table className="w-full table-auto text-sm sm:text-base">
-              <thead className="text-center bg-gray-100">
+          <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto p-5">
+            <table className="w-full table-auto">
+              <thead className="text-center">
                 <tr>
-                  <th className="px-4 py-2">ID</th>
-                  <th className="px-4 py-2">Nome</th>
-                  <th className="px-4 py-2">CNPJ</th>
-                  <th className="px-4 py-2">Email</th>
-                  <th className="px-4 py-2">Telefone</th>
-                  <th className="px-4 py-2">Ações</th>
+                  <th className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">ID</th>
+                  <th className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">Nome</th>
+                  <th className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">CNPJ</th>
+                  <th className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">Email</th>
+                  <th className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">Telefone</th>
+                  <th className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">Ações</th>
                 </tr>
               </thead>
 
               <tbody className="text-center">
-                { fornecedores.length === 0 ? (
+                {fornecedores.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="text-center">Nenhum fornecedor encontrado</td>
                   </tr>
                 ) :
-                fornecedores.map((fornecedor, index) => (
-                  <tr key={index} className="bg-white hover:bg-gray-100 dark:hover:bg-gray-600">
-                    <td className="px-4 py-3">{fornecedor.id}</td>
-                    <td className="px-4 py-3">{fornecedor.nome}</td>
-                    <td className="px-4 py-3">{fornecedor.cnpj}</td>
-                    <td className="px-4 py-3">{fornecedor.email}</td>
-                    <td className="px-4 py-3">{fornecedor.telefone}</td>
-                    <td className="px-4 py-3">
-                      <button className="hover:opacity-50 cursor-pointer w-4" onClick={() => setFornecedorParaDeletar(fornecedor)}>
-                        <img src="./icons/remove-icon.svg" />
-                      </button>
-                      <ModalConfirm
-                        title="Deletar"
-                        message={`Deseja apagar os dados do fornecedor ${fornecedorParaDeletar?.nome}?`}
-                        onConfirm={() => {
-                          if (fornecedorParaDeletar !== null) {
-                            handleDelete(fornecedorParaDeletar.id);   
-                          }
-                          setFornecedorParaDeletar(null);
-                        }}
-                        isOpen={fornecedorParaDeletar !== null}
-                        onCancel={() => setFornecedorParaDeletar(null)}
-                      />
-                    </td>
-                  </tr>
-                ))}
+                  fornecedores.map((fornecedor, index) => (
+                    <tr key={index} className="bg-white hover:bg-gray-100 dark:hover:bg-gray-100 cursor-pointer">
+                      <td className="font-semibold px-4 py-4 border-b-1 border-gray-300">{fornecedor.id}</td>
+                      <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{fornecedor.nome}</td>
+                      <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{fornecedor.cnpj}</td>
+                      <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{fornecedor.email}</td>
+                      <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{fornecedor.telefone}</td>
+                      <td className="font-medium px-4 py-4 border-b-1 border-gray-300">
+                        <button className="hover:opacity-50 cursor-pointer w-4" onClick={() => setFornecedorParaDeletar(fornecedor)}>
+                          <img src="./icons/remove-icon.svg" />
+                        </button>
+                        <ModalConfirm
+                          title="Deletar"
+                          message={`Deseja apagar os dados do fornecedor ${fornecedorParaDeletar?.nome}?`}
+                          onConfirm={() => {
+                            if (fornecedorParaDeletar !== null) {
+                              handleDelete(fornecedorParaDeletar.id);
+                            }
+                            setFornecedorParaDeletar(null);
+                          }}
+                          isOpen={fornecedorParaDeletar !== null}
+                          onCancel={() => setFornecedorParaDeletar(null)}
+                        />
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
 
-          <div className="flex gap-6 p-3">
-            <button onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1}>
-              ⬅ Anterior
-            </button>
-            <span>Página {pager.currentPage} de {pager.totalPages}</span>
-            <button onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages}>
-              Próxima ➡
-            </button>
+          <div className=" flex gap-6 p-3 items-center">
+            <PaginateButton direction="previous" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1} />
+            <span className="font-medium text-[#9B6D39]">
+              Página {pager.currentPage} de {pager.totalPages}
+            </span>
+            <PaginateButton direction="next" onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages} />
           </div>
         </>
       )}

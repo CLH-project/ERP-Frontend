@@ -1,4 +1,4 @@
-import { Button, CadastroButtonModal, ErrorAlert, SuccessAlert, TextField } from "@/components";
+import { Button, CadastroButtonModal, ErrorAlert, SelectField, SuccessAlert, TextField } from "@/components";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
@@ -27,7 +27,7 @@ export const CadastroProdutoModal: React.FC = () => {
 
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
-                    <div className="w-full md:w-3xl bg-gray-50 rounded-2xl shadow-md px-6 py-8">
+                    <div className="w-full md:w-3xl bg-[#f3f3f3] rounded-2xl shadow-2xl px-6 py-8 box-border">
 
                         <Formik
                             initialValues={{
@@ -50,15 +50,14 @@ export const CadastroProdutoModal: React.FC = () => {
 
                             onSubmit={async (values, { setSubmitting, setErrors }) => {
                                 try {
-                                    const getResp: any = await searchFornecedor(values.fornecedor_nome);
-                                    // Recebendo do backend um array contendo um objeto que é o que foi encontrado
-
-                                    if (!getResp || !getResp.data || !Array.isArray(getResp.data.data)) {
+                                    const getResp: any = await searchFornecedor( "nome" ,values.fornecedor_nome);
+                                    
+                                    if (getResp.data.fornecedores.length === 0) {
                                         setErrors({ fornecedor_nome: "Erro ao buscar fornecedor." });
                                         return;
                                     }
 
-                                    const fornecedorEncontrado: Fornecedor = getResp.data.data[0]
+                                    const fornecedorEncontrado: Fornecedor = getResp.data.fornecedores[0]
 
                                     if (!fornecedorEncontrado || !fornecedorEncontrado.id) {
                                         console.log(getResp);
@@ -77,7 +76,7 @@ export const CadastroProdutoModal: React.FC = () => {
 
                                     const postResponse = await axios.post('http://localhost:8080/produtos', produtoBody);
 
-                                    if (postResponse.status === 200) {
+                                    if (postResponse.status === 201) {
                                         setSucessMessage(postResponse.data.message)
                                     }
 
@@ -98,39 +97,35 @@ export const CadastroProdutoModal: React.FC = () => {
                                         <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
                                     </div>
                                     <div>
-                                        <TextField name="nome" type="text" placeholder="Digite o nome do produto" />
+                                        <TextField name="nome" type="text" placeholder="Digite o nome do produto" label="Nome"/>
                                         <ErrorAlert name="nome" component="div" />
                                     </div>
 
                                     <div>
-                                        <TextField name="marca" type="text" placeholder="Digite a marca do produto" />
+                                        <TextField name="marca" type="text" placeholder="Digite a marca do produto" label="Marca"/>
                                         <ErrorAlert name="marca" component="div" />
                                     </div>
 
-                                    <div className="flex flex-col gap-3">
+                                    <div className="flex flex-col md:flex-row justify-between items-center gap-3">
                                         <div>
-                                            <TextField name="valor_unico" type="number" placeholder="Valor do produto" />
+                                            <TextField name="valor_unico" type="number" placeholder="Valor do produto" label="Valor" />
                                             <ErrorAlert name="valor_unico" component="div" />
                                         </div>
 
                                         <div>
-                                            <TextField name="estoque" type="number" placeholder="quantidade" />
+                                            <TextField name="estoque" type="number" placeholder="quantidade" label="Estoque"/>
                                             <ErrorAlert name="estoque" component="div" />
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col gap-3 items-center justify-center">
+                                    <div className="flex flex-col md:flex-row gap-3 items-center justify-center">
                                         <div className="w-full">
-                                            <TextField type="text" name="fornecedor_nome" placeholder="Nome Fornecedor" />
+                                            <TextField type="text" name="fornecedor_nome" placeholder="Nome do Fornecedor" label="Fornecedor"/>
                                             <ErrorAlert name="fornecedor_nome" component="div" />
                                         </div>
 
                                         <div className="w-full">
-                                            <Field className="text-center bg-white border shadow-md border-[#CDCDCD] rounded-3xl py-4 w-full focus:outline-none" as="select" name="categoria">
-                                                <option value="">Categoria</option>
-                                                <option value="Alcolico">Alcolico</option>
-                                                <option value="Não Alcolico">Não Alcolico</option>
-                                            </Field>
+                                            <SelectField label="Categoria" options={["Categoria", "Alcolico", "Não Alcolico"]} name="categoria" />
                                             <ErrorAlert name="categoria" component="div" />
                                         </div>
                                     </div>
@@ -140,7 +135,7 @@ export const CadastroProdutoModal: React.FC = () => {
                             )}
                         </Formik>
                         <div className="mt-5">
-                            <Button functionName="Fechar" onClick={() => setIsOpen(false)} />
+                            <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
                         </div>
                     </div>
                 </div>

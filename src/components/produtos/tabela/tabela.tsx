@@ -1,4 +1,4 @@
-import { FormEdicaoProduto, LoadingSpinner, ModalConfirm } from "@/components";
+import { FormEdicaoProduto, LoadingSpinner, ModalConfirm, PaginateButton } from "@/components";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -82,18 +82,18 @@ export const TabelaProdutos: React.FC = () => {
                 <LoadingSpinner />
             ) : (
                 <>
-                    <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto">
+                    <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto p-5">
                         <table className="w-full table-auto text-sm sm:text-base">
-                            <thead className="text-center bg-gray-100">
+                            <thead className="text-center">
                                 <tr>
-                                    <th scope="col" className="px-4 py-2">ID</th>
-                                    <th scope="col" className="px-4 py-2">produto</th>
-                                    <th scope="col" className="px-4 py-2">marca</th>
-                                    <th scope="col" className="px-4 py-2">valor</th>
-                                    <th scope="col" className="px-4 py-2">estoque</th>
-                                    <th scope="col" className="px-4 py-2">categoria</th>
-                                    <th scope="col" className="px-4 py-2">fornecedor</th>
-                                    <th scope="col" className="px-4 py-2">ações</th>
+                                    <th scope="col" className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">ID</th>
+                                    <th scope="col" className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">produto</th>
+                                    <th scope="col" className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">marca</th>
+                                    <th scope="col" className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">valor</th>
+                                    <th scope="col" className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">estoque</th>
+                                    <th scope="col" className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">categoria</th>
+                                    <th scope="col" className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">fornecedor</th>
+                                    <th scope="col" className="font-normal text-gray-700 px-4 py-2 border-b-1 border-gray-300">ações</th>
                                 </tr>
                             </thead>
 
@@ -104,43 +104,41 @@ export const TabelaProdutos: React.FC = () => {
                                     </tr>
                                 ) :
                                     produtos.map((produto, index) => (
-                                        <tr key={index} className="bg-white  hover:bg-gray-100  transition-colors cursor-pointer">
-                                            <td className="px-4 py-3 font-bold text-[#725743]">{produto.id}</td>
-                                            <td className="px-4 py-3">{produto.nome}</td>
-                                            <td className="px-4 py-3">{produto.marca}</td>
-                                            <td className="px-4 py-3">R$ {produto.valor_unico}</td>
-                                            <td className="px-4 py-3">{produto.estoque}</td>
-                                            <td className="px-4 py-3">{produto.categoria}</td>
-                                            <td className="px-4 py-3">{produto.fornecedor}</td>
-                                            <td className="px-4 py-3 flex items-center justify-center gap-3">
-                                                <button className="w-4 hover:opacity-70 transition-opacity cursor-pointer" onClick={() => setProdutoParaDeletar(produto)}>
-                                                    <img className="w-4" src={"./icons/remove-icon.svg"} />
-                                                </button>
-                                                <FormEdicaoProduto produto={produto} />
-                                                <ModalConfirm title="Deletar" message={`Deseja apagar o produto ${produtoParaDeletar?.nome}?`}
-                                                    isOpen={produtoParaDeletar !== null}
-                                                    onConfirm={() => {
-                                                        if (produtoParaDeletar) {
-                                                            handleDelete(produtoParaDeletar.id);
-                                                        }
-                                                        setProdutoParaDeletar(null);
-                                                    }} onCancel={() => setProdutoParaDeletar(null)} />
+                                        <tr key={index} className="bg-white hover:bg-gray-100 dark:hover:bg-gray-100 cursor-pointer">
+                                            <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{produto.id}</td>
+                                            <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{produto.nome}</td>
+                                            <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{produto.marca}</td>
+                                            <td className="font-medium px-4 py-4 border-b-1 border-gray-300">R$ {produto.valor_unico}</td>
+                                            <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{produto.estoque}</td>
+                                            <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{produto.categoria}</td>
+                                            <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{produto.fornecedor}</td>
+                                            <td className="font-medium px-4 py-4 border-b-1 border-gray-300">
+                                                <div className="flex gap-3">
+                                                    <button className="w-4 hover:opacity-70 transition-opacity cursor-pointer" onClick={() => setProdutoParaDeletar(produto)}>
+                                                        <img className="w-4" src={"./icons/remove-icon.svg"} />
+                                                    </button>
+                                                    <FormEdicaoProduto produto={produto} />
+                                                    <ModalConfirm title="Deletar" message={`Deseja apagar o produto ${produtoParaDeletar?.nome}?`}
+                                                        isOpen={produtoParaDeletar !== null}
+                                                        onConfirm={() => {
+                                                            if (produtoParaDeletar) {
+                                                                handleDelete(produtoParaDeletar.id);
+                                                            }
+                                                            setProdutoParaDeletar(null);
+                                                        }} onCancel={() => setProdutoParaDeletar(null)} />
+                                                </div>
                                             </td>
                                         </tr>
                                     ))}
                             </tbody>
                         </table>
                     </div>
-                    <div className=" flex gap-6 p-3">
-                        <button className="hover:opacity-50 cursor-pointer" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1}>
-                            ⬅ Anterior
-                        </button>
-                        <span className="text-zinc-600">
+                    <div className=" flex gap-6 p-3 items-center">
+                        <PaginateButton direction="previous" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1} />
+                        <span className="font-medium text-[#9B6D39]">
                             Página {pager.currentPage} de {pager.totalPages}
                         </span>
-                        <button className="hover:opacity-50 cursor-pointer" onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages}>
-                            Próxima ➡
-                        </button>
+                        <PaginateButton direction="next" onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages} />
                     </div>
                 </>
             )}

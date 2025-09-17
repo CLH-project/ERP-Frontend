@@ -19,7 +19,7 @@ export default function ListaFornecedores() {
           </div>
           <TableFornecedores />
           <div className="w-full flex justify-center mb-5 mt-5">
-            <Button functionName="Voltar para tela inicial" type="button" onClick={() => router.push("/inicio")} />
+            <Button functionName="Voltar para tela inicial" theme="back" type="button" onClick={() => router.push("/inicio")} />
           </div>
         </div>
       </div>

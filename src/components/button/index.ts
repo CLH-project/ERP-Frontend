@@ -1,1 +1,1 @@
-export {Button, CadastroButtonModal} from "./button"
+export {Button, CadastroButtonModal, PaginateButton} from "./button"
