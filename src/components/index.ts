@@ -16,7 +16,7 @@ export {FormEdicaoProduto} from "./produtos/formulario/formEdicao"
 export {LoginForm} from "./login/loginForm"
 
 //Generic exports
-export {TextField, MaskedTextField} from "./field"
+export {TextField, MaskedTextField, SelectField} from "./field"
 export {ErrorMessagePop} from "./errorMessage/errorMessage"
 export {Button, CadastroButtonModal, PaginateButton} from "./button"
 export {Sidebar} from "./sidebar"
