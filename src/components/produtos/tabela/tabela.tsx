@@ -1,4 +1,4 @@
-import { FormEdicaoProduto, LoadingSpinner, ModalConfirm } from "@/components";
+import { FormEdicaoProduto, LoadingSpinner, ModalConfirm, PaginateButton } from "@/components";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -133,16 +133,12 @@ export const TabelaProdutos: React.FC = () => {
                             </tbody>
                         </table>
                     </div>
-                    <div className=" flex gap-6 p-3">
-                        <button className="hover:opacity-50 cursor-pointer" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1}>
-                            ⬅ Anterior
-                        </button>
-                        <span className="text-zinc-600">
-                            Página {pager.currentPage} de {pager.totalPages}
-                        </span>
-                        <button className="hover:opacity-50 cursor-pointer" onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages}>
-                            Próxima ➡
-                        </button>
+                    <div className=" flex gap-6 p-3 items-center">
+                        <PaginateButton direction="previous" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1} />
+                            <span className="font-medium text-[#9B6D39]">
+                                Página {pager.currentPage} de {pager.totalPages}
+                            </span>
+                        <PaginateButton direction="next" onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages} />
                     </div>
                 </>
             )}

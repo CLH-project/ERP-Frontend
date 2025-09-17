@@ -1,6 +1,7 @@
 'use client';
 
 import { ModalConfirm } from "@/components/alerts/alerts";
+import { PaginateButton } from "@/components/button";
 import { LoadingSpinner } from "@/components/spinner";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -93,8 +94,9 @@ export const TabelaClientes: React.FC = () => {
               disabled={filtroCampo === 'todos'}
             />
 
-            <button className="px-4 text-md bg-[#725743] rounded-2xl text-white font-bold py-3 hover:cursor-pointer hover:opacity-90"
-              onClick={() => pesquisarClientes(1)}>Pesquisar</button>
+            <button className="px-4 text-md bg-[#725743] rounded-2xl text-white font-bold py-3 hover:cursor-pointer hover:opacity-90" onClick={() => pesquisarClientes(1)}>
+              Pesquisar
+            </button>
           </div>
 
           <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto p-5">
@@ -139,17 +141,12 @@ export const TabelaClientes: React.FC = () => {
               </tbody>
             </table>
           </div>
-
-          <div className=" flex gap-6 p-3">
-            <button className="hover:opacity-50 cursor-pointer" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1}>
-              ⬅ Anterior
-            </button>
-            <span className="text-zinc-600">
+          <div className=" flex gap-6 p-3 items-center">
+            <PaginateButton direction="previous" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1} />
+            <span className="font-medium text-[#9B6D39]">
               Página {pager.currentPage} de {pager.totalPages}
             </span>
-            <button className="hover:opacity-50 cursor-pointer" onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages}>
-              Próxima ➡
-            </button>
+            <PaginateButton direction="next" onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages} />
           </div>
         </>
       )}

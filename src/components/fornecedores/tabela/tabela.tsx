@@ -1,7 +1,7 @@
 'use client';
 
 import { ModalConfirm } from "@/components/alerts/alerts";
-import { LoadingSpinner } from "@/components";
+import { LoadingSpinner, PaginateButton } from "@/components";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
@@ -18,7 +18,7 @@ export const TabelaFornecedores: React.FC = () => {
   const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]);
   const [pager, setPager] = useState({ currentPage: 1, totalPages: 0, perPage: 10, total: 0 });
   const [loading, setLoading] = useState(false);
-  
+
   const [filtroTexto, setFiltroTexto] = useState('');
   const [filtroCampo, setFiltroCampo] = useState('todos');
 
@@ -97,49 +97,47 @@ export const TabelaFornecedores: React.FC = () => {
               </thead>
 
               <tbody className="text-center">
-                { fornecedores.length === 0 ? (
+                {fornecedores.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="text-center">Nenhum fornecedor encontrado</td>
                   </tr>
                 ) :
-                fornecedores.map((fornecedor, index) => (
-                  <tr key={index} className="bg-white hover:bg-gray-100 dark:hover:bg-gray-100 cursor-pointer">
-                    <td className="font-semibold px-4 py-4 border-b-1 border-gray-300">{fornecedor.id}</td>
-                    <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{fornecedor.nome}</td>
-                    <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{fornecedor.cnpj}</td>
-                    <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{fornecedor.email}</td>
-                    <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{fornecedor.telefone}</td>
-                    <td className="font-medium px-4 py-4 border-b-1 border-gray-300">
-                      <button className="hover:opacity-50 cursor-pointer w-4" onClick={() => setFornecedorParaDeletar(fornecedor)}>
-                        <img src="./icons/remove-icon.svg" />
-                      </button>
-                      <ModalConfirm
-                        title="Deletar"
-                        message={`Deseja apagar os dados do fornecedor ${fornecedorParaDeletar?.nome}?`}
-                        onConfirm={() => {
-                          if (fornecedorParaDeletar !== null) {
-                            handleDelete(fornecedorParaDeletar.id);   
-                          }
-                          setFornecedorParaDeletar(null);
-                        }}
-                        isOpen={fornecedorParaDeletar !== null}
-                        onCancel={() => setFornecedorParaDeletar(null)}
-                      />
-                    </td>
-                  </tr>
-                ))}
+                  fornecedores.map((fornecedor, index) => (
+                    <tr key={index} className="bg-white hover:bg-gray-100 dark:hover:bg-gray-100 cursor-pointer">
+                      <td className="font-semibold px-4 py-4 border-b-1 border-gray-300">{fornecedor.id}</td>
+                      <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{fornecedor.nome}</td>
+                      <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{fornecedor.cnpj}</td>
+                      <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{fornecedor.email}</td>
+                      <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{fornecedor.telefone}</td>
+                      <td className="font-medium px-4 py-4 border-b-1 border-gray-300">
+                        <button className="hover:opacity-50 cursor-pointer w-4" onClick={() => setFornecedorParaDeletar(fornecedor)}>
+                          <img src="./icons/remove-icon.svg" />
+                        </button>
+                        <ModalConfirm
+                          title="Deletar"
+                          message={`Deseja apagar os dados do fornecedor ${fornecedorParaDeletar?.nome}?`}
+                          onConfirm={() => {
+                            if (fornecedorParaDeletar !== null) {
+                              handleDelete(fornecedorParaDeletar.id);
+                            }
+                            setFornecedorParaDeletar(null);
+                          }}
+                          isOpen={fornecedorParaDeletar !== null}
+                          onCancel={() => setFornecedorParaDeletar(null)}
+                        />
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
 
-          <div className="flex gap-6 p-3">
-            <button onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1}>
-              ⬅ Anterior
-            </button>
-            <span>Página {pager.currentPage} de {pager.totalPages}</span>
-            <button onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages}>
-              Próxima ➡
-            </button>
+          <div className=" flex gap-6 p-3 items-center">
+            <PaginateButton direction="previous" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1} />
+            <span className="font-medium text-[#9B6D39]">
+              Página {pager.currentPage} de {pager.totalPages}
+            </span>
+            <PaginateButton direction="next" onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages} />
           </div>
         </>
       )}
