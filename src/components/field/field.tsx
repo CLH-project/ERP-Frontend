@@ -10,7 +10,7 @@ interface FieldProps {
 export const TextField: React.FC<FieldProps> = ({ name, type, placeholder }) => {
     return (
         <Field
-            className="text-center bg-white border shadow-md border-[#CDCDCD] rounded-3xl py-4 w-full focus:outline-none"
+            className="text-center bg-white border shadow-md border-[#CDCDCD] rounded-3xl py-5 w-full focus:outline-none"
             name={name} type={type} placeholder={placeholder}>
         </Field>
     )

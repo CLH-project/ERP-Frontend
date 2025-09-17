@@ -50,15 +50,14 @@ export const CadastroProdutoModal: React.FC = () => {
 
                             onSubmit={async (values, { setSubmitting, setErrors }) => {
                                 try {
-                                    const getResp: any = await searchFornecedor(values.fornecedor_nome);
-                                    // Recebendo do backend um array contendo um objeto que é o que foi encontrado
-
-                                    if (!getResp || !getResp.data || !Array.isArray(getResp.data.data)) {
+                                    const getResp: any = await searchFornecedor( "nome" ,values.fornecedor_nome);
+                                    
+                                    if (getResp.data.fornecedores.length === 0) {
                                         setErrors({ fornecedor_nome: "Erro ao buscar fornecedor." });
                                         return;
                                     }
 
-                                    const fornecedorEncontrado: Fornecedor = getResp.data.data[0]
+                                    const fornecedorEncontrado: Fornecedor = getResp.data.fornecedores[0]
 
                                     if (!fornecedorEncontrado || !fornecedorEncontrado.id) {
                                         console.log(getResp);
@@ -77,7 +76,7 @@ export const CadastroProdutoModal: React.FC = () => {
 
                                     const postResponse = await axios.post('http://localhost:8080/produtos', produtoBody);
 
-                                    if (postResponse.status === 200) {
+                                    if (postResponse.status === 201) {
                                         setSucessMessage(postResponse.data.message)
                                     }
 
@@ -98,6 +97,7 @@ export const CadastroProdutoModal: React.FC = () => {
                                         <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
                                     </div>
                                     <div>
+                                        <label htmlFor="nome">Nome</label>
                                         <TextField name="nome" type="text" placeholder="Digite o nome do produto" />
                                         <ErrorAlert name="nome" component="div" />
                                     </div>
@@ -140,7 +140,7 @@ export const CadastroProdutoModal: React.FC = () => {
                             )}
                         </Formik>
                         <div className="mt-5">
-                            <Button functionName="Fechar" onClick={() => setIsOpen(false)} />
+                            <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
                         </div>
                     </div>
                 </div>

@@ -73,7 +73,7 @@ export const CadastroClienteModal: React.FC = () => {
                                         <MaskedTextField name="telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do cliente" />
                                         <ErrorAlert name="telefone" component="div" />
                                     </div>
-                                    <Button functionName="Adicionar Cliente" type="submit" disabled={isSubmitting} />
+                                    <Button functionName="Adicionar Cliente" theme="back" type="submit" disabled={isSubmitting} />
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}
