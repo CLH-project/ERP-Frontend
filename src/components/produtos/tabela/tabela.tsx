@@ -1,4 +1,4 @@
-import { FormEdicaoProduto, LoadingSpinner, ModalConfirm, PaginateButton } from "@/components";
+import { Button, FormEdicaoProduto, LoadingSpinner, ModalConfirm, PaginateButton } from "@/components";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -75,8 +75,7 @@ export const TabelaProdutos: React.FC = () => {
                     type="text" placeholder={`Filtrar por ${filtroCampo}`} value={filtroTexto}
                     onChange={(e) => setFiltroTexto(e.target.value)} />
 
-                <button className="px-4 text-md bg-[#725743] rounded-2xl text-white font-bold py-3 hover:cursor-pointer hover:opacity-90"
-                    onClick={() => pesquisarProdutos(1)}>Pesquisar</button>
+                    <Button onClick={() => pesquisarProdutos(1)} functionName="Pesquisar" theme="search"/>
             </div>
             {loading ? (
                 <LoadingSpinner />

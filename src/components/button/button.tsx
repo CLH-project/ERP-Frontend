@@ -1,23 +1,23 @@
+import { useRouter } from "next/navigation";
 
-
+// ButtonNormal
 interface ButtonProps {
     functionName: string;
     type?: "button" | "submit" | "reset";
     disabled?: boolean;
     onClick?: () => void;
-    theme?: "primary" | "back" | "red" | "brown";
+    theme?: "primary" | "back" | "search";
 }
 
 export const Button: React.FC<ButtonProps> = ({ theme = "primary", onClick, functionName, type, disabled }) => {
     const themes = {
-        back: "bg-[#B23C3C] text-white",
         primary: "bg-[#116343] text-[#FFF9ED]",
-        red: "bg-[#C4505C] text-[#FFF9ED]",
-        brown: "bg-[#BC8C4A] text-[#FFF9ED]",
+        back: "bg-[#B23C3C] text-white hover:bg-white hover:text-[#B23C3C] border-2 border-[#B23C3C]",
+        search: "bg-white text-[#725743] border-2 border-[#725743] text-lg hover:text-white hover:bg-[#725743]",
     }
 
     const baseTheme = 'w-full group shadow-md px-5 py-3 rounded-2xl transition-colors duration-300 font-semibold cursor-pointer';
-    const selectedTheme = themes[theme] || themes.red;
+    const selectedTheme = themes[theme] || themes.primary;
 
     return (
         <button
@@ -29,6 +29,9 @@ export const Button: React.FC<ButtonProps> = ({ theme = "primary", onClick, func
     )
 }
 
+
+
+//CadastroButton
 interface CadastroButtonModalProps {
     name?: string,
     urlIcon?: string,
@@ -41,6 +44,9 @@ export const CadastroButtonModal: React.FC<CadastroButtonModalProps> = ({ name, 
     </button>
 }
 
+
+
+// PaginateButton
 interface PaginateButtonProps {
     disabled?: boolean,
     direction?: "next" | "previous",
@@ -64,8 +70,27 @@ export const PaginateButton: React.FC<PaginateButtonProps> = ({ onClick, disable
     const selectedText = directions[direction].text || directions.next.text;
 
     return (
-        <button className="flex gap-2 px-5 py-2 border-2 border-[#725743] rounded-2xl hover:opacity-70 cursor-pointer" onClick={onClick} disabled={disabled}>
-            <img src={selectedUrl} alt={selectedText}/> {selectedText}
+        <button className="group flex gap-2 px-5 py-2 border-2 border-[#725743] rounded-2xl cursor-pointer hover:bg-[#725743] hover:text-white" onClick={onClick} disabled={disabled}>
+            <img className="group-hover:invert group-hover:brightness-0 transition-colors" src={selectedUrl} alt={selectedText} /> {selectedText}
         </button>
     )
+}
+
+
+//SidebarButton 
+
+
+interface SidebarButtonProps {
+    onClick?: () => void;
+    name?:string
+    iconUrl?: string
+}
+
+export const SidebarButton: React.FC<SidebarButtonProps> = ({ iconUrl,name, onClick}) => {
+
+    const router = useRouter();
+    return <button onClick={onClick}
+        className="gap-2 mb-4 w-full text-[#131313] text-left px-2 py-3 hover:bg-[#FFEEE2] rounded-2xl flex items-center hover:cursor-pointer transition-colors">
+            <img src={iconUrl} alt="" />{name}
+    </button>
 }

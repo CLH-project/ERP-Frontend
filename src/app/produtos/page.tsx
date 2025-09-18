@@ -21,7 +21,7 @@ export default function produtos() {
             <TabelaProdutos />
           </div>
           <div className="w-full flex justify-center mb-5 mt-5">
-            <Button functionName="Voltar para tela inicial" type="button" onClick={() => router.push("/inicio")} />
+            <Button theme="back" functionName="Voltar para tela inicial" type="button" onClick={() => router.push("/inicio")} />
           </div>
         </div>
       </div>
