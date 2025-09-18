@@ -19,7 +19,7 @@ export default function ListaClientes() {
           </div>
           <TabelaClientes />
           <div className="w-full flex justify-center mb-5">
-            <Button functionName="Voltar para tela inicial" type="button" onClick={() => router.push("/inicio")} />
+            <Button theme="back" functionName="Voltar para tela inicial" type="button" onClick={() => router.push("/inicio")} />
           </div>
         </div>
       </div>

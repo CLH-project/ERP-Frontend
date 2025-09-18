@@ -103,9 +103,8 @@ export const Sidebar: React.FC = () => {
                         <button onClick={() => { router.push("/vendas") }}
                             className=" mb-4 w-full text-left px-2 py-3 bg-[#725743] hover:bg-[#7e5f47] rounded-2xl flex items-center hover:cursor-pointer">Vendas
                         </button>
-
                     </div>
-                    <Button functionName='Sair' onClick={() => router.push('/login')} />
+                    <Button theme='back' functionName='Sair' onClick={() => router.push('/login')} />
                 </div>
             )}
 
