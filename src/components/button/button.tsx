@@ -1,5 +1,6 @@
+import { useRouter } from "next/navigation";
 
-
+// ButtonNormal
 interface ButtonProps {
     functionName: string;
     type?: "button" | "submit" | "reset";
@@ -28,6 +29,9 @@ export const Button: React.FC<ButtonProps> = ({ theme = "primary", onClick, func
     )
 }
 
+
+
+//CadastroButton
 interface CadastroButtonModalProps {
     name?: string,
     urlIcon?: string,
@@ -40,6 +44,9 @@ export const CadastroButtonModal: React.FC<CadastroButtonModalProps> = ({ name, 
     </button>
 }
 
+
+
+// PaginateButton
 interface PaginateButtonProps {
     disabled?: boolean,
     direction?: "next" | "previous",
@@ -64,7 +71,26 @@ export const PaginateButton: React.FC<PaginateButtonProps> = ({ onClick, disable
 
     return (
         <button className="group flex gap-2 px-5 py-2 border-2 border-[#725743] rounded-2xl cursor-pointer hover:bg-[#725743] hover:text-white" onClick={onClick} disabled={disabled}>
-            <img className="group-hover:invert group-hover:brightness-0 transition-colors" src={selectedUrl} alt={selectedText}/> {selectedText}
+            <img className="group-hover:invert group-hover:brightness-0 transition-colors" src={selectedUrl} alt={selectedText} /> {selectedText}
         </button>
     )
+}
+
+
+//SidebarButton 
+
+
+interface SidebarButtonProps {
+    onClick?: () => void;
+    name?:string
+    iconUrl?: string
+}
+
+export const SidebarButton: React.FC<SidebarButtonProps> = ({ iconUrl,name, onClick}) => {
+
+    const router = useRouter();
+    return <button onClick={onClick}
+        className="gap-2 mb-4 w-full text-[#131313] text-left px-2 py-3 hover:bg-[#FFEEE2] rounded-2xl flex items-center hover:cursor-pointer transition-colors">
+            <img src={iconUrl} alt="" />{name}
+    </button>
 }
