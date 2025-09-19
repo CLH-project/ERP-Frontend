@@ -1,4 +1,4 @@
-import { Button, CadastroButtonModal, ErrorAlert, SelectField, SuccessAlert, TextField } from "@/components";
+import { Button, CadastroButtonModal, ErrorAlert, FormikTextField, SelectField, SuccessAlert, TextField } from "@/components";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
@@ -97,30 +97,30 @@ export const CadastroProdutoModal: React.FC = () => {
                                         <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
                                     </div>
                                     <div>
-                                        <TextField name="nome" type="text" placeholder="Digite o nome do produto" label="Nome"/>
+                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do produto" label="Nome"/>
                                         <ErrorAlert name="nome" component="div" />
                                     </div>
 
                                     <div>
-                                        <TextField name="marca" type="text" placeholder="Digite a marca do produto" label="Marca"/>
+                                        <FormikTextField name="marca" type="text" placeholder="Digite a marca do produto" label="Marca"/>
                                         <ErrorAlert name="marca" component="div" />
                                     </div>
 
                                     <div className="flex flex-col md:flex-row justify-between items-center gap-3">
                                         <div>
-                                            <TextField name="valor_unico" type="number" placeholder="Valor do produto" label="Valor" />
+                                            <FormikTextField name="valor_unico" type="number" placeholder="Valor do produto" label="Valor" />
                                             <ErrorAlert name="valor_unico" component="div" />
                                         </div>
 
                                         <div>
-                                            <TextField name="estoque" type="number" placeholder="quantidade" label="Estoque"/>
+                                            <FormikTextField name="estoque" type="number" placeholder="quantidade" label="Estoque"/>
                                             <ErrorAlert name="estoque" component="div" />
                                         </div>
                                     </div>
 
                                     <div className="flex flex-col md:flex-row gap-3 items-center justify-center">
                                         <div className="w-full">
-                                            <TextField type="text" name="fornecedor_nome" placeholder="Nome do Fornecedor" label="Fornecedor"/>
+                                            <FormikTextField type="text" name="fornecedor_nome" placeholder="Nome do Fornecedor" label="Fornecedor"/>
                                             <ErrorAlert name="fornecedor_nome" component="div" />
                                         </div>
 

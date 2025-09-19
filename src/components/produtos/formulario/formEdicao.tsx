@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, ErrorAlert, SuccessAlert, TextField } from "@/components";
+import { Button, ErrorAlert, FormikTextField, SelectField, SuccessAlert, TextField } from "@/components";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react"
@@ -69,10 +69,10 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
 
                             onSubmit={async (values, { setSubmitting, setErrors }) => {
                                 try {
-                                    const getResp = await searchFornecedor(values.fornecedor_nome);
+                                    const getResp: any = await searchFornecedor("nome", values.fornecedor_nome);
 
-                                    if (!getResp || !getResp.data || !Array.isArray(getResp.data.fornecedores)) {
-                                        setErrors({ fornecedor_id: "Erro ao buscar fornecedor." });
+                                    if (getResp.data.fornecedores.length === 0) {
+                                        setErrors({ fornecedor_nome: "Erro ao buscar fornecedor." });
                                         return;
                                     }
 
@@ -115,39 +115,35 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
                                         <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
                                     </div>
                                     <div>
-                                        <TextField name="nome" type="text" placeholder="Digite o nome do produto" />
+                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do produto" />
                                         <ErrorAlert name="nome" component="div" />
                                     </div>
 
                                     <div>
-                                        <TextField name="marca" type="text" placeholder="Digite a marca do produto" />
+                                        <FormikTextField name="marca" type="text" placeholder="Digite a marca do produto" />
                                         <ErrorAlert name="marca" component="div" />
                                     </div>
 
                                     <div className="flex gap-3">
                                         <div>
-                                            <TextField name="valor_unico" type="number" placeholder="Valor do produto" />
+                                            <FormikTextField name="valor_unico" type="number" placeholder="Valor do produto" />
                                             <ErrorAlert name="valor_unico" component="div" />
                                         </div>
 
                                         <div>
-                                            <TextField name="estoque" type="number" placeholder="quantidade" />
+                                            <FormikTextField name="estoque" type="number" placeholder="quantidade" />
                                             <ErrorAlert name="estoque" component="div" />
                                         </div>
                                     </div>
 
                                     <div className="flex gap-3 items-center justify-center">
                                         <div className="w-full">
-                                            <TextField type="text" name="fornecedor_nome" placeholder="Nome Fornecedor" />
+                                            <FormikTextField type="text" name="fornecedor_nome" placeholder="Nome Fornecedor" />
                                             <ErrorAlert name="fornecedor_nome" component="div" />
                                         </div>
 
                                         <div className="w-full">
-                                            <Field className="text-center bg-white border shadow-md border-[#CDCDCD] rounded-3xl py-4 w-full focus:outline-none" as="select" name="categoria">
-                                                <option value="">Categoria</option>
-                                                <option value="Alcolico">Alcolico</option>
-                                                <option value="Não Alcolico">Não Alcolico</option>
-                                            </Field>
+                                             <SelectField label="Categoria" options={["Categoria", "Alcolico", "Não Alcolico"]} name="categoria" />
                                             <ErrorAlert name="categoria" component="div" />
                                         </div>
                                     </div>

@@ -1,4 +1,4 @@
-import { Button, FormEdicaoProduto, LoadingSpinner, ModalConfirm, PaginateButton } from "@/components";
+import { Button, FormEdicaoProduto, LoadingSpinner, ModalConfirm, PaginateButton, SelectField, TextField } from "@/components";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -34,10 +34,11 @@ export const TabelaProdutos: React.FC = () => {
                     },
                 });
                 setProdutos(response.data.produtos);
-                setPager({ currentPage: 1, totalPages: 1, perPage: response.data.data.length, total: response.data.data.length });
+                setPager({ currentPage: 1, totalPages: 1, perPage: response.data.length, total: response.data.length });
             }
-        } catch {
-            console.log("Erro ao retornar os produtos")
+        } catch (error) {
+
+            console.log("Erro ao retornar os produtos", error)
         } finally {
             setLoading(false)
         }
@@ -65,23 +66,18 @@ export const TabelaProdutos: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center w-full">
-            <div className="w-full flex flex-col gap-2 mt-3 mb-5">
-                <select className="px-4 py-2 rounded-xl border w-full sm:w-auto cursor-pointer" value={filtroCampo} onChange={(e) => setFiltroCampo(e.target.value)}>
-                    <option value="todos">Todos</option>
-                    <option value="nome">Produto</option>
-                </select>
-
-                <input className="px-4 py-2 rounded-xl border w-full sm:w-auto"
-                    type="text" placeholder={`Filtrar por ${filtroCampo}`} value={filtroTexto}
-                    onChange={(e) => setFiltroTexto(e.target.value)} />
-
-                    <Button onClick={() => pesquisarProdutos(1)} functionName="Pesquisar" theme="search"/>
+            <div className="w-full flex flex-col gap-2 mt-3 mb-5 ">
+                <div className="flex flex-col mb-2 md:flex-row md:gap-4 ">
+                    <SelectField label="Filtrar por:" options={["todos", "nome"]} name="" change={(e) => setFiltroCampo(e.target.value)} />
+                    <TextField name="filtro" value={filtroTexto} placeholder={filtroCampo} change={(e) => setFiltroTexto(e.target.value)} />
+                </div>
+                <Button onClick={() => pesquisarProdutos(1)} functionName="Pesquisar" theme="search" />
             </div>
             {loading ? (
                 <LoadingSpinner />
             ) : (
                 <>
-                    <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto p-5">
+                    <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto  p-5">
                         <table className="w-full table-auto text-sm sm:text-base">
                             <thead className="text-center">
                                 <tr>

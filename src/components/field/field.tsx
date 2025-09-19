@@ -5,10 +5,24 @@ interface FieldProps {
   name?: string;
   type?: string;
   placeholder?: string;
-  label?: string
+  label?: string;
+  value?:string;
+  change?: (e: any) => void
 }
 
-export const TextField: React.FC<FieldProps> = ({ name, type, placeholder, label }) => {
+export const TextField: React.FC<FieldProps> = ({ name, change ,type, value, placeholder, label }) => {
+  return (
+    <div className="w-full">
+      <Label labelText={label} />
+      <input
+        className="bg-white text-[#656565] border-2 shadow-md border-[#A3A3A3] rounded-2xl px-4 py-4 w-full focus:outline-none"
+        name={name} type={type} value={value} onChange={change} placeholder={`Filtrar por ${placeholder}`}>
+      </input>
+    </div>
+  )
+}
+
+export const FormikTextField: React.FC<FieldProps> = ({ name, type, placeholder, label }) => {
   return (
     <div className="w-full">
       <Label labelText={label} />
@@ -17,7 +31,6 @@ export const TextField: React.FC<FieldProps> = ({ name, type, placeholder, label
         name={name} type={type} placeholder={placeholder}>
       </Field>
     </div>
-
   )
 }
 
@@ -52,22 +65,42 @@ interface SelectFieldProps {
   name: string,
   label?: string,
   options?: string[];
+  change?: (e: any) => void;
 }
 
-export const SelectField: React.FC<SelectFieldProps> = ({ name, options, label }) => {
+export const SelectField: React.FC<SelectFieldProps> = ({ change, name, options, label }) => {
   return (
     <div>
       <Label labelText={label} />
-      <Field
-        as="select"
-        className="text-center bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-3xl py-4 w-full focus:outline-none"
-        name={name}>
-        {options && options.map((option, index) => (
-          <option key={index} value={option}>
+      <select
+        name={name}
+        className="bg-white text-[#656565] border-2 shadow-md border-[#A3A3A3] rounded-2xl px-4 py-4 w-full focus:outline-none cursor-pointer"
+        onChange={change}
+      >
+        {options?.map((option, index) => (
+          <option key={option} value={option}>
             {option}
           </option>
         ))}
-      </Field>
+      </select>
+    </div>
+  )
+}
+
+export const FormikSelectField: React.FC<SelectFieldProps> = ({ name, options, label }) => {
+  return (
+    <div>
+      <Label labelText={label} />
+      <select
+        name={name}
+        className="text-center bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-3xl py-4 w-full focus:outline-none cursor-pointer"
+      >
+        {options?.map((option, index) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
     </div>
   )
 }
