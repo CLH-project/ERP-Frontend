@@ -67,7 +67,7 @@ export const TabelaProdutos: React.FC = () => {
     return (
         <div className="flex flex-col items-center w-full">
             <div className="w-full flex flex-col gap-2 mt-3 mb-5 ">
-                <div className="flex flex-col mb-2 md:flex-row md:gap-4 ">
+                <div className="flex flex-col gap-2 mb-2 md:flex-row md:gap-4 ">
                     <SelectField label="Filtrar por:" options={["todos", "nome"]} name="" change={(e) => setFiltroCampo(e.target.value)} />
                     <TextField name="filtro" value={filtroTexto} placeholder={filtroCampo} change={(e) => setFiltroTexto(e.target.value)} />
                 </div>

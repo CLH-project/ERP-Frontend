@@ -70,9 +70,11 @@ export const TabelaFornecedores: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="w-full flex flex-col gap-2 mb-5">
+      <div className="w-full flex flex-row gap-2 mb-5 mt-2">
         <TextField name="filtro" value={filtroTexto} placeholder={filtroCampo} change={(e) => setFiltroTexto(e.target.value)} />
-        <Button onClick={() => pesquisarFornecedores(1)} functionName="Pesquisar" theme="search" />
+        <div className="w-[20rem]">
+          <Button onClick={() => pesquisarFornecedores(1)} functionName="Pesquisar" theme="search" />
+        </div>
       </div>
 
       {loading ? (

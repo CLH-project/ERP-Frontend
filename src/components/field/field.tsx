@@ -12,8 +12,8 @@ interface FieldProps {
 
 export const TextField: React.FC<FieldProps> = ({ name, change ,type, value, placeholder, label }) => {
   return (
-    <div className="w-full">
-      <Label labelText={label} />
+    <div className="w-full self-end">
+      {label && <Label labelText={label} />}
       <input
         className="bg-white text-[#656565] border-2 shadow-md border-[#A3A3A3] rounded-2xl px-4 py-4 w-full focus:outline-none"
         name={name} type={type} value={value} onChange={change} placeholder={`Filtrar por ${placeholder}`}>
@@ -27,7 +27,7 @@ export const FormikTextField: React.FC<FieldProps> = ({ name, type, placeholder,
     <div className="w-full">
       <Label labelText={label} />
       <Field
-        className="text-center bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-3xl py-4 w-full focus:outline-none"
+        className="text-center bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-2xl py-4 w-full focus:outline-none"
         name={name} type={type} placeholder={placeholder}>
       </Field>
     </div>
@@ -55,7 +55,7 @@ export const MaskedTextField: React.FC<MaskedTextFieldProps> = ({ name, mask, pl
         onChange={(e) => helpers.setValue(e.target.value)}
         onBlur={() => helpers.setTouched(true)}
         placeholder={placeholder}
-        className="text-center bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-3xl py-4 w-full focus:outline-none"
+        className="text-center bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-2xl py-4 w-full focus:outline-none"
       />
     </div>
   )
@@ -65,17 +65,19 @@ interface SelectFieldProps {
   name: string,
   label?: string,
   options?: string[];
+  filtro?:string;
   change?: (e: any) => void;
 }
 
-export const SelectField: React.FC<SelectFieldProps> = ({ change, name, options, label }) => {
+export const SelectField: React.FC<SelectFieldProps> = ({ change, name, options, label, filtro}) => {
   return (
     <div>
-      <Label labelText={label} />
+      {label && <Label labelText={label} />}
       <select
         name={name}
         className="bg-white text-[#656565] border-2 shadow-md border-[#A3A3A3] rounded-2xl px-4 py-4 w-full focus:outline-none cursor-pointer"
         onChange={change}
+        disabled={filtro === "todos"}
       >
         {options?.map((option, index) => (
           <option key={option} value={option}>

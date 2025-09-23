@@ -58,16 +58,16 @@ export const LoginForm: React.FC = () => {
             {({ isSubmitting, handleSubmit }) => (    
                 <Form className="flex flex-col gap-5"> 
                     <div >
-                        <FormikTextField name="username" type="text" placeholder="Digite seu usuário" />
+                        <FormikTextField label="Usuário" name="username" type="text" placeholder="Digite seu usuário" />
                         <ErrorAlert name="username" component="div"/>
                     </div>
 
                     <div>
-                        <FormikTextField  name="password" type="password" placeholder="Digite sua senha"/>
+                        <FormikTextField  label="Senha" name="password" type="password" placeholder="Digite sua senha"/>
                         <ErrorAlert name="password" component="div"/>
                     </div>
 
-                    <Button functionName="login" type="submit" disabled={isSubmitting}/>       
+                    <Button theme="search" functionName="login" type="submit" disabled={isSubmitting}/>       
                 </Form>
             )}
         </Formik>

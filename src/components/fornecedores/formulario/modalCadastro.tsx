@@ -96,7 +96,7 @@ export const CadastroFornecedorModal: React.FC = () => {
                                         <MaskedTextField name="contato.telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do fornecedor" label="Telefone" />
                                         <ErrorAlert name="contato.telefone" component="div" />
                                     </div>
-                                    <Button functionName="Adicionar Fornecedor" type="submit" disabled={isSubmitting} />
+                                    <Button theme="search" functionName="Adicionar Fornecedor" type="submit" disabled={isSubmitting} />
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}
