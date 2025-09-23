@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { TextField, Button, MaskedTextField, ErrorAlert, SuccessAlert, CadastroButtonModal } from "@/components";
+import { TextField, Button, MaskedTextField, ErrorAlert, SuccessAlert, CadastroButtonModal, FormikTextField } from "@/components";
 import * as Yup from "yup";
 import axios from "axios";
 export const CadastroFornecedorModal: React.FC = () => {
@@ -78,7 +78,7 @@ export const CadastroFornecedorModal: React.FC = () => {
                                         <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
                                     </div>
                                     <div >
-                                        <TextField name="nome" type="text" placeholder="Digite o nome do fornecedor" label="Nome"/>
+                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do fornecedor" label="Nome"/>
                                         <ErrorAlert name="nome" component="div" />
                                     </div>
 
@@ -88,7 +88,7 @@ export const CadastroFornecedorModal: React.FC = () => {
                                     </div>
 
                                     <div>
-                                        <TextField name="contato.email" placeholder="Digite o email do fornecedor" label="Email"/>
+                                        <FormikTextField name="contato.email" placeholder="Digite o email do fornecedor" label="Email"/>
                                         <ErrorAlert name="contato.email" component="div" />
                                     </div>
 
@@ -96,7 +96,7 @@ export const CadastroFornecedorModal: React.FC = () => {
                                         <MaskedTextField name="contato.telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do fornecedor" label="Telefone" />
                                         <ErrorAlert name="contato.telefone" component="div" />
                                     </div>
-                                    <Button functionName="Adicionar Fornecedor" type="submit" disabled={isSubmitting} />
+                                    <Button theme="search" functionName="Adicionar Fornecedor" type="submit" disabled={isSubmitting} />
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}

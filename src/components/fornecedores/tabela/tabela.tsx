@@ -1,7 +1,7 @@
 'use client';
 
 import { ModalConfirm } from "@/components/alerts/alerts";
-import { LoadingSpinner, PaginateButton } from "@/components";
+import { Button, LoadingSpinner, PaginateButton, TextField } from "@/components";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
@@ -24,6 +24,7 @@ export const TabelaFornecedores: React.FC = () => {
 
   const pesquisarFornecedores = async (page = 1) => {
     setLoading(true);
+    console.log(filtroCampo, filtroTexto)
     try {
       if (filtroCampo === 'todos') {
         const response = await axios.get(`http://localhost:8080/fornecedores?page=${page}`);
@@ -37,7 +38,7 @@ export const TabelaFornecedores: React.FC = () => {
         setPager({ currentPage: 1, totalPages: 1, perPage: 10, total: 1 });
       }
     } catch (error) {
-      // Trocar por alerta de erro real
+     
       alert("Erro ao retornar os fornecedores");
     } finally {
       setLoading(false);
@@ -69,14 +70,11 @@ export const TabelaFornecedores: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="w-full flex flex-col gap-2 mt-5 mb-5">
-
-        <input className="px-4 py-2 rounded-xl border w-full sm:w-auto"
-          type="text" placeholder={"Pesquisar por nome ou cnpj"} value={filtroTexto}
-          onChange={(e) => setFiltroTexto(e.target.value)} />
-
-        <button className="px-4 text-md bg-[#725743] rounded-2xl text-white font-bold py-3 hover:cursor-pointer hover:opacity-90"
-          onClick={() => pesquisarFornecedores(1)}>Pesquisar</button>
+      <div className="w-full flex flex-row gap-2 mb-5 mt-2">
+        <TextField name="filtro" value={filtroTexto} placeholder={filtroCampo} change={(e) => setFiltroTexto(e.target.value)} />
+        <div className="w-[20rem]">
+          <Button onClick={() => pesquisarFornecedores(1)} functionName="Pesquisar" theme="search" />
+        </div>
       </div>
 
       {loading ? (

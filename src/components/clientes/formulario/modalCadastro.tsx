@@ -1,4 +1,4 @@
-import { CadastroButtonModal, TextField, Button, MaskedTextField, SuccessAlert, ErrorAlert } from "@/components"
+import { CadastroButtonModal, TextField, Button, MaskedTextField, SuccessAlert, ErrorAlert, FormikTextField } from "@/components"
 import { Formik, Form } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
@@ -57,10 +57,10 @@ export const CadastroClienteModal: React.FC = () => {
                                 <Form className="flex flex-col gap-5">
                                     <div className="flex justify-between mb-5">
                                         <h1 className="text-xl font-bold">Novo Cliente</h1>
-                                        <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
+                                        <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg"/></button>
                                     </div>
                                     <div >
-                                        <TextField name="nome" type="text" placeholder="Digite o nome do cliente" label="Nome"/>
+                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do cliente" label="Nome"/>
                                         <ErrorAlert name="nome" component="div" />
                                     </div>
 

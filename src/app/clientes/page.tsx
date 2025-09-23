@@ -8,13 +8,13 @@ export default function ListaClientes() {
 
   return (
     <div className="w-full h-screen flex flex-col px-5">
-      <Header />
+      <Header/>
       <div className="mt-10 flex flex-col">
         <div className="text-2xl font-bold mb-5">
           <h1>Clientes</h1>
         </div>
-        <div className="">
-          <div className="">
+        <div>
+          <div>
             <CadastroClienteModal />
           </div>
           <TabelaClientes />

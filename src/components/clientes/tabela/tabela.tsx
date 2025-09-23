@@ -1,7 +1,8 @@
 'use client';
 
 import { ModalConfirm } from "@/components/alerts/alerts";
-import { PaginateButton } from "@/components/button";
+import { Button, PaginateButton } from "@/components/button";
+import { SelectField, TextField } from "@/components/field";
 import { LoadingSpinner } from "@/components/spinner";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -73,30 +74,19 @@ export const TabelaClientes: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full overflow-x-hidden">
       {loading ? (
         <LoadingSpinner />
       ) : (
         <>
           <div className="w-full flex flex-col gap-2 mt-3 mb-5">
-            <select className="px-4 py-2 rounded-xl border w-full sm:w-auto" value={filtroCampo} onChange={(e) => setFiltroCampo(e.target.value)}>
-              <option value="todos">Todos</option>
-              <option value="id">ID</option>
-              <option value="cpf">CPF</option>
-            </select>
-
-            <input
-              className="px-4 py-2 rounded-xl border w-full sm:w-auto"
-              type="text"
-              placeholder={`Filtrar por ${filtroCampo}`}
-              value={filtroTexto}
-              onChange={(e) => setFiltroTexto(e.target.value)}
-              disabled={filtroCampo === 'todos'}
-            />
-
-            <button className="px-4 text-md bg-[#725743] rounded-2xl text-white font-bold py-3 hover:cursor-pointer hover:opacity-90" onClick={() => pesquisarClientes(1)}>
-              Pesquisar
-            </button>
+            <div className="flex gap-2">
+              <div className="w-[10rem]">
+                <SelectField options={["todos", "id", "cpf"]} name="filtro" change={(e: any) => setFiltroCampo(e.target.value)} />
+              </div>
+              <TextField name={filtroTexto} change={(e) => setFiltroTexto(e.target.value)} placeholder={filtroCampo} type="text" value={filtroTexto} />
+            </div>
+            <Button theme="search" functionName="Pesquisar" onClick={() => pesquisarClientes(1)}/>
           </div>
 
           <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto p-5">
@@ -141,9 +131,9 @@ export const TabelaClientes: React.FC = () => {
               </tbody>
             </table>
           </div>
-          <div className=" flex gap-6 p-3 items-center">
+          <div className=" flex gap-4 p-3 items-center">
             <PaginateButton direction="previous" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1} />
-            <span className="font-medium text-[#9B6D39]">
+            <span className="font-medium text-sm text-[#9B6D39]">
               Página {pager.currentPage} de {pager.totalPages}
             </span>
             <PaginateButton direction="next" onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages} />
