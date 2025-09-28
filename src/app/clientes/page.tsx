@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import { TabelaClientes, Header, Button, CadastroButtonModal, CadastroClienteModal } from "@/components";
+import { TabelaClientes, Header, Button, CadastroClienteModal } from "@/components";
 
 export default function ListaClientes() {
   const router = useRouter();

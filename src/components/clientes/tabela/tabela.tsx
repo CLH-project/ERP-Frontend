@@ -86,7 +86,7 @@ export const TabelaClientes: React.FC = () => {
               </div>
               <TextField name={filtroTexto} change={(e) => setFiltroTexto(e.target.value)} placeholder={filtroCampo} type="text" value={filtroTexto} />
             </div>
-            <Button theme="search" functionName="Pesquisar" onClick={() => pesquisarClientes(1)}/>
+            <Button theme="secondary" functionName="Pesquisar" onClick={() => pesquisarClientes(1)}/>
           </div>
 
           <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto p-5">

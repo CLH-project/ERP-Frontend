@@ -67,7 +67,7 @@ export const LoginForm: React.FC = () => {
                         <ErrorAlert name="password" component="div"/>
                     </div>
 
-                    <Button theme="search" functionName="login" type="submit" disabled={isSubmitting}/>       
+                    <Button theme="primary" functionName="login" type="submit" disabled={isSubmitting}/>       
                 </Form>
             )}
         </Formik>

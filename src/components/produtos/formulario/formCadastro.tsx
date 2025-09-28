@@ -1,4 +1,5 @@
 import { Button, CadastroButtonModal, ErrorAlert, FormikTextField, SelectField, SuccessAlert, TextField } from "@/components";
+import { FormikSelectField } from "@/components/field/field";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
@@ -23,7 +24,7 @@ export const CadastroProdutoModal: React.FC = () => {
 
     return (
         <div>
-            <CadastroButtonModal name="Novo produto" onClick={() => {setIsOpen(true)}} urlIcon="/icons/product-icon.svg" />
+            <CadastroButtonModal name="Novo produto" onClick={() => { setIsOpen(true) }} urlIcon="/icons/product-icon.svg" />
 
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
@@ -48,10 +49,10 @@ export const CadastroProdutoModal: React.FC = () => {
                                 fornecedor_nome: Yup.string().required("Nome do fornecedor obrigatório"),
                             })}
 
-                            onSubmit={async (values, { setSubmitting, setErrors }) => {
+                            onSubmit={async (values, { setSubmitting, setErrors, resetForm }) => {
                                 try {
-                                    const getResp: any = await searchFornecedor( "nome" ,values.fornecedor_nome);
-                                    
+                                    const getResp: any = await searchFornecedor("nome", values.fornecedor_nome);
+
                                     if (getResp.data.fornecedores.length === 0) {
                                         setErrors({ fornecedor_nome: "Erro ao buscar fornecedor." });
                                         return;
@@ -60,7 +61,6 @@ export const CadastroProdutoModal: React.FC = () => {
                                     const fornecedorEncontrado: Fornecedor = getResp.data.fornecedores[0]
 
                                     if (!fornecedorEncontrado || !fornecedorEncontrado.id) {
-                                        console.log(getResp);
                                         setErrors({ fornecedor_nome: getResp.data.erro || "Fornecedor não encontrado." });
                                         return;
                                     }
@@ -78,6 +78,7 @@ export const CadastroProdutoModal: React.FC = () => {
 
                                     if (postResponse.status === 201) {
                                         setSucessMessage(postResponse.data.message)
+                                        setTimeout(() => { setIsOpen(false); setSucessMessage(""); resetForm(); }, 2000);
                                     }
 
                                 } catch (error: any) {
@@ -97,12 +98,12 @@ export const CadastroProdutoModal: React.FC = () => {
                                         <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
                                     </div>
                                     <div>
-                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do produto" label="Nome"/>
+                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do produto" label="Nome" />
                                         <ErrorAlert name="nome" component="div" />
                                     </div>
 
                                     <div>
-                                        <FormikTextField name="marca" type="text" placeholder="Digite a marca do produto" label="Marca"/>
+                                        <FormikTextField name="marca" type="text" placeholder="Digite a marca do produto" label="Marca" />
                                         <ErrorAlert name="marca" component="div" />
                                     </div>
 
@@ -113,23 +114,23 @@ export const CadastroProdutoModal: React.FC = () => {
                                         </div>
 
                                         <div>
-                                            <FormikTextField name="estoque" type="number" placeholder="quantidade" label="Estoque"/>
+                                            <FormikTextField name="estoque" type="number" placeholder="quantidade" label="Estoque" />
                                             <ErrorAlert name="estoque" component="div" />
                                         </div>
                                     </div>
 
                                     <div className="flex flex-col md:flex-row gap-3 items-center justify-center">
                                         <div className="w-full">
-                                            <FormikTextField type="text" name="fornecedor_nome" placeholder="Nome do Fornecedor" label="Fornecedor"/>
+                                            <FormikTextField type="text" name="fornecedor_nome" placeholder="Nome do Fornecedor" label="Fornecedor" />
                                             <ErrorAlert name="fornecedor_nome" component="div" />
                                         </div>
 
                                         <div className="w-full">
-                                            <SelectField label="Categoria" options={["Categoria", "Alcolico", "Não Alcolico"]} name="categoria" />
+                                            <FormikSelectField label="Categoria" options={["Categoria", "Alcolico", "Não Alcolico"]} name="categoria" />
                                             <ErrorAlert name="categoria" component="div" />
                                         </div>
                                     </div>
-                                    <Button functionName="Adicionar Produto" type="submit" disabled={isSubmitting} />
+                                    <Button theme="primary" functionName="Adicionar Produto" type="submit" disabled={isSubmitting} />
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}

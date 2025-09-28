@@ -25,14 +25,14 @@ export const CadastroClienteModal: React.FC = () => {
                             })}
 
                             onSubmit={
-                                async (values, { setSubmitting, setErrors }) => {
+                                async (values, { setSubmitting, setErrors, resetForm }) => {
                                     setSubmitting(true);
-                                    setSucessMessage("");
                                     try {
                                         const response = await addCliente(values);
 
                                         if (response.status === 201) {
                                             setSucessMessage(response.data.message);
+                                            setTimeout(() => {setIsOpen(false); setSucessMessage(""); resetForm();}, 2000);
                                             return;
                                         }
 
@@ -51,7 +51,6 @@ export const CadastroClienteModal: React.FC = () => {
                                     } finally {
                                         setSubmitting(false);
                                     }
-
                                 }}>
                             {({ isSubmitting }) => (
                                 <Form className="flex flex-col gap-5">
@@ -73,11 +72,14 @@ export const CadastroClienteModal: React.FC = () => {
                                         <MaskedTextField name="telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do cliente" label="Telefone" />
                                         <ErrorAlert name="telefone" component="div" />
                                     </div>
-                                    <Button functionName="Adicionar Cliente" theme="back" type="submit" disabled={isSubmitting} />
+                                    <Button functionName="Adicionar Cliente" theme="primary" type="submit" disabled={isSubmitting} />
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}
                         </Formik>
+                        <div className="mt-5">
+                            <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
+                        </div>
                     </div>
                 </div>
             )}
