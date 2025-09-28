@@ -93,11 +93,14 @@ export const CadastroFornecedorModal: React.FC = () => {
                                         <MaskedTextField name="contato.telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do fornecedor" label="Telefone" />
                                         <ErrorAlert name="contato.telefone" component="div" />
                                     </div>
-                                    <Button theme="search" functionName="Adicionar Fornecedor" type="submit" disabled={isSubmitting} />
+                                    <Button theme="primary" functionName="Adicionar Fornecedor" type="submit" disabled={isSubmitting} />
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}
                         </Formik>
+                        <div className="mt-5">
+                            <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
+                        </div>
                     </div>
                 </div>
             )}

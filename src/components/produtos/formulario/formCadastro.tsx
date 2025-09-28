@@ -130,7 +130,7 @@ export const CadastroProdutoModal: React.FC = () => {
                                             <ErrorAlert name="categoria" component="div" />
                                         </div>
                                     </div>
-                                    <Button functionName="Adicionar Produto" type="submit" disabled={isSubmitting} />
+                                    <Button theme="primary" functionName="Adicionar Produto" type="submit" disabled={isSubmitting} />
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}

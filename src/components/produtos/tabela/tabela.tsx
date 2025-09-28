@@ -71,7 +71,7 @@ export const TabelaProdutos: React.FC = () => {
                     <SelectField label="Filtrar por:" options={["todos", "nome"]} name="" change={(e) => setFiltroCampo(e.target.value)} />
                     <TextField name="filtro" value={filtroTexto} placeholder={filtroCampo} change={(e) => setFiltroTexto(e.target.value)} />
                 </div>
-                <Button onClick={() => pesquisarProdutos(1)} functionName="Pesquisar" theme="search" />
+                <Button onClick={() => pesquisarProdutos(1)} functionName="Pesquisar" theme="secondary" />
             </div>
             {loading ? (
                 <LoadingSpinner />
