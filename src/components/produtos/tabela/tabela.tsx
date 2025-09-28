@@ -13,6 +13,7 @@ interface Produto {
 }
 
 export const TabelaProdutos: React.FC = () => {
+
     const [produtos, setProdutos] = useState<Produto[]>([]);
     const [pager, setPager] = useState({ currentPage: 1, totalPages: 0, perPage: 10, total: 0 });
     const [loading, setLoading] = useState(false);
@@ -37,8 +38,7 @@ export const TabelaProdutos: React.FC = () => {
                 setPager({ currentPage: 1, totalPages: 1, perPage: response.data.length, total: response.data.length });
             }
         } catch (error) {
-
-            console.log("Erro ao retornar os produtos", error)
+            //Criar um modal para exibir um erro
         } finally {
             setLoading(false)
         }

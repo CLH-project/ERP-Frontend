@@ -25,14 +25,14 @@ export const CadastroClienteModal: React.FC = () => {
                             })}
 
                             onSubmit={
-                                async (values, { setSubmitting, setErrors }) => {
+                                async (values, { setSubmitting, setErrors, resetForm }) => {
                                     setSubmitting(true);
-                                    setSucessMessage("");
                                     try {
                                         const response = await addCliente(values);
 
                                         if (response.status === 201) {
                                             setSucessMessage(response.data.message);
+                                            setTimeout(() => {setIsOpen(false); setSucessMessage(""); resetForm();}, 2000);
                                             return;
                                         }
 
@@ -51,7 +51,6 @@ export const CadastroClienteModal: React.FC = () => {
                                     } finally {
                                         setSubmitting(false);
                                     }
-
                                 }}>
                             {({ isSubmitting }) => (
                                 <Form className="flex flex-col gap-5">

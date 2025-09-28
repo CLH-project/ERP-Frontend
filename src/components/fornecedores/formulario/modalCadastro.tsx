@@ -10,7 +10,7 @@ export const CadastroFornecedorModal: React.FC = () => {
 
     return (
         <div>
-            <CadastroButtonModal name="Novo fornecedor" onClick={() => {setIsOpen(true)}} urlIcon="/icons/supplier-icon.svg"/>
+            <CadastroButtonModal name="Novo fornecedor" onClick={() => { setIsOpen(true) }} urlIcon="/icons/supplier-icon.svg" />
 
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
@@ -36,19 +36,16 @@ export const CadastroFornecedorModal: React.FC = () => {
                             })}
 
                             onSubmit={
-                                async (values, { setSubmitting, setErrors }) => {
+                                async (values, { setSubmitting, setErrors, resetForm }) => {
                                     axios.post("http://localhost:8080/fornecedores", values)
-
                                         .then((response) => {
-
                                             if (response.status === 201) {
                                                 setSucessMessage(response.data.message);
+                                                setTimeout(() => { setIsOpen(false); setSucessMessage(""); resetForm(); }, 2000);
                                             }
-
                                             setSubmitting(false);
                                         })
                                         .catch((error) => {
-
 
                                             if (error.response.status === 400) {
 
@@ -78,7 +75,7 @@ export const CadastroFornecedorModal: React.FC = () => {
                                         <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
                                     </div>
                                     <div >
-                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do fornecedor" label="Nome"/>
+                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do fornecedor" label="Nome" />
                                         <ErrorAlert name="nome" component="div" />
                                     </div>
 
@@ -88,7 +85,7 @@ export const CadastroFornecedorModal: React.FC = () => {
                                     </div>
 
                                     <div>
-                                        <FormikTextField name="contato.email" placeholder="Digite o email do fornecedor" label="Email"/>
+                                        <FormikTextField name="contato.email" placeholder="Digite o email do fornecedor" label="Email" />
                                         <ErrorAlert name="contato.email" component="div" />
                                     </div>
 

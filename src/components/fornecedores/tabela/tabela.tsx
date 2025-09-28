@@ -24,22 +24,20 @@ export const TabelaFornecedores: React.FC = () => {
 
   const pesquisarFornecedores = async (page = 1) => {
     setLoading(true);
-    console.log(filtroCampo, filtroTexto)
+
     try {
-      if (filtroCampo === 'todos') {
+      if (filtroTexto === "") {
         const response = await axios.get(`http://localhost:8080/fornecedores?page=${page}`);
         setFornecedores(response.data.fornecedores);
         setPager(response.data.pager);
       } else {
         const response: any = await searchFornecedor("nome", filtroTexto);
-        console.log(response)
 
         setFornecedores(response.data.fornecedores);
         setPager({ currentPage: 1, totalPages: 1, perPage: 10, total: 1 });
       }
     } catch (error) {
-     
-      alert("Erro ao retornar os fornecedores");
+      // Criar Modal para exibir erro
     } finally {
       setLoading(false);
     }
@@ -63,8 +61,7 @@ export const TabelaFornecedores: React.FC = () => {
 
       pesquisarFornecedores(pager.currentPage);
     } catch (error) {
-      // Trocar por alerta de erro real
-      alert("Erro ao apagar");
+      // Criar Modal para exibir erro
     }
   };
 
