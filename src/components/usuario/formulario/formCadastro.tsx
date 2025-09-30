@@ -2,13 +2,13 @@ import { CadastroButtonModal, TextField, Button, MaskedTextField, SuccessAlert, 
 import { Formik, Form } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
-import { addCliente } from "@/services/cliente/addCliente";
 import { FormikSelectField } from "@/components/field/field";
-import axios from "axios";
 import { addUsuario } from "@/services/usuario/addUsuario";
+import { useRouter } from "next/navigation";
 
 export const CadastroUsuarioModal: React.FC = () => {
 
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const [SucessMessage, setSucessMessage] = useState("")
 
@@ -36,8 +36,8 @@ export const CadastroUsuarioModal: React.FC = () => {
 
                                         if (response.status === 201) {
                                             setSucessMessage(response.data.message);
-                                            setTimeout(() => { setIsOpen(false); setSucessMessage(""); resetForm(); }, 2000);
-                                            return;
+                                            setTimeout(() => { setIsOpen(false) }, 2000);
+                                            window.location.reload(); 
                                         }
 
                                         if (response.status === 400 && response.error === 400) {

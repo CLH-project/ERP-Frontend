@@ -10,7 +10,6 @@ export default function Inicio() {
     return (
         <div className="w-full h-screen flex flex-col">
             <Header />
-
             <div className="mt-10 flex flex-col px-5">
                 <div className="text-2xl font-bold mb-5">
                     <h1>Usuários</h1>

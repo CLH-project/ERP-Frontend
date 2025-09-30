@@ -32,7 +32,8 @@ export const CadastroClienteModal: React.FC = () => {
 
                                         if (response.status === 201) {
                                             setSucessMessage(response.data.message);
-                                            setTimeout(() => {setIsOpen(false); setSucessMessage(""); resetForm();}, 2000);
+                                            setTimeout(() => { setIsOpen(false) }, 2000);
+                                            window.location.reload(); 
                                             return;
                                         }
 

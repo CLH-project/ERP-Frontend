@@ -78,7 +78,8 @@ export const CadastroProdutoModal: React.FC = () => {
 
                                     if (postResponse.status === 201) {
                                         setSucessMessage(postResponse.data.message)
-                                        setTimeout(() => { setIsOpen(false); setSucessMessage(""); resetForm(); }, 2000);
+                                        setTimeout(() => { setIsOpen(false) }, 2000);
+                                        window.location.reload(); 
                                     }
 
                                 } catch (error: any) {
