@@ -16,7 +16,7 @@ export default function Inicio() {
                     <h1>Usuários</h1>
                 </div>
                 <div>
-                    <div>
+                    <div className="mb-5">
                         <CadastroUsuarioModal />
                     </div>
                     <TabelaUsuarios />

@@ -41,7 +41,7 @@ export const TabelaUsuarios: React.FC = () => {
 
     const [usuarioParaDeletar, setUsuarioParaDeletar] = useState<Usuario | null>(null);
 
-    const handleDelete = async (id: string) => {
+    const deletarUsuario = async (id: string) => {
         try {
             await axios.delete(`http://localhost:8080/usuarios/${id}`);
             pesquisarUsuarios(1);
@@ -89,9 +89,10 @@ export const TabelaUsuarios: React.FC = () => {
                                                     <FormEdicaoUsuario usuario={usuario} />
                                                     <ModalConfirm title="Deletar" message={`Deseja apagar o usuário ${usuarioParaDeletar?.nome}?`}
                                                         isOpen={usuarioParaDeletar !== null}
+                                                        
                                                         onConfirm={() => {
                                                             if (usuarioParaDeletar) {
-                                                                handleDelete(usuarioParaDeletar.id);
+                                                                deletarUsuario(usuarioParaDeletar.id);
                                                             }
                                                             setUsuarioParaDeletar(null);
                                                         }} onCancel={() => setUsuarioParaDeletar(null)} />

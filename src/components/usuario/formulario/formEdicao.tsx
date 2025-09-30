@@ -1,10 +1,11 @@
 'use client'
 
-import { Button, ErrorAlert, FormikTextField, SelectField, SuccessAlert } from "@/components";
+import { Button, ErrorAlert, FormikTextField, MaskedTextField, SelectField, SuccessAlert } from "@/components";
 import { Formik, Form } from "formik";
 import { useEffect, useState } from "react"
 import * as Yup from "yup";
 import axios from 'axios';
+import { FormikSelectField } from "@/components/field/field";
 
 interface Usuario {
     id: string,
@@ -21,11 +22,8 @@ interface FormProps {
 export const FormEdicaoUsuario: React.FC<FormProps> = ({ usuario }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [SucessMessage, setSucessMessage] = useState("")
-    const [produtoEditar, setProdutoEditar] = useState<Usuario>({} as Usuario);
+    const [usuarioEditar, setUsuarioEditar] = useState<Usuario>(usuario);
 
-    useEffect(() => {
-        setProdutoEditar(usuario);
-    })
 
     return (
         <div className="flex items-center">
@@ -39,35 +37,36 @@ export const FormEdicaoUsuario: React.FC<FormProps> = ({ usuario }) => {
 
                         <Formik
                             initialValues={{
-                                id: usuario ? usuario.id : "",
-                                nome: usuario ? usuario.nome : "",
-                                cpf: usuario ? usuario.cpf : "",
+                                id: usuario ? usuarioEditar.id : "",
+                                nome: usuario ? usuarioEditar.nome : "",
+                                cpf: usuario ? usuarioEditar.cpf : "",
                                 senha: "",
-                                cargo: usuario ? usuario.cargo : ""
+                                cargo: usuario ? usuarioEditar.cargo : ""
                             }}
 
                             validationSchema={Yup.object({
-                                nome: Yup.string().required("Nome do produto é obrigatório"),
-                                marca: Yup.string().required("Nome da marca é obrigatório"),
-                                valor_unico: Yup.number().required("Valor do produto obrigatório"),
-                                estoque: Yup.number().required("Quantidade de estoque necessário"),
-                                fornecedor_nome: Yup.string().required("Nome do fornecedor obrigatório"),
+                                nome: Yup.string().required("Nome do usuário é obrigatório"),
+                                cpf: Yup.string().required("CPF é obrigatório"),
+                                senha: Yup.number().required("Digite a nova senha"),
+                                cargo: Yup.string().required("Cargo obrigatório"),
                             })}
 
-                            onSubmit={async (values, { setSubmitting, setErrors }) => {
+                            onSubmit={async (values, { setSubmitting, setErrors, resetForm }) => {
                                 try {
 
-                                    const produtoAtualizado = {
+                                    const usuarioAtualizado = {
                                         id: values.id,
                                         nome: values.nome,
+                                        cpf: values.cpf,
                                         senha: values.senha,
                                         cargo: values.cargo
                                     }
 
-                                    const putResponse = await axios.put(`http://localhost:8080/produtos/${usuario.id}`, produtoAtualizado)
+                                    const putResponse = await axios.put(`http://localhost:8080/usuarios/${usuario.id}`, usuarioAtualizado)
 
                                     if (putResponse.status === 200) {
                                         setSucessMessage(putResponse.data.message);
+                                        setTimeout(() => { setIsOpen(false); setSucessMessage(""); resetForm(); }, 2000);
                                     }
                                 } catch (error: any) {
                                     if (error.response?.status === 400 && error.response.data?.errors) {
@@ -82,49 +81,35 @@ export const FormEdicaoUsuario: React.FC<FormProps> = ({ usuario }) => {
                             {({ isSubmitting }) => (
                                 <Form className="flex flex-col gap-5 ">
                                     <div className="flex justify-between mb-5">
-                                        <h1 className="text-xl font-bold">Editar Produto</h1>
+                                        <h1 className="text-xl font-bold">Editar Usuário</h1>
                                         <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
                                     </div>
-                                    <div>
-                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do produto" />
+                                    <div >
+                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do usuário" label="Nome" />
                                         <ErrorAlert name="nome" component="div" />
                                     </div>
 
-                                    <div>
-                                        <FormikTextField name="marca" type="text" placeholder="Digite a marca do produto" />
-                                        <ErrorAlert name="marca" component="div" />
+                                    <div >
+                                        <MaskedTextField name="cpf" mask="XXX.XXX.XXX-XX" placeholder="Digite o CPF do usuário" label="CPF" />
+                                        <ErrorAlert name="cpf" component="div" />
                                     </div>
 
-                                    <div className="flex gap-3">
-                                        <div>
-                                            <FormikTextField name="valor_unico" type="number" placeholder="Valor do produto" />
-                                            <ErrorAlert name="valor_unico" component="div" />
-                                        </div>
-
-                                        <div>
-                                            <FormikTextField name="estoque" type="number" placeholder="quantidade" />
-                                            <ErrorAlert name="estoque" component="div" />
-                                        </div>
+                                    <div >
+                                        <FormikTextField name="senha" type="password" placeholder="Digite o nome do usuário" label="Senha" />
+                                        <ErrorAlert name="senha" component="div" />
                                     </div>
 
-                                    <div className="flex gap-3 items-center justify-center">
-                                        <div className="w-full">
-                                            <FormikTextField type="text" name="fornecedor_nome" placeholder="Nome Fornecedor" />
-                                            <ErrorAlert name="fornecedor_nome" component="div" />
-                                        </div>
-
-                                        <div className="w-full">
-                                             <SelectField label="Categoria" options={["Categoria", "Alcolico", "Não Alcolico"]} name="categoria" />
-                                            <ErrorAlert name="categoria" component="div" />
-                                        </div>
+                                    <div className="w-full">
+                                        <FormikSelectField label="Cargo" options={["Cargo", "gerente", "caixa"]} name="cargo" />
+                                        <ErrorAlert name="cargo" component="div" />
                                     </div>
                                     <Button functionName="Confirmar Edição" type="submit" disabled={isSubmitting} />
-                                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
+                                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage}/>}
                                 </Form>
                             )}
                         </Formik>
                         <div className="mt-5">
-                            <Button functionName="Fechar" onClick={() => setIsOpen(false)} />
+                            <Button theme="back" functionName="Fechar" onClick={() => setIsOpen(false)} />
                         </div>
                     </div>
                 </div>

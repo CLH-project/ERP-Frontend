@@ -18,7 +18,7 @@ export default function ListaClientes() {
             <CadastroClienteModal />
           </div>
           <TabelaClientes />
-          <div className="w-full flex justify-center mb-5">
+          <div className="mb-5">
             <Button theme="back" functionName="Voltar para tela inicial" type="button" onClick={() => router.push("/inicio")} />
           </div>
         </div>
