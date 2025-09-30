@@ -2,39 +2,42 @@ import { CadastroButtonModal, TextField, Button, MaskedTextField, SuccessAlert, 
 import { Formik, Form } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
-import { addCliente } from "@/services/cliente/addCliente";
+import { FormikSelectField } from "@/components/field/field";
+import { addUsuario } from "@/services/usuario/addUsuario";
+import { useRouter } from "next/navigation";
 
-export const CadastroClienteModal: React.FC = () => {
+export const CadastroUsuarioModal: React.FC = () => {
 
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const [SucessMessage, setSucessMessage] = useState("")
 
     return (
         <div>
-            <CadastroButtonModal onClick={() => { setIsOpen(true) }} name="Novo cliente" urlIcon="/icons/customer-icon.svg" />
+            <CadastroButtonModal onClick={() => { setIsOpen(true) }} name="Novo usuário" urlIcon="/icons/adm-icon.svg" />
 
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
                     <div className="w-full md:w-3xl bg-[#F3F3F3] rounded-2xl shadow-2xl px-6 py-8">
                         <Formik
-                            initialValues={{ nome: "", cpf: "", telefone: "" }}
+                            initialValues={{ nome: "", cpf: "", senha: "", cargo: "" }}
                             validationSchema={Yup.object({
                                 nome: Yup.string().required("Campo de nome obrigatório"),
                                 cpf: Yup.string().required("Campo de cpf obrigatório"),
-                                telefone: Yup.string().min(15, "Digite um telefone válido").required("Campo de telefone obrigatório")
+                                senha: Yup.string().min(8, "Digite uma senha válida").required("Campo de senha obrigatório"),
+                                cargo: Yup.string().required("Cargo obrigatório"),
                             })}
 
                             onSubmit={
                                 async (values, { setSubmitting, setErrors, resetForm }) => {
                                     setSubmitting(true);
                                     try {
-                                        const response = await addCliente(values);
+                                       const response = await addUsuario(values);
 
                                         if (response.status === 201) {
                                             setSucessMessage(response.data.message);
                                             setTimeout(() => { setIsOpen(false) }, 2000);
                                             window.location.reload(); 
-                                            return;
                                         }
 
                                         if (response.status === 400 && response.error === 400) {
@@ -43,7 +46,7 @@ export const CadastroClienteModal: React.FC = () => {
 
                                             if (messages.nome) fieldErrors.nome = messages.nome;
                                             if (messages.cpf) fieldErrors.cpf = messages.cpf;
-                                            if (messages.telefone) fieldErrors.telefone = messages.telefone;
+                                            if (messages.senha) fieldErrors.senha = messages.senha;
 
                                             setErrors(fieldErrors);
                                         }
@@ -57,23 +60,28 @@ export const CadastroClienteModal: React.FC = () => {
                                 <Form className="flex flex-col gap-5">
                                     <div className="flex justify-between mb-5">
                                         <h1 className="text-xl font-bold">Novo Cliente</h1>
-                                        <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg"/></button>
+                                        <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
                                     </div>
                                     <div >
-                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do cliente" label="Nome"/>
+                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do usuário" label="Nome" />
                                         <ErrorAlert name="nome" component="div" />
                                     </div>
 
                                     <div >
-                                        <MaskedTextField name="cpf" mask="XXX.XXX.XXX-XX" placeholder="Digite o CPF do cliente" label="CPF"/>
+                                        <MaskedTextField name="cpf" mask="XXX.XXX.XXX-XX" placeholder="Digite o CPF do usuário" label="CPF" />
                                         <ErrorAlert name="cpf" component="div" />
                                     </div>
 
-                                    <div>
-                                        <MaskedTextField name="telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do cliente" label="Telefone" />
-                                        <ErrorAlert name="telefone" component="div" />
+                                    <div >
+                                        <FormikTextField name="senha" type="password" placeholder="Digite o nome do usuário" label="Senha" />
+                                        <ErrorAlert name="senha" component="div" />
                                     </div>
-                                    <Button functionName="Adicionar Cliente" theme="primary" type="submit" disabled={isSubmitting} />
+
+                                    <div className="w-full">
+                                        <FormikSelectField label="Cargo" options={["Cargo", "gerente", "caixa"]} name="cargo" />
+                                        <ErrorAlert name="cargo" component="div" />
+                                    </div>
+                                    <Button functionName="Adicionar Usuário" theme="primary" type="submit" disabled={isSubmitting} />
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}

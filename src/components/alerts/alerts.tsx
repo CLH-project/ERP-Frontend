@@ -95,7 +95,7 @@ export const ModalConfirm: React.FC<ModalConfirm> = ({ title, message, onConfirm
                         </h3>
                         <p className="mb-5 text-md text-gray-500 dark:text-gray-400">{message}</p>
                         <div className='flex gap-4'>
-                            <Button theme='search' onClick={onCancel} functionName='Sim, apagar' />
+                            <Button theme='primary' onClick={onConfirm} functionName='Sim, apagar' />
                             <Button theme='back' onClick={onCancel} functionName='Não, cancelar' />
                         </div>
                     </div>

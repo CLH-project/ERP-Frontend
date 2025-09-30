@@ -11,10 +11,9 @@ interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({ theme = "primary", onClick, functionName, type, disabled }) => {
     const themes = {
-        primary: "bg-[#725743] text-[#FFF9ED] text-lg hover:bg-[#FFF9ED] hover:text-[#725743] hover:border-2 hover:border-[#725743]",
+        primary: "bg-[#725743] text-[#FFF9ED] hover:border-[#725743] text-lg hover:bg-[#FFF9ED] hover:text-[#725743]  border-2 hover:border-[#725743]",
         secondary: "bg-white text-[#725743] border-2 border-[#725743] text-lg hover:text-white hover:bg-[#725743]",
-        back: "bg-[#B23C3C] text-white hover:bg-white hover:text-[#B23C3C] border-2 border-[#B23C3C]",
-        
+        back: "bg-[#B23C3C] text-white hover:bg-white hover:text-[#B23C3C] border-2 border-[#B23C3C]",   
     }
 
     const baseTheme = 'w-full group shadow-md px-5 py-3 rounded-2xl transition-colors duration-300 font-semibold cursor-pointer';
