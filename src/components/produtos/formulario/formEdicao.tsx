@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, ErrorAlert, FormikTextField, SelectField, SuccessAlert, TextField } from "@/components";
+import { Button, CloseButton, ErrorAlert, FormikTextField, SelectField, SuccessAlert, TextField } from "@/components";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react"
@@ -112,7 +112,7 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
                                 <Form className="flex flex-col gap-5 ">
                                     <div className="flex justify-between mb-5">
                                         <h1 className="text-xl font-bold">Editar Produto</h1>
-                                        <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
+                                        <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
                                     <div>
                                         <FormikTextField name="nome" type="text" placeholder="Digite o nome do produto" />

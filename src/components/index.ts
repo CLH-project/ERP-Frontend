@@ -19,7 +19,7 @@ export { FormEdicaoUsuario, TabelaUsuarios, CadastroUsuarioModal } from "./usuar
 //Generic exports
 export {FormikTextField, TextField,MaskedTextField, SelectField} from "./field"
 export {ErrorMessagePop} from "./errorMessage/errorMessage"
-export {Button, CadastroButtonModal, PaginateButton, SidebarButton} from "./button"
+export {Button, CadastroButtonModal, PaginateButton, SidebarButton, CloseButton} from "./button"
 export {Sidebar} from "./sidebar"
 export {SuccessAlert, ErrorAlert, ModalConfirm} from "./alerts"
 export {LoadingSpinner} from "./spinner"

@@ -1,10 +1,11 @@
-import { CadastroButtonModal, TextField, Button, MaskedTextField, SuccessAlert, ErrorAlert, FormikTextField } from "@/components"
+import { CadastroButtonModal, TextField, Button, MaskedTextField, SuccessAlert, ErrorAlert, FormikTextField, CloseButton } from "@/components"
 import { Formik, Form } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { FormikSelectField } from "@/components/field/field";
 import { addUsuario } from "@/services/usuario/addUsuario";
 import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 
 export const CadastroUsuarioModal: React.FC = () => {
 
@@ -20,38 +21,29 @@ export const CadastroUsuarioModal: React.FC = () => {
                 <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
                     <div className="w-full md:w-3xl bg-[#F3F3F3] rounded-2xl shadow-2xl px-6 py-8">
                         <Formik
-                            initialValues={{ nome: "", cpf: "", senha: "", cargo: "" }}
+                            initialValues={{ nome: "", login: "", cpf: "", senha: "", cargo: "" }}
                             validationSchema={Yup.object({
                                 nome: Yup.string().required("Campo de nome obrigatório"),
+                                login: Yup.string().required("Campo de nome obrigatório"),
                                 cpf: Yup.string().required("Campo de cpf obrigatório"),
                                 senha: Yup.string().min(8, "Digite uma senha válida").required("Campo de senha obrigatório"),
                                 cargo: Yup.string().required("Cargo obrigatório"),
                             })}
 
                             onSubmit={
-                                async (values, { setSubmitting, setErrors, resetForm }) => {
+                                async (values, { setSubmitting, setErrors }) => {
                                     setSubmitting(true);
                                     try {
-                                       const response = await addUsuario(values);
-
+                                        const response = await addUsuario(values);
                                         if (response.status === 201) {
                                             setSucessMessage(response.data.message);
                                             setTimeout(() => { setIsOpen(false) }, 2000);
-                                            window.location.reload(); 
-                                        }
-
-                                        if (response.status === 400 && response.error === 400) {
-                                            const { messages } = response;
-                                            const fieldErrors: Record<string, string> = {};
-
-                                            if (messages.nome) fieldErrors.nome = messages.nome;
-                                            if (messages.cpf) fieldErrors.cpf = messages.cpf;
-                                            if (messages.senha) fieldErrors.senha = messages.senha;
-
-                                            setErrors(fieldErrors);
+                                            window.location.reload();
                                         }
                                     } catch (error: any) {
-                                        setErrors(error.messages || { geral: "Erro inesperado. Tente novamente mais tarde." });
+                                        if (error instanceof AxiosError && error.response) {
+                                            setErrors(error.response.data.errors || {});
+                                        }
                                     } finally {
                                         setSubmitting(false);
                                     }
@@ -59,12 +51,17 @@ export const CadastroUsuarioModal: React.FC = () => {
                             {({ isSubmitting }) => (
                                 <Form className="flex flex-col gap-5">
                                     <div className="flex justify-between mb-5">
-                                        <h1 className="text-xl font-bold">Novo Cliente</h1>
-                                        <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
+                                        <h1 className="text-xl font-bold">Novo Usuário</h1>
+                                        <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
                                     <div >
                                         <FormikTextField name="nome" type="text" placeholder="Digite o nome do usuário" label="Nome" />
                                         <ErrorAlert name="nome" component="div" />
+                                    </div>
+
+                                    <div >
+                                        <FormikTextField name="login" type="text" placeholder="Digite o login de acesso" label="Login" />
+                                        <ErrorAlert name="login" component="div" />
                                     </div>
 
                                     <div >
@@ -73,7 +70,7 @@ export const CadastroUsuarioModal: React.FC = () => {
                                     </div>
 
                                     <div >
-                                        <FormikTextField name="senha" type="password" placeholder="Digite o nome do usuário" label="Senha" />
+                                        <FormikTextField name="senha" type="password" placeholder="Digite a senha do usuário" label="Senha" />
                                         <ErrorAlert name="senha" component="div" />
                                     </div>
 

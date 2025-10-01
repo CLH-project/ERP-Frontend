@@ -2,72 +2,56 @@
 
 import { Formik, Form, ErrorMessage } from "formik";
 import { TextField, Button, ErrorAlert, FormikTextField } from "@/components";
+import { useAuth } from "@/services/usuario/auth/AuthContext";
 
 import React from "react";
 import * as Yup from "yup";
 
 import { useRouter } from "next/navigation";
-import { loginUser } from "@/services/authService"; 
 
 export const LoginForm: React.FC = () => {
     const router = useRouter();
+    const {login} = useAuth();
 
     const validationSchema = Yup.object(
         {
-            username: Yup.string().required("Digite o nome de usuário"),
-            password: Yup.string().required("Digite a senha"),
+            login: Yup.string().required("Digite o nome de usuário"),
+            senha: Yup.string().required("Digite a senha"),
         }
     )
 
     return (
         <Formik
-            initialValues={{ username: "", password: "" }}
+            initialValues={{ login: "", senha: "" }}
             validationSchema={validationSchema}
 
-            onSubmit={ async (values, { setSubmitting, setErrors},) => {
-                router.push("/inicio");
+            onSubmit={async (values, { setSubmitting, setErrors },) => {
+                
                 try {
+                    await login(values.login, values.senha)
 
-                    const response = await loginUser({
-                                                  username:values.username,
-                                                  password:values.password
-                                                });
-
-                    const data = await response?.json();
-
-                    localStorage.setItem("token", data?.access_token || "");
-                    router.push("/inicio");
-
-                } catch (err: any) {
-
-                    // Retorna o erro do servidor, caso disponível >>>>> Verificar ao conectar com o backend
-                    const errorData = err?.response?.data || {};
-
-                    // Verifica se o erro tem os campos e mensagem esperados para poder definir Error do forkmik
-                    if (errorData?.field && errorData?.message) { 
-                        setErrors({ [errorData.field]: errorData.message });
-                    } else {
-                       alert("Erro ao conectar com o servidor. Por favor, tente novamente mais tarde.");
-                    }
                     
+                    router.push("/inicio");
+                } catch (error: any) {
+
                 } finally {
                     setSubmitting(false);
                 }
             }}
         >
-            {({ isSubmitting, handleSubmit }) => (    
-                <Form className="flex flex-col gap-5"> 
+            {({ isSubmitting, handleSubmit }) => (
+                <Form className="flex flex-col gap-5">
                     <div >
-                        <FormikTextField label="Usuário" name="username" type="text" placeholder="Digite seu usuário" />
-                        <ErrorAlert name="username" component="div"/>
+                        <FormikTextField label="Usuário" name="login" type="text" placeholder="Digite seu usuário" />
+                        <ErrorAlert name="login" component="div" />
                     </div>
 
                     <div>
-                        <FormikTextField  label="Senha" name="password" type="password" placeholder="Digite sua senha"/>
-                        <ErrorAlert name="password" component="div"/>
+                        <FormikTextField label="Senha" name="senha" type="password" placeholder="Digite sua senha" />
+                        <ErrorAlert name="senha" component="div" />
                     </div>
 
-                    <Button theme="primary" functionName="login" type="submit" disabled={isSubmitting}/>       
+                    <Button theme="primary" functionName="login" type="submit" disabled={isSubmitting} />
                 </Form>
             )}
         </Formik>

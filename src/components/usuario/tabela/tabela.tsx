@@ -18,7 +18,7 @@ export const TabelaUsuarios: React.FC = () => {
     const pesquisarUsuarios = async (page = 1) => {
         setLoading(true);
         try {
-            const response = await axios.get(`http://localhost:8080/usuarios?page=${page}`);
+            const response = await axios.get(`http://localhost:8080/usuarios?page=${page}`, {withCredentials: true});
             setUsuarios(response.data.usuarios)
             setPager(response.data.pager);
             setPager({ currentPage: 1, totalPages: 1, perPage: response.data.length, total: response.data.length });

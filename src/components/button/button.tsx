@@ -1,5 +1,3 @@
-import { useRouter } from "next/navigation";
-
 // ButtonNormal
 interface ButtonProps {
     functionName: string;
@@ -11,20 +9,20 @@ interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({ theme = "primary", onClick, functionName, type, disabled }) => {
     const themes = {
-        primary: "bg-[#725743] text-[#FFF9ED] hover:border-[#725743] text-lg hover:bg-[#FFF9ED] hover:text-[#725743]  border-2 hover:border-[#725743]",
+        primary: "bg-[#725743] text-[#FFF9ED] hover:border-[#725743] text-lg hover:bg-[#FFF9ED] hover:text-[#725743] border-2 border-[#725743]",
         secondary: "bg-white text-[#725743] border-2 border-[#725743] text-lg hover:text-white hover:bg-[#725743]",
-        back: "bg-[#B23C3C] text-white hover:bg-white hover:text-[#B23C3C] border-2 border-[#B23C3C]",   
+        back: "bg-[#B23C3C] text-white hover:bg-white hover:text-[#B23C3C] border-2 border-[#B23C3C]",
     }
 
-    const baseTheme = 'w-full group shadow-md px-5 py-3 rounded-2xl transition-colors duration-300 font-semibold cursor-pointer';
+    const baseTheme = 'w-full text-sm group shadow-md px-5 py-3 rounded-2xl transition-colors duration-300 font-semibold cursor-pointer';
     const selectedTheme = themes[theme] || themes.primary;
 
     return (
         <button
             type={type}
             className={`${baseTheme} ${selectedTheme}`}
-            disabled={disabled} onClick={onClick}
-        > {functionName}
+            disabled={disabled} onClick={onClick}> 
+            {functionName} 
         </button>
     )
 }
@@ -80,10 +78,31 @@ interface SidebarButtonProps {
 }
 
 export const SidebarButton: React.FC<SidebarButtonProps> = ({ iconUrl, name, onClick }) => {
-    const router = useRouter();
-
     return <button onClick={onClick}
         className="gap-2 mb-4 w-full text-[#131313] text-left px-2 py-3 hover:bg-[#FFEEE2] rounded-2xl flex items-center hover:cursor-pointer transition-colors">
         <img src={iconUrl} alt="" />{name}
+    </button>
+}
+
+//CloseButton
+interface CloseButtonProps {
+    onClick?: () => void;
+}
+
+export const CloseButton: React.FC<SidebarButtonProps> = ({ onClick }) => {
+    return <button type="button" onClick={onClick}
+        className="cursor-pointer absolute top-3 end-2.5 text-[#725743] bg-transparent hover:bg-[#725743] rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:text-white">
+        <svg className="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14">
+
+            <path stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
     </button>
 }

@@ -3,7 +3,7 @@ import axios from "axios";
 export async function addCliente(Cliente: { nome: string, cpf: string, telefone: string }) {
     try {
 
-        const response = await axios.post("http://localhost:8080/clientes", Cliente)
+        const response = await axios.post("http://localhost:8080/clientes", Cliente, {withCredentials: true})
         return {
             status: response.status,
             data: response.data

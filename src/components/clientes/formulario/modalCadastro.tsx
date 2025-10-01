@@ -1,13 +1,17 @@
-import { CadastroButtonModal, TextField, Button, MaskedTextField, SuccessAlert, ErrorAlert, FormikTextField } from "@/components"
+import { CadastroButtonModal, TextField, Button, MaskedTextField, SuccessAlert, ErrorAlert, FormikTextField, CloseButton } from "@/components"
 import { Formik, Form } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { addCliente } from "@/services/cliente/addCliente";
+import axios from "axios";
+import { useAuth } from "@/services/usuario/auth/AuthContext";
 
 export const CadastroClienteModal: React.FC = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [SucessMessage, setSucessMessage] = useState("")
+
+    const {usuario} = useAuth();
 
     return (
         <div>
@@ -25,10 +29,10 @@ export const CadastroClienteModal: React.FC = () => {
                             })}
 
                             onSubmit={
-                                async (values, { setSubmitting, setErrors, resetForm }) => {
+                                async (values, { setSubmitting, setErrors }) => {
                                     setSubmitting(true);
                                     try {
-                                        const response = await addCliente(values);
+                                        const response = await axios.post("http://localhost:8080/clientes", values, {withCredentials: true})
 
                                         if (response.status === 201) {
                                             setSucessMessage(response.data.message);
@@ -37,8 +41,8 @@ export const CadastroClienteModal: React.FC = () => {
                                             return;
                                         }
 
-                                        if (response.status === 400 && response.error === 400) {
-                                            const { messages } = response;
+                                        if (response.status === 400) {
+                                            const { messages } = response.data;
                                             const fieldErrors: Record<string, string> = {};
 
                                             if (messages.nome) fieldErrors.nome = messages.nome;
@@ -57,7 +61,7 @@ export const CadastroClienteModal: React.FC = () => {
                                 <Form className="flex flex-col gap-5">
                                     <div className="flex justify-between mb-5">
                                         <h1 className="text-xl font-bold">Novo Cliente</h1>
-                                        <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg"/></button>
+                                        <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
                                     <div >
                                         <FormikTextField name="nome" type="text" placeholder="Digite o nome do cliente" label="Nome"/>

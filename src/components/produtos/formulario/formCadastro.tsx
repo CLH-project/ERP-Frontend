@@ -1,4 +1,4 @@
-import { Button, CadastroButtonModal, ErrorAlert, FormikTextField, SelectField, SuccessAlert, TextField } from "@/components";
+import { Button, CadastroButtonModal, CloseButton, ErrorAlert, FormikTextField, SelectField, SuccessAlert, TextField } from "@/components";
 import { FormikSelectField } from "@/components/field/field";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 import axios from "axios";
@@ -96,7 +96,7 @@ export const CadastroProdutoModal: React.FC = () => {
                                 <Form className="flex flex-col gap-5 ">
                                     <div className="flex justify-between mb-5">
                                         <h1 className="text-xl font-bold">Novo Produto</h1>
-                                        <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
+                                        <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
                                     <div>
                                         <FormikTextField name="nome" type="text" placeholder="Digite o nome do produto" label="Nome" />

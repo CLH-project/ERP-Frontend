@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { Button, SidebarButton } from '@/components'
+import { Button, CloseButton, SidebarButton } from '@/components'
 
 export const Sidebar: React.FC = () => {
 
@@ -20,11 +20,7 @@ export const Sidebar: React.FC = () => {
                 <div className="flex flex-col justify-between fixed top-0 left-0 h-screen w-64 bg-white text-white z-[1000] shadow-lg p-4 overflow-y-auto">
                     <div className="flex justify-between items-center mb-6">
                         <span className="text-xl font-bold text-[#725743]">ERP CLH</span>
-                        <button
-                            onClick={toggleSidebar}
-                            className={isOpen ? "hover:cursor-pointer hover:opacity-70" : "none"}>
-                            <img src="/icons/close-button.svg" alt="" />
-                        </button>
+                        <CloseButton onClick={toggleSidebar} />
                     </div>
 
                     <div className='flex flex-col'>
@@ -34,7 +30,7 @@ export const Sidebar: React.FC = () => {
                         <SidebarButton iconUrl='/icons/sidebar-customer-icon.svg' name='Clientes' onClick={() => { router.push("/clientes") }} />
                         <SidebarButton iconUrl='/icons/sidebar-product-icon.svg' name='Produtos' onClick={() => { router.push("/produtos") }} />
                         <SidebarButton iconUrl='/icons/sidebar-supplier-icon.svg' name='Fornecedores' onClick={() => { router.push("/fornecedores") }} />
-                        <SidebarButton iconUrl='/icons/adm-icon.svg' name='Administração' onClick={() => { router.push("/administrador") }} />
+                        <SidebarButton iconUrl='/icons/sidebar-adm-icon.svg' name='Administração' onClick={() => { router.push("/administrador") }} />
                     </div>
                     <Button theme='back' functionName='Sair' onClick={() => router.push('/login')} />
                 </div>

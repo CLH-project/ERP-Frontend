@@ -5,6 +5,7 @@ import { Button, LoadingSpinner, PaginateButton, TextField } from "@/components"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
+import { useAuth } from "@/services/usuario/auth/AuthContext";
 
 interface Fornecedor {
   id: string;
@@ -27,7 +28,7 @@ export const TabelaFornecedores: React.FC = () => {
 
     try {
       if (filtroTexto === "") {
-        const response = await axios.get(`http://localhost:8080/fornecedores?page=${page}`);
+        const response = await axios.get(`http://localhost:8080/fornecedores?page=${page}`, {withCredentials: true});
         setFornecedores(response.data.fornecedores);
         setPager(response.data.pager);
       } else {

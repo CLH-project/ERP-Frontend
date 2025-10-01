@@ -4,7 +4,9 @@ import { ModalConfirm } from "@/components/alerts/alerts";
 import { Button, PaginateButton } from "@/components/button";
 import { SelectField, TextField } from "@/components/field";
 import { LoadingSpinner } from "@/components/spinner";
+import { useAuth } from "@/services/usuario/auth/AuthContext";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface Cliente {
@@ -26,19 +28,22 @@ export const TabelaClientes: React.FC = () => {
     try {
 
       if (filtroCampo === "todos") {
-        const response = await axios.get(`http://localhost:8080/clientes?page=${page}`);
+        const response = await axios.get(`http://localhost:8080/clientes?page=${page}`,
+          {
+            withCredentials: true
+          });
 
         setClientes(response.data.data);
         setPager(response.data.pager);
       } else {
-        const response = await axios.get(`http://localhost:8080/clientes/${filtroTexto}`);
+        const response = await axios.get(`http://localhost:8080/clientes/${filtroTexto}`, {withCredentials: true});
 
         const cliente = response.data;
 
         if (cliente && cliente.id) {
           setClientes([cliente]);
           setPager({ currentPage: 1, totalPages: 1, perPage: 10, total: cliente ? 1 : 0 });
-        } else {      // Com isso quero garantir que a lista não seja undefined para que a lógica de montar somente tendo o tem funciona
+        } else {     
           setClientes([]);
           setPager({ currentPage: 1, totalPages: 1, perPage: 10, total: cliente ? 1 : 0 });
         }
@@ -52,7 +57,9 @@ export const TabelaClientes: React.FC = () => {
     }
   };
 
-  useEffect(() => { pesquisarClientes(1); }, []);
+  useEffect(() => {
+    pesquisarClientes(1);
+  }, []);
 
   const mudancaPagina = (page: number) => {
     if (page >= 1 && page <= pager.totalPages) {
@@ -75,6 +82,7 @@ export const TabelaClientes: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center w-full overflow-x-hidden">
+      
       {loading ? (
         <LoadingSpinner />
       ) : (
@@ -86,7 +94,7 @@ export const TabelaClientes: React.FC = () => {
               </div>
               <TextField name={filtroTexto} change={(e) => setFiltroTexto(e.target.value)} placeholder={filtroCampo} type="text" value={filtroTexto} />
             </div>
-            <Button theme="secondary" functionName="Pesquisar" onClick={() => pesquisarClientes(1)}/>
+            <Button theme="secondary" functionName="Pesquisar" onClick={() => pesquisarClientes(1)} />
           </div>
 
           <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto p-5">
