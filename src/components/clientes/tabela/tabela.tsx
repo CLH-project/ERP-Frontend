@@ -4,9 +4,7 @@ import { ModalConfirm } from "@/components/alerts/alerts";
 import { Button, PaginateButton } from "@/components/button";
 import { SelectField, TextField } from "@/components/field";
 import { LoadingSpinner } from "@/components/spinner";
-import { useAuth } from "@/services/usuario/auth/AuthContext";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface Cliente {
@@ -23,27 +21,29 @@ export const TabelaClientes: React.FC = () => {
   const [filtroTexto, setFiltroTexto] = useState('');
   const [filtroCampo, setFiltroCampo] = useState('todos');
 
+  const token = localStorage.getItem('token')
+
   const pesquisarClientes = async (page = 1) => {
     setLoading(true);
     try {
-
       if (filtroCampo === "todos") {
         const response = await axios.get(`http://localhost:8080/clientes?page=${page}`,
-          {
-            withCredentials: true
-          });
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
 
         setClientes(response.data.data);
         setPager(response.data.pager);
       } else {
-        const response = await axios.get(`http://localhost:8080/clientes/${filtroTexto}`, {withCredentials: true});
+        const response = await axios.get(`http://localhost:8080/clientes/${filtroTexto}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
 
         const cliente = response.data;
 
         if (cliente && cliente.id) {
           setClientes([cliente]);
           setPager({ currentPage: 1, totalPages: 1, perPage: 10, total: cliente ? 1 : 0 });
-        } else {     
+        } else {
           setClientes([]);
           setPager({ currentPage: 1, totalPages: 1, perPage: 10, total: cliente ? 1 : 0 });
         }
@@ -51,7 +51,6 @@ export const TabelaClientes: React.FC = () => {
     } catch (error) {
       // Trocar por alerta de erro
       console.log(error)
-      alert();
     } finally {
       setLoading(false);
     }
@@ -82,7 +81,7 @@ export const TabelaClientes: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center w-full overflow-x-hidden">
-      
+
       {loading ? (
         <LoadingSpinner />
       ) : (

@@ -28,10 +28,8 @@ export const LoginForm: React.FC = () => {
             onSubmit={async (values, { setSubmitting, setErrors },) => {
                 
                 try {
-                    await login(values.login, values.senha)
-
-                    
-                    router.push("/inicio");
+                     await login(values.login, values.senha)
+                    router.replace("/inicio");
                 } catch (error: any) {
 
                 } finally {

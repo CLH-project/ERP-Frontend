@@ -11,7 +11,7 @@ export default function Inicio() {
     const router = useRouter(); 
 
     useEffect(() => {
-        if (!usuario?.usuario) {
+        if (!usuario?.user) {
             router.push("/login")
         }
     } , [usuario])

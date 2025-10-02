@@ -1,12 +1,21 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { Button, CloseButton, SidebarButton } from '@/components'
+import { useAuth } from '@/services/usuario/auth/AuthContext';
 
 export const Sidebar: React.FC = () => {
 
     const router = useRouter();
+    const { logout } = useAuth();
+
     const [isOpen, setIsOpen] = useState(false);
     const toggleSidebar = () => setIsOpen(!isOpen);
+
+
+    const handleLogout = () => {
+        logout();
+        router.push('/login')
+    }
 
     return (
         <div>
@@ -32,7 +41,7 @@ export const Sidebar: React.FC = () => {
                         <SidebarButton iconUrl='/icons/sidebar-supplier-icon.svg' name='Fornecedores' onClick={() => { router.push("/fornecedores") }} />
                         <SidebarButton iconUrl='/icons/sidebar-adm-icon.svg' name='Administração' onClick={() => { router.push("/administrador") }} />
                     </div>
-                    <Button theme='back' functionName='Sair' onClick={() => router.push('/login')} />
+                    <Button theme='back' functionName='Sair' onClick={() => handleLogout()} />
                 </div>
             )}
 
