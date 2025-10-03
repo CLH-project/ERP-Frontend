@@ -1,4 +1,5 @@
-import { Button, FormEdicaoProduto, FormEdicaoUsuario, LoadingSpinner, ModalConfirm, PaginateButton, SelectField, TextField } from "@/components";
+import { FormEdicaoUsuario, LoadingSpinner, ModalConfirm, PaginateButton, SelectField, TextField } from "@/components";
+import api from "@/services/api/api";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -18,7 +19,7 @@ export const TabelaUsuarios: React.FC = () => {
     const pesquisarUsuarios = async (page = 1) => {
         setLoading(true);
         try {
-            const response = await axios.get(`http://localhost:8080/usuarios?page=${page}`, {withCredentials: true});
+            const response = await api.get(`/usuarios?page=${page}`, {withCredentials: true});
             setUsuarios(response.data.usuarios)
             setPager(response.data.pager);
             setPager({ currentPage: 1, totalPages: 1, perPage: response.data.length, total: response.data.length });
@@ -43,7 +44,7 @@ export const TabelaUsuarios: React.FC = () => {
 
     const deletarUsuario = async (id: string) => {
         try {
-            await axios.delete(`http://localhost:8080/usuarios/${id}`);
+            await api.delete(`/usuarios/${id}`);
             pesquisarUsuarios(1);
         } catch (error) {
             // Exibir Modal de Erro

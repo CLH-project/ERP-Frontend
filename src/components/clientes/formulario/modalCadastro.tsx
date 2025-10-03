@@ -1,17 +1,13 @@
-import { CadastroButtonModal, TextField, Button, MaskedTextField, SuccessAlert, ErrorAlert, FormikTextField, CloseButton } from "@/components"
+import { CadastroButtonModal, Button, MaskedTextField, SuccessAlert, ErrorAlert, FormikTextField, CloseButton } from "@/components"
 import { Formik, Form } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { addCliente } from "@/services/cliente/addCliente";
-import axios from "axios";
-import { useAuth } from "@/services/usuario/auth/AuthContext";
 
 export const CadastroClienteModal: React.FC = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [SucessMessage, setSucessMessage] = useState("")
-
-    const {usuario} = useAuth();
 
     return (
         <div>
@@ -32,7 +28,7 @@ export const CadastroClienteModal: React.FC = () => {
                                 async (values, { setSubmitting, setErrors }) => {
                                     setSubmitting(true);
                                     try {
-                                        const response = await axios.post("http://localhost:8080/clientes", values, {withCredentials: true})
+                                        const response = await addCliente( values )
 
                                         if (response.status === 201) {
                                             setSucessMessage(response.data.message);

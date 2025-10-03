@@ -6,6 +6,7 @@ import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react"
 import * as Yup from "yup";
 import axios from 'axios';
+import api from "@/services/api/api";
 
 interface Fornecedor {
     id: string;
@@ -92,7 +93,7 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
                                         fornecedor_id: fornecedorEncontrado.id,
                                     }
 
-                                    const putResponse = await axios.put(`http://localhost:8080/produtos/${produto.id}`, produtoAtualizado)
+                                    const putResponse = await api.put(`/produtos/${produto.id}`, produtoAtualizado)
 
                                     if (putResponse.status === 200) {
                                         setSucessMessage(putResponse.data.message);

@@ -49,11 +49,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const login = async (login: string, senha: string) => {
         const response = await axios.post("http://localhost:8080/login", { login, senha });
         const { token, usuario } = response.data;
-        setToken(token)
+        
         localStorage.setItem('token', token);
+        setToken(token)
         setUser(usuario)
-
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        
     }
 
     const logout = () => {

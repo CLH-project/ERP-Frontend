@@ -7,6 +7,8 @@ import { LoadingSpinner } from "@/components/spinner";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+import api from '@/services/api/api'
+
 interface Cliente {
   id: string,
   nome: string,
@@ -15,29 +17,27 @@ interface Cliente {
 }
 
 export const TabelaClientes: React.FC = () => {
+
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [pager, setPager] = useState({ currentPage: 1, totalPages: 0, perPage: 10, total: 0 });
   const [loading, setLoading] = useState(false);
   const [filtroTexto, setFiltroTexto] = useState('');
   const [filtroCampo, setFiltroCampo] = useState('todos');
 
-  const token = localStorage.getItem('token')
-
   const pesquisarClientes = async (page = 1) => {
+
     setLoading(true);
     try {
       if (filtroCampo === "todos") {
-        const response = await axios.get(`http://localhost:8080/clientes?page=${page}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+
+        const response = await api.get(`/clientes?page=${page}`)
 
         setClientes(response.data.data);
         setPager(response.data.pager);
-      } else {
-        const response = await axios.get(`http://localhost:8080/clientes/${filtroTexto}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
 
+      } else {
+
+        const response = await api.get(`${filtroTexto}`)
         const cliente = response.data;
 
         if (cliente && cliente.id) {

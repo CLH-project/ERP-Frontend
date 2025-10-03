@@ -1,5 +1,6 @@
 import { Button, CadastroButtonModal, CloseButton, ErrorAlert, FormikTextField, SelectField, SuccessAlert, TextField } from "@/components";
 import { FormikSelectField } from "@/components/field/field";
+import api from "@/services/api/api";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
@@ -74,10 +75,10 @@ export const CadastroProdutoModal: React.FC = () => {
                                         fornecedor_id: fornecedorEncontrado.id,
                                     };
 
-                                    const postResponse = await axios.post('http://localhost:8080/produtos', produtoBody);
+                                    const response = await api.post('/produtos', produtoBody);
 
-                                    if (postResponse.status === 201) {
-                                        setSucessMessage(postResponse.data.message)
+                                    if (response.status === 201) {
+                                        setSucessMessage(response.data.message)
                                         setTimeout(() => { setIsOpen(false) }, 2000);
                                         window.location.reload(); 
                                     }

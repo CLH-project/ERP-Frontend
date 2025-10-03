@@ -1,5 +1,5 @@
 import { Button, FormEdicaoProduto, LoadingSpinner, ModalConfirm, PaginateButton, SelectField, TextField } from "@/components";
-import { useAuth } from "@/services/usuario/auth/AuthContext";
+import api from "@/services/api/api";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -29,12 +29,12 @@ export const TabelaProdutos: React.FC = () => {
         setLoading(true);
         try {
             if (filtroCampo === 'todos') {
-                const response = await axios.get(`http://localhost:8080/produtos?page=${page}` , {withCredentials: true});
+                const response = await api.get(`/produtos?page=${page}`);
+
                 setProdutos(response.data.produtos)
                 setPager(response.data.pager);
             } else {
-                const response = await axios.get(`http://localhost:8080/produtos/filter`, {
-                    withCredentials: true,
+                const response = await api.get(`/produtos/filter`, {
                     params: {
                         [filtroCampo]: filtroTexto,
                     },

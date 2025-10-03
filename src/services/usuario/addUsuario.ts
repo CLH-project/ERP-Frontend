@@ -1,8 +1,8 @@
-import axios from "axios";
+import api from "@/services/api/api";
 
 export async function addUsuario(Usuario: { nome: string, cpf: string, senha: string, cargo: string }) {
     try {
-        const response = await axios.post("http://localhost:8080/usuarios", Usuario)
+        const response = await api.post("/usuarios", Usuario)
 
         return {
             status: response.status,

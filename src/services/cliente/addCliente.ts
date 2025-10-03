@@ -1,9 +1,10 @@
 import axios from "axios";
+import api from "../api/api";
 
 export async function addCliente(Cliente: { nome: string, cpf: string, telefone: string }) {
     try {
+        const response = await api.post("/clientes", Cliente);
 
-        const response = await axios.post("http://localhost:8080/clientes", Cliente, {withCredentials: true})
         return {
             status: response.status,
             data: response.data
@@ -18,7 +19,7 @@ export async function addCliente(Cliente: { nome: string, cpf: string, telefone:
                 messages: error.response.data.messages || {}
             }
         }
-
+        
         return {
             status: 500,
             error: 500,

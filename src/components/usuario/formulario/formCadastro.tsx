@@ -35,6 +35,7 @@ export const CadastroUsuarioModal: React.FC = () => {
                                     setSubmitting(true);
                                     try {
                                         const response = await addUsuario(values);
+                                        
                                         if (response.status === 201) {
                                             setSucessMessage(response.data.message);
                                             setTimeout(() => { setIsOpen(false) }, 2000);

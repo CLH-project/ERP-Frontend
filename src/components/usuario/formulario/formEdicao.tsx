@@ -6,6 +6,7 @@ import { useState } from "react"
 import * as Yup from "yup";
 import axios from 'axios';
 import { FormikSelectField } from "@/components/field/field";
+import api from "@/services/api/api";
 
 interface Usuario {
     id: string,
@@ -51,7 +52,7 @@ export const FormEdicaoUsuario: React.FC<FormProps> = ({ usuario }) => {
                                 cargo: Yup.string().required("Cargo obrigatório"),
                             })}
 
-                            onSubmit={async (values, { setSubmitting, setErrors, resetForm }) => {
+                            onSubmit={async (values, { setSubmitting, setErrors }) => {
                                 try {
 
                                     const usuarioAtualizado = {
@@ -62,7 +63,7 @@ export const FormEdicaoUsuario: React.FC<FormProps> = ({ usuario }) => {
                                         cargo: values.cargo
                                     }
 
-                                    const putResponse = await axios.put(`http://localhost:8080/usuarios/${usuario.id}`, usuarioAtualizado)
+                                    const putResponse = await api.put(`/usuarios/${usuario.id}`, usuarioAtualizado)
 
                                     if (putResponse.status === 200) {
                                         setSucessMessage(putResponse.data.message);
