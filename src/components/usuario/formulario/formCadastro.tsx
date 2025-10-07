@@ -1,4 +1,6 @@
-import { CadastroButtonModal, TextField, Button, MaskedTextField, SuccessAlert, ErrorAlert, FormikTextField, CloseButton } from "@/components"
+'use client'
+
+import { CadastroButtonModal, Button, MaskedTextField, SuccessAlert, ErrorAlert, FormikTextField, CloseButton } from "@/components"
 import { Formik, Form } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";

@@ -91,7 +91,7 @@ interface CloseButtonProps {
 
 export const CloseButton: React.FC<SidebarButtonProps> = ({ onClick }) => {
     return <button type="button" onClick={onClick}
-        className="cursor-pointer absolute top-3 end-2.5 text-[#725743] bg-transparent hover:bg-[#725743] rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:text-white">
+        className="cursor-pointer top-3 end-2.5 text-[#725743] bg-transparent hover:bg-[#725743] rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:text-white">
         <svg className="w-3 h-3"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"

@@ -1,3 +1,5 @@
+'use client'
+
 import { Button, FormEdicaoProduto, LoadingSpinner, ModalConfirm, PaginateButton, SelectField, TextField } from "@/components";
 import api from "@/services/api/api";
 import axios from "axios";

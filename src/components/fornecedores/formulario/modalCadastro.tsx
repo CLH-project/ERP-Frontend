@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import { TextField, Button, MaskedTextField, ErrorAlert, SuccessAlert, CadastroButtonModal, FormikTextField, CloseButton } from "@/components";
@@ -13,7 +15,7 @@ export const CadastroFornecedorModal: React.FC = () => {
             <CadastroButtonModal name="Novo fornecedor" onClick={() => { setIsOpen(true) }} urlIcon="/icons/supplier-icon.svg" />
 
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
+                <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20 backdrop-blur-sm">
                     <div className="w-full md:w-3xl bg-[#f3f3f3] rounded-2xl shadow-2x px-6 py-8">
                         <Formik
 

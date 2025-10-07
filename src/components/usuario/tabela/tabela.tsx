@@ -1,6 +1,7 @@
+'use client'
+
 import { FormEdicaoUsuario, LoadingSpinner, ModalConfirm, PaginateButton, SelectField, TextField } from "@/components";
 import api from "@/services/api/api";
-import axios from "axios";
 import { useState, useEffect } from "react";
 
 interface Usuario {

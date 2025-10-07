@@ -1,3 +1,5 @@
+'use client'
+
 import { ErrorMessage, useField } from 'formik'
 import { Button, CloseButton } from '@/components'
 
@@ -59,10 +61,13 @@ export const ModalConfirm: React.FC<ModalConfirm> = ({ title, message, onConfirm
             className={`${isOpen ? 'flex' : 'hidden'
                 } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center cursor-default items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}
         >
-            <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/5">
+            <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/30 backdrop-blur-sm">
                 <div className="relative bg-[#f3f3f3] rounded-lg ">
-                    <CloseButton onClick={onCancel}/>
-                    <div className="p-4 md:p-5 text-center">
+                    <div className="flex p-3">
+                         <CloseButton onClick={onCancel}/>
+                    </div>
+                   
+                    <div className="md:p-5 text-center">
                         <svg className="mx-auto mb-4 text-[#B23C3C] w-12 h-12"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"

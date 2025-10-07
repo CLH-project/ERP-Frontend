@@ -1,8 +1,9 @@
+'use client'
+
 import { Button, CadastroButtonModal, CloseButton, ErrorAlert, FormikTextField, SelectField, SuccessAlert, TextField } from "@/components";
 import { FormikSelectField } from "@/components/field/field";
 import api from "@/services/api/api";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
-import axios from "axios";
 import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react"
 import * as Yup from "yup";
@@ -28,7 +29,7 @@ export const CadastroProdutoModal: React.FC = () => {
             <CadastroButtonModal name="Novo produto" onClick={() => { setIsOpen(true) }} urlIcon="/icons/product-icon.svg" />
 
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
+                <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20 backdrop-blur-sm">
                     <div className="w-full md:w-3xl bg-[#f3f3f3] rounded-2xl shadow-2xl px-6 py-8 box-border">
 
                         <Formik
