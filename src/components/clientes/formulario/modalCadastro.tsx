@@ -1,4 +1,6 @@
-import { CadastroButtonModal, TextField, Button, MaskedTextField, SuccessAlert, ErrorAlert, FormikTextField } from "@/components"
+'use client'
+
+import { CadastroButtonModal, Button, MaskedTextField, SuccessAlert, ErrorAlert, FormikTextField, CloseButton } from "@/components"
 import { Formik, Form } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
@@ -14,7 +16,7 @@ export const CadastroClienteModal: React.FC = () => {
             <CadastroButtonModal onClick={() => { setIsOpen(true) }} name="Novo cliente" urlIcon="/icons/customer-icon.svg" />
 
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
+                <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20 backdrop-blur-sm">
                     <div className="w-full md:w-3xl bg-[#F3F3F3] rounded-2xl shadow-2xl px-6 py-8">
                         <Formik
                             initialValues={{ nome: "", cpf: "", telefone: "" }}
@@ -25,10 +27,10 @@ export const CadastroClienteModal: React.FC = () => {
                             })}
 
                             onSubmit={
-                                async (values, { setSubmitting, setErrors, resetForm }) => {
+                                async (values, { setSubmitting, setErrors }) => {
                                     setSubmitting(true);
                                     try {
-                                        const response = await addCliente(values);
+                                        const response = await addCliente( values )
 
                                         if (response.status === 201) {
                                             setSucessMessage(response.data.message);
@@ -37,8 +39,8 @@ export const CadastroClienteModal: React.FC = () => {
                                             return;
                                         }
 
-                                        if (response.status === 400 && response.error === 400) {
-                                            const { messages } = response;
+                                        if (response.status === 400) {
+                                            const { messages } = response.data;
                                             const fieldErrors: Record<string, string> = {};
 
                                             if (messages.nome) fieldErrors.nome = messages.nome;
@@ -57,8 +59,9 @@ export const CadastroClienteModal: React.FC = () => {
                                 <Form className="flex flex-col gap-5">
                                     <div className="flex justify-between mb-5">
                                         <h1 className="text-xl font-bold">Novo Cliente</h1>
-                                        <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg"/></button>
+                                        <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
+                                    
                                     <div >
                                         <FormikTextField name="nome" type="text" placeholder="Digite o nome do cliente" label="Nome"/>
                                         <ErrorAlert name="nome" component="div" />

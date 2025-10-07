@@ -1,5 +1,9 @@
+'use client'
+
 import { Button, FormEdicaoProduto, LoadingSpinner, ModalConfirm, PaginateButton, SelectField, TextField } from "@/components";
+import api from "@/services/api/api";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 interface Produto {
@@ -21,15 +25,18 @@ export const TabelaProdutos: React.FC = () => {
     const [filtroTexto, setFiltroTexto] = useState('');
     const [filtroCampo, setFiltroCampo] = useState('todos');
 
+    const router = useRouter();
+
     const pesquisarProdutos = async (page = 1) => {
         setLoading(true);
         try {
             if (filtroCampo === 'todos') {
-                const response = await axios.get(`http://localhost:8080/produtos?page=${page}`);
+                const response = await api.get(`/produtos?page=${page}`);
+
                 setProdutos(response.data.produtos)
                 setPager(response.data.pager);
             } else {
-                const response = await axios.get(`http://localhost:8080/produtos/filter`, {
+                const response = await api.get(`/produtos/filter`, {
                     params: {
                         [filtroCampo]: filtroTexto,
                     },

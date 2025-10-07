@@ -1,6 +1,8 @@
+'use client'
+
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { TextField, Button, MaskedTextField, ErrorAlert, SuccessAlert, CadastroButtonModal, FormikTextField } from "@/components";
+import { TextField, Button, MaskedTextField, ErrorAlert, SuccessAlert, CadastroButtonModal, FormikTextField, CloseButton } from "@/components";
 import * as Yup from "yup";
 import axios from "axios";
 export const CadastroFornecedorModal: React.FC = () => {
@@ -13,7 +15,7 @@ export const CadastroFornecedorModal: React.FC = () => {
             <CadastroButtonModal name="Novo fornecedor" onClick={() => { setIsOpen(true) }} urlIcon="/icons/supplier-icon.svg" />
 
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
+                <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20 backdrop-blur-sm">
                     <div className="w-full md:w-3xl bg-[#f3f3f3] rounded-2xl shadow-2x px-6 py-8">
                         <Formik
 
@@ -42,8 +44,9 @@ export const CadastroFornecedorModal: React.FC = () => {
                                             if (response.status === 201) {
                                                 setSucessMessage(response.data.message);
                                                 setTimeout(() => { setIsOpen(false) }, 2000);
-                                                window.location.reload(); 
+                                                window.location.reload();
                                             }
+
                                             setSubmitting(false);
                                         })
                                         .catch((error) => {
@@ -67,13 +70,13 @@ export const CadastroFornecedorModal: React.FC = () => {
                                                 setErrors(fieldErrors);
                                             }
                                             setSubmitting(false);
-                                        });
+                                        })
                                 }}>
                             {({ isSubmitting }) => (
                                 <Form className="flex flex-col gap-5">
                                     <div className="flex justify-between mb-5">
                                         <h1 className="text-xl font-bold">Novo Cliente</h1>
-                                        <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
+                                        <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
                                     <div >
                                         <FormikTextField name="nome" type="text" placeholder="Digite o nome do fornecedor" label="Nome" />

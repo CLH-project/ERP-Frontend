@@ -1,3 +1,5 @@
+'use client'
+
 import { Field, useField } from "formik";
 import { InputMask } from "@react-input/mask";
 

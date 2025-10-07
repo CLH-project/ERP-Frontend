@@ -1,11 +1,12 @@
 'use client'
 
-import { Button, ErrorAlert, FormikTextField, SelectField, SuccessAlert, TextField } from "@/components";
+import { Button, CloseButton, ErrorAlert, FormikTextField, SelectField, SuccessAlert, TextField } from "@/components";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 import { Formik, Form, Field } from "formik";
 import { useEffect, useState } from "react"
 import * as Yup from "yup";
 import axios from 'axios';
+import api from "@/services/api/api";
 
 interface Fornecedor {
     id: string;
@@ -45,7 +46,7 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
             </button>
 
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20">
+                <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20 backdrop-blur-sm">
                     <div className="bg-gray-50 rounded-2xl shadow-md px-4 py-6">
 
                         <Formik
@@ -92,7 +93,7 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
                                         fornecedor_id: fornecedorEncontrado.id,
                                     }
 
-                                    const putResponse = await axios.put(`http://localhost:8080/produtos/${produto.id}`, produtoAtualizado)
+                                    const putResponse = await api.put(`/produtos/${produto.id}`, produtoAtualizado)
 
                                     if (putResponse.status === 200) {
                                         setSucessMessage(putResponse.data.message);
@@ -112,7 +113,7 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
                                 <Form className="flex flex-col gap-5 ">
                                     <div className="flex justify-between mb-5">
                                         <h1 className="text-xl font-bold">Editar Produto</h1>
-                                        <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
+                                        <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
                                     <div>
                                         <FormikTextField name="nome" type="text" placeholder="Digite o nome do produto" />

@@ -1,11 +1,12 @@
 'use client'
 
-import { Button, ErrorAlert, FormikTextField, MaskedTextField, SelectField, SuccessAlert } from "@/components";
+import { Button, CloseButton, ErrorAlert, FormikTextField, MaskedTextField, SuccessAlert } from "@/components";
 import { Formik, Form } from "formik";
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import * as Yup from "yup";
 import axios from 'axios';
 import { FormikSelectField } from "@/components/field/field";
+import api from "@/services/api/api";
 
 interface Usuario {
     id: string,
@@ -51,7 +52,7 @@ export const FormEdicaoUsuario: React.FC<FormProps> = ({ usuario }) => {
                                 cargo: Yup.string().required("Cargo obrigatório"),
                             })}
 
-                            onSubmit={async (values, { setSubmitting, setErrors, resetForm }) => {
+                            onSubmit={async (values, { setSubmitting, setErrors }) => {
                                 try {
 
                                     const usuarioAtualizado = {
@@ -62,18 +63,22 @@ export const FormEdicaoUsuario: React.FC<FormProps> = ({ usuario }) => {
                                         cargo: values.cargo
                                     }
 
-                                    const putResponse = await axios.put(`http://localhost:8080/usuarios/${usuario.id}`, usuarioAtualizado)
+                                    const putResponse = await api.put(`/usuarios/${usuario.id}`, usuarioAtualizado)
 
                                     if (putResponse.status === 200) {
                                         setSucessMessage(putResponse.data.message);
-                                        setTimeout(() => { setIsOpen(false); setSucessMessage(""); resetForm(); }, 2000);
+                                        setTimeout( () => { setIsOpen(false); }, 2000 );
+                                        window.location.reload();
                                     }
+
                                 } catch (error: any) {
+
                                     if (error.response?.status === 400 && error.response.data?.errors) {
                                         setErrors(error.response.data.errors);
                                     } else {
                                         alert('Erro inesperado: ');
                                     }
+                                    
                                 } finally {
                                     setSubmitting(false);
                                 }
@@ -82,7 +87,7 @@ export const FormEdicaoUsuario: React.FC<FormProps> = ({ usuario }) => {
                                 <Form className="flex flex-col gap-5 ">
                                     <div className="flex justify-between mb-5">
                                         <h1 className="text-xl font-bold">Editar Usuário</h1>
-                                        <button className="cursor-pointer hover:opacity-20" onClick={() => setIsOpen(false)}><img src="icons/close-button.svg" /></button>
+                                        <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
                                     <div >
                                         <FormikTextField name="nome" type="text" placeholder="Digite o nome do usuário" label="Nome" />
@@ -95,7 +100,7 @@ export const FormEdicaoUsuario: React.FC<FormProps> = ({ usuario }) => {
                                     </div>
 
                                     <div >
-                                        <FormikTextField name="senha" type="password" placeholder="Digite o nome do usuário" label="Senha" />
+                                        <FormikTextField name="senha" type="password" placeholder="Digite a senha de usuário" label="Senha" />
                                         <ErrorAlert name="senha" component="div" />
                                     </div>
 
@@ -103,7 +108,7 @@ export const FormEdicaoUsuario: React.FC<FormProps> = ({ usuario }) => {
                                         <FormikSelectField label="Cargo" options={["Cargo", "gerente", "caixa"]} name="cargo" />
                                         <ErrorAlert name="cargo" component="div" />
                                     </div>
-                                    <Button functionName="Confirmar Edição" type="submit" disabled={isSubmitting} />
+                                    <Button theme="primary" functionName="Confirmar Edição" type="submit" disabled={isSubmitting} />
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage}/>}
                                 </Form>
                             )}
