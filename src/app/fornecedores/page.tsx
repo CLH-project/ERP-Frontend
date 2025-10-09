@@ -9,7 +9,7 @@ export default function ListaFornecedores() {
   return (
     <div className="w-full h-screen flex flex-col ">
       <Header />
-      <div className="mt-10 flex flex-col px-5">
+      <div className="mt-10 flex flex-col px-5 md:px-24 md:justify-center">
         <div className="text-2xl font-bold mb-5">
           <h1>Fornecedores</h1>
         </div>

@@ -81,7 +81,7 @@ export const CadastroProdutoModal: React.FC = () => {
                                     if (response.status === 201) {
                                         setSucessMessage(response.data.message)
                                         setTimeout(() => { setIsOpen(false) }, 2000);
-                                        window.location.reload(); 
+                                        window.location.reload();
                                     }
 
                                 } catch (error: any) {
@@ -100,47 +100,55 @@ export const CadastroProdutoModal: React.FC = () => {
                                         <h1 className="text-xl font-bold">Novo Produto</h1>
                                         <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
-                                    <div>
-                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do produto" label="Nome" />
-                                        <ErrorAlert name="nome" component="div" />
-                                    </div>
 
-                                    <div>
-                                        <FormikTextField name="marca" type="text" placeholder="Digite a marca do produto" label="Marca" />
-                                        <ErrorAlert name="marca" component="div" />
-                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-                                    <div className="flex flex-col md:flex-row justify-between items-center gap-3">
-                                        <div>
-                                            <FormikTextField name="valor_unico" type="number" placeholder="Valor do produto" label="Valor" />
-                                            <ErrorAlert name="valor_unico" component="div" />
+                                        <div >
+                                            <FormikTextField name="nome" type="text" placeholder="Digite o nome do produto" label="Nome" />
+                                            <ErrorAlert name="nome" component="div" />
                                         </div>
 
                                         <div>
-                                            <FormikTextField name="estoque" type="number" placeholder="quantidade" label="Estoque" />
-                                            <ErrorAlert name="estoque" component="div" />
-                                        </div>
-                                    </div>
-
-                                    <div className="flex flex-col md:flex-row gap-3 items-center justify-center">
-                                        <div className="w-full">
-                                            <FormikTextField type="text" name="fornecedor_nome" placeholder="Nome do Fornecedor" label="Fornecedor" />
-                                            <ErrorAlert name="fornecedor_nome" component="div" />
+                                            <FormikTextField name="marca" type="text" placeholder="Digite a marca do produto" label="Marca" />
+                                            <ErrorAlert name="marca" component="div" />
                                         </div>
 
+                                        <div className="grid grid-cols-2 gap-5">
+                                            <div>
+                                                <FormikTextField name="valor_unico" type="number" placeholder="Valor do produto" label="Valor" />
+                                                <ErrorAlert name="valor_unico" component="div" />
+                                            </div>
+
+                                            <div>
+                                                <FormikTextField name="estoque" type="number" placeholder="quantidade" label="Estoque" />
+                                                <ErrorAlert name="estoque" component="div" />
+                                            </div>
+
+
+                                        </div>
+
+                                        <div className="">
+                                            <div className="w-full">
+                                                <FormikTextField type="text" name="fornecedor_nome" placeholder="Nome do Fornecedor" label="Fornecedor" />
+                                                <ErrorAlert name="fornecedor_nome" component="div" />
+                                            </div>
+                                        </div>
                                         <div className="w-full">
                                             <FormikSelectField label="Categoria" options={["Categoria", "Alcolico", "Não Alcolico"]} name="categoria" />
                                             <ErrorAlert name="categoria" component="div" />
                                         </div>
                                     </div>
-                                    <Button theme="primary" functionName="Adicionar Produto" type="submit" disabled={isSubmitting} />
-                                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
+
+                                    <div className="flex flex-col md:flex-row gap-5">
+                                        <Button theme="primary" functionName="Adicionar Produto" type="submit" disabled={isSubmitting} />
+                                        {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
+                                        <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
+                                    </div>
+
+
                                 </Form>
                             )}
                         </Formik>
-                        <div className="mt-5">
-                            <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
-                        </div>
                     </div>
                 </div>
             )}

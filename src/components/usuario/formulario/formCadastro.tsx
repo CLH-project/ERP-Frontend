@@ -54,7 +54,7 @@ export const CadastroUsuarioModal: React.FC = () => {
                             {({ isSubmitting }) => (
                                 <Form className="flex flex-col gap-5">
                                     <div className="flex justify-between mb-5">
-                                        <h1 className="text-xl font-bold">Novo Usuário</h1>
+                                        <h1 className="text-xl font-bold">Cadastrar Usuário</h1>
                                         <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
                                     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 auto-rows-min">

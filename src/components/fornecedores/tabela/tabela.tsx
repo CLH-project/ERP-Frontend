@@ -2,10 +2,9 @@
 
 import { ModalConfirm } from "@/components/alerts/alerts";
 import { Button, LoadingSpinner, PaginateButton, TextField } from "@/components";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
-import { useAuth } from "@/services/usuario/auth/AuthContext";
+import api from "@/services/api/api";
 
 interface Fornecedor {
   id: string;
@@ -28,7 +27,7 @@ export const TabelaFornecedores: React.FC = () => {
 
     try {
       if (filtroTexto === "") {
-        const response = await axios.get(`http://localhost:8080/fornecedores?page=${page}`, {withCredentials: true});
+        const response = await api.get(`/fornecedores?page=${page}`, { withCredentials: true });
         setFornecedores(response.data.fornecedores);
         setPager(response.data.pager);
       } else {
@@ -57,7 +56,7 @@ export const TabelaFornecedores: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:8080/fornecedor/${id}`);
+      await api.delete(`http://localhost:8080/fornecedor/${id}`);
       setFornecedorParaDeletar(null);
 
       pesquisarFornecedores(pager.currentPage);

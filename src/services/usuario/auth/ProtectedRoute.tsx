@@ -9,7 +9,7 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
     const router = useRouter()
 
     useEffect(() => {
-        if(!token) {
+        if(!localStorage.getItem("token") && !token) {
             router.push("/login");
         }
     })
