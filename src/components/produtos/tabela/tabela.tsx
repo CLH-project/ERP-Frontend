@@ -73,12 +73,16 @@ export const TabelaProdutos: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center w-full">
-            <div className="w-full flex flex-col gap-2 mt-3 mb-5 ">
-                <div className="flex flex-col gap-2 mb-2 md:flex-row md:gap-4 ">
-                    <SelectField label="Filtrar por:" options={["todos", "nome"]} name="" change={(e) => setFiltroCampo(e.target.value)} />
+            <div className="w-full mt-4 mb-4 flex flex-col md:flex-row gap-3 ">
+                <div className="md:w-[15rem]">
+                    <SelectField options={["todos", "nome"]} name="" change={(e) => setFiltroCampo(e.target.value)} />
+                </div>
+                <div className="md:w-[30rem]">
                     <TextField name="filtro" value={filtroTexto} placeholder={filtroCampo} change={(e) => setFiltroTexto(e.target.value)} />
                 </div>
-                <Button onClick={() => pesquisarProdutos(1)} functionName="Pesquisar" theme="secondary" />
+                <div className="md:w-[15rem]">
+                    <Button onClick={() => pesquisarProdutos(1)} functionName="Pesquisar" theme="secondary" />
+                </div>
             </div>
             {loading ? (
                 <LoadingSpinner />

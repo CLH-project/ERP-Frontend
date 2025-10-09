@@ -86,14 +86,17 @@ export const TabelaClientes: React.FC = () => {
         <LoadingSpinner />
       ) : (
         <>
-          <div className="w-full flex flex-col gap-2 mt-3 mb-5">
-            <div className="flex gap-2">
-              <div className="w-[10rem]">
-                <SelectField options={["todos", "id", "cpf"]} name="filtro" change={(e: any) => setFiltroCampo(e.target.value)} />
-              </div>
-              <TextField name={filtroTexto} change={(e) => setFiltroTexto(e.target.value)} placeholder={filtroCampo} type="text" value={filtroTexto} />
+          <div className="w-full mt-4 mb-4 flex flex-col md:flex-row gap-3 ">
+            <div className="md:w-[15rem]">
+              <SelectField options={["todos", "id", "cpf"]} name="filtro" change={(e: any) => setFiltroCampo(e.target.value)} />
             </div>
-            <Button theme="secondary" functionName="Pesquisar" onClick={() => pesquisarClientes(1)} />
+            <div className="md:w-[30rem]">
+              <TextField name="filtroTexto" type="text" placeholder={filtroCampo === "id" ? "Digite o ID do cliente" : filtroCampo === "cpf" ? "Digite o CPF do cliente" : "Pesquise por ID ou CPF"} value={filtroTexto} change={(e: any) => setFiltroTexto(e.target.value)} />
+            </div>
+            <div className="md:w-[15rem]">
+              <Button theme="secondary" functionName="Pesquisar" onClick={() => pesquisarClientes(1)} />
+            </div>
+
           </div>
 
           <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto p-5">
@@ -138,7 +141,7 @@ export const TabelaClientes: React.FC = () => {
               </tbody>
             </table>
           </div>
-          <div className=" flex gap-4 p-3 items-center">
+          <div className=" w-full flex gap-4 p-3 justify-center items-center">
             <PaginateButton direction="previous" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1} />
             <span className="font-medium text-sm text-[#9B6D39]">
               Página {pager.currentPage} de {pager.totalPages}

@@ -75,36 +75,40 @@ export const CadastroFornecedorModal: React.FC = () => {
                             {({ isSubmitting }) => (
                                 <Form className="flex flex-col gap-5">
                                     <div className="flex justify-between mb-5">
-                                        <h1 className="text-xl font-bold">Novo Cliente</h1>
+                                        <h1 className="text-xl font-bold">Cadastrar Fornecedor</h1>
                                         <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
-                                    <div >
-                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do fornecedor" label="Nome" />
-                                        <ErrorAlert name="nome" component="div" />
-                                    </div>
 
-                                    <div >
-                                        <MaskedTextField name="cnpj" mask="XX.XXX.XXX/XXXX-XX" placeholder="Digite o CNPJ do fornecedor" label="CNPJ" />
-                                        <ErrorAlert name="cnpj" component="div" />
-                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-                                    <div>
-                                        <FormikTextField name="contato.email" placeholder="Digite o email do fornecedor" label="Email" />
-                                        <ErrorAlert name="contato.email" component="div" />
-                                    </div>
+                                        <div >
+                                            <FormikTextField name="nome" type="text" placeholder="Digite o nome do fornecedor" label="Nome" />
+                                            <ErrorAlert name="nome" component="div" />
+                                        </div>
 
-                                    <div>
-                                        <MaskedTextField name="contato.telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do fornecedor" label="Telefone" />
-                                        <ErrorAlert name="contato.telefone" component="div" />
+                                        <div >
+                                            <MaskedTextField name="cnpj" mask="XX.XXX.XXX/XXXX-XX" placeholder="Digite o CNPJ do fornecedor" label="CNPJ" />
+                                            <ErrorAlert name="cnpj" component="div" />
+                                        </div>
+
+                                        <div>
+                                            <FormikTextField name="contato.email" placeholder="Digite o email do fornecedor" label="Email" />
+                                            <ErrorAlert name="contato.email" component="div" />
+                                        </div>
+
+                                        <div>
+                                            <MaskedTextField name="contato.telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do fornecedor" label="Telefone" />
+                                            <ErrorAlert name="contato.telefone" component="div" />
+                                        </div>
                                     </div>
-                                    <Button theme="primary" functionName="Adicionar Fornecedor" type="submit" disabled={isSubmitting} />
-                                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
+                                    <div className="flex flex-col md:flex-row gap-5">
+                                        <Button theme="primary" functionName="Adicionar Fornecedor" type="submit" disabled={isSubmitting} />
+                                        {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
+                                        <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
+                                    </div>
                                 </Form>
                             )}
                         </Formik>
-                        <div className="mt-5">
-                            <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
-                        </div>
                     </div>
                 </div>
             )}

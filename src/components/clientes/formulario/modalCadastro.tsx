@@ -30,12 +30,12 @@ export const CadastroClienteModal: React.FC = () => {
                                 async (values, { setSubmitting, setErrors }) => {
                                     setSubmitting(true);
                                     try {
-                                        const response = await addCliente( values )
+                                        const response = await addCliente(values)
 
                                         if (response.status === 201) {
                                             setSucessMessage(response.data.message);
                                             setTimeout(() => { setIsOpen(false) }, 2000);
-                                            window.location.reload(); 
+                                            window.location.reload();
                                             return;
                                         }
 
@@ -61,28 +61,34 @@ export const CadastroClienteModal: React.FC = () => {
                                         <h1 className="text-xl font-bold">Novo Cliente</h1>
                                         <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
-                                    
-                                    <div >
-                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do cliente" label="Nome"/>
-                                        <ErrorAlert name="nome" component="div" />
+
+                                    <div className="grid cols-1 md:grid-cols-2 gap-4">
+                                        <div >
+                                            <FormikTextField name="nome" type="text" placeholder="Digite o nome do cliente" label="Nome" />
+                                            <ErrorAlert name="nome" component="div" />
+                                        </div>
+
+                                        <div >
+                                            <MaskedTextField name="cpf" mask="XXX.XXX.XXX-XX" placeholder="Digite o CPF do cliente" label="CPF" />
+                                            <ErrorAlert name="cpf" component="div" />
+                                        </div>
+
+                                        <div>
+                                            <MaskedTextField name="telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do cliente" label="Telefone" />
+                                            <ErrorAlert name="telefone" component="div" />
+                                        </div>
                                     </div>
 
-                                    <div >
-                                        <MaskedTextField name="cpf" mask="XXX.XXX.XXX-XX" placeholder="Digite o CPF do cliente" label="CPF"/>
-                                        <ErrorAlert name="cpf" component="div" />
+                                    <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
+                                        <Button functionName="Adicionar Cliente" theme="primary" type="submit" disabled={isSubmitting} />
+                                        {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
+                                        <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
                                     </div>
-
-                                    <div>
-                                        <MaskedTextField name="telefone" mask="(XX) XXXXX-XXXX" placeholder="Digite o telefone do cliente" label="Telefone" />
-                                        <ErrorAlert name="telefone" component="div" />
-                                    </div>
-                                    <Button functionName="Adicionar Cliente" theme="primary" type="submit" disabled={isSubmitting} />
-                                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}
                         </Formik>
                         <div className="mt-5">
-                            <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
+
                         </div>
                     </div>
                 </div>

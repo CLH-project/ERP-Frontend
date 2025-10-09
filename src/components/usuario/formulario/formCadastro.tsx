@@ -37,7 +37,7 @@ export const CadastroUsuarioModal: React.FC = () => {
                                     setSubmitting(true);
                                     try {
                                         const response = await addUsuario(values);
-                                        
+
                                         if (response.status === 201) {
                                             setSucessMessage(response.data.message);
                                             setTimeout(() => { setIsOpen(false) }, 2000);
@@ -54,41 +54,45 @@ export const CadastroUsuarioModal: React.FC = () => {
                             {({ isSubmitting }) => (
                                 <Form className="flex flex-col gap-5">
                                     <div className="flex justify-between mb-5">
-                                        <h1 className="text-xl font-bold">Novo Usuário</h1>
+                                        <h1 className="text-xl font-bold">Cadastrar Usuário</h1>
                                         <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
-                                    <div >
-                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do usuário" label="Nome" />
-                                        <ErrorAlert name="nome" component="div" />
-                                    </div>
+                                    <div className="grid gap-4 grid-cols-1 md:grid-cols-2 auto-rows-min">
+                                        <div className="flex flex-col justify-between h-full">
+                                            <FormikTextField name="nome" type="text" placeholder="Digite o nome do usuário" label="Nome" />
+                                            <ErrorAlert name="nome" component="div" />
+                                        </div>
 
-                                    <div >
-                                        <FormikTextField name="login" type="text" placeholder="Digite o login de acesso" label="Login" />
-                                        <ErrorAlert name="login" component="div" />
-                                    </div>
+                                        <div className="flex flex-col justify-between h-full" >
+                                            <FormikTextField name="login" type="text" placeholder="Digite o login de acesso" label="Login" />
+                                            <ErrorAlert name="login" component="div" />
+                                        </div>
 
-                                    <div >
-                                        <MaskedTextField name="cpf" mask="XXX.XXX.XXX-XX" placeholder="Digite o CPF do usuário" label="CPF" />
-                                        <ErrorAlert name="cpf" component="div" />
-                                    </div>
+                                        <div className="flex flex-col justify-between h-full">
+                                            <MaskedTextField name="cpf" mask="XXX.XXX.XXX-XX" placeholder="Digite o CPF do usuário" label="CPF" />
+                                            <ErrorAlert name="cpf" component="div" />
+                                        </div>
 
-                                    <div >
-                                        <FormikTextField name="senha" type="password" placeholder="Digite a senha do usuário" label="Senha" />
-                                        <ErrorAlert name="senha" component="div" />
-                                    </div>
+                                        <div className="flex flex-col justify-between h-full">
+                                            <FormikTextField name="senha" type="password" placeholder="Digite a senha do usuário" label="Senha" />
+                                            <ErrorAlert name="senha" component="div" />
+                                        </div>
 
-                                    <div className="w-full">
-                                        <FormikSelectField label="Cargo" options={["Cargo", "gerente", "caixa"]} name="cargo" />
-                                        <ErrorAlert name="cargo" component="div" />
+                                        <div className="flex flex-col justify-between h-full">
+                                            <FormikSelectField label="Cargo" options={["Cargo", "gerente", "caixa"]} name="cargo" />
+                                            <ErrorAlert name="cargo" component="div" />
+                                        </div>
+
                                     </div>
-                                    <Button functionName="Adicionar Usuário" theme="primary" type="submit" disabled={isSubmitting} />
+                                    <div className="flex flex-col gap-3 md:grid-cols-2 md:grid">
+                                        <Button functionName="Adicionar Usuário" theme="primary" type="submit" disabled={isSubmitting} />
+                                        <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
+                                    </div>
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}
                         </Formik>
-                        <div className="mt-5">
-                            <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
-                        </div>
+
                     </div>
                 </div>
             )}
