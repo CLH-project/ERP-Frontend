@@ -11,15 +11,17 @@ export default function ListaFornecedores() {
       <Header />
       <div className="mt-10 flex flex-col px-5">
         <div className="text-2xl font-bold mb-5">
-            <h1>Fornecedores</h1>
-          </div>
+          <h1>Fornecedores</h1>
+        </div>
         <div className="">
           <div>
             <CadastroFornecedorModal />
           </div>
           <TableFornecedores />
-          <div className="w-full flex justify-center mb-5 mt-5">
-            <Button functionName="Voltar para tela inicial" theme="back" type="button" onClick={() => router.push("/inicio")} />
+          <div className="w-full md:mt-2 flex md:justify-end" >
+            <div className="w-full md:w-[15rem]">
+              <Button theme="back" functionName="Voltar para tela inicial" type="button" onClick={() => router.push("/inicio")} />
+            </div>
           </div>
         </div>
       </div>

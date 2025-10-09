@@ -8,7 +8,7 @@ import { useAuth } from '@/services/usuario/auth/AuthContext';
 export const Sidebar: React.FC = () => {
 
     const router = useRouter();
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
 
     const [isOpen, setIsOpen] = useState(false);
     const toggleSidebar = () => setIsOpen(!isOpen);
@@ -28,10 +28,13 @@ export const Sidebar: React.FC = () => {
             </button>
 
             {isOpen && (
-                <div className="flex flex-col justify-between fixed top-0 left-0 h-screen w-64 bg-white text-white z-[1000] shadow-lg p-4 overflow-y-auto">
-                    <div className="flex justify-between items-center mb-6">
-                        <span className="text-xl font-bold text-[#725743]">ERP CLH</span>
-                        <CloseButton onClick={toggleSidebar} />
+                <div className="flex flex-col justify-between fixed top-0 left-0 h-screen w-64 bg-white text-white z-[1000] shadow-lg p-4 overflow-y-auto rounded-r-2xl">
+                    <div className="w-full flex flex-col">
+                        <div className='w-full flex justify-between items-center'>
+                            <span className="text-xl font-bold text-[#725743]">ERP CLH</span>
+                            <CloseButton onClick={toggleSidebar} />
+                        </div>
+                        user && <p className='text-sm text-gray-600 font-light'>Olá, {user?.nome}</p>
                     </div>
 
                     <div className='flex flex-col'>

@@ -67,7 +67,7 @@ export const FormEdicaoUsuario: React.FC<FormProps> = ({ usuario }) => {
 
                                     if (putResponse.status === 200) {
                                         setSucessMessage(putResponse.data.message);
-                                        setTimeout( () => { setIsOpen(false); }, 2000 );
+                                        setTimeout(() => { setIsOpen(false); }, 2000);
                                         window.location.reload();
                                     }
 
@@ -78,43 +78,50 @@ export const FormEdicaoUsuario: React.FC<FormProps> = ({ usuario }) => {
                                     } else {
                                         alert('Erro inesperado: ');
                                     }
-                                    
+
                                 } finally {
                                     setSubmitting(false);
                                 }
                             }}>
                             {({ isSubmitting }) => (
                                 <Form className="flex flex-col gap-5 ">
+
                                     <div className="flex justify-between mb-5">
                                         <h1 className="text-xl font-bold">Editar Usuário</h1>
                                         <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
-                                    <div >
-                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do usuário" label="Nome" />
-                                        <ErrorAlert name="nome" component="div" />
-                                    </div>
 
-                                    <div >
-                                        <MaskedTextField name="cpf" mask="XXX.XXX.XXX-XX" placeholder="Digite o CPF do usuário" label="CPF" />
-                                        <ErrorAlert name="cpf" component="div" />
-                                    </div>
+                                    <div className="grid gap-4 grid-cols-1 md:grid-cols-2 auto-rows-min">
+                                        <div >
+                                            <FormikTextField name="nome" type="text" placeholder="Digite o nome do usuário" label="Nome" />
+                                            <ErrorAlert name="nome" component="div" />
+                                        </div>
 
-                                    <div >
-                                        <FormikTextField name="senha" type="password" placeholder="Digite a senha de usuário" label="Senha" />
-                                        <ErrorAlert name="senha" component="div" />
-                                    </div>
+                                        <div >
+                                            <MaskedTextField name="cpf" mask="XXX.XXX.XXX-XX" placeholder="Digite o CPF do usuário" label="CPF" />
+                                            <ErrorAlert name="cpf" component="div" />
+                                        </div>
 
-                                    <div className="w-full">
-                                        <FormikSelectField label="Cargo" options={["Cargo", "gerente", "caixa"]} name="cargo" />
-                                        <ErrorAlert name="cargo" component="div" />
+                                        <div >
+                                            <FormikTextField name="senha" type="password" placeholder="Digite a senha de usuário" label="Senha" />
+                                            <ErrorAlert name="senha" component="div" />
+                                        </div>
+
+                                        <div className="w-full">
+                                            <FormikSelectField label="Cargo" options={["Cargo", "gerente", "caixa"]} name="cargo" />
+                                            <ErrorAlert name="cargo" component="div" />
+                                        </div>
                                     </div>
-                                    <Button theme="primary" functionName="Confirmar Edição" type="submit" disabled={isSubmitting} />
-                                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage}/>}
+                                    <div className="flex flex-col gap-3 md:grid-cols-2 md:grid">
+                                        <Button theme="primary" functionName="Confirmar Edição" type="submit" disabled={isSubmitting} />
+                                        {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
+                                        <Button theme="back" functionName="Fechar" onClick={() => setIsOpen(false)} />
+                                    </div>
                                 </Form>
                             )}
                         </Formik>
                         <div className="mt-5">
-                            <Button theme="back" functionName="Fechar" onClick={() => setIsOpen(false)} />
+
                         </div>
                     </div>
                 </div>

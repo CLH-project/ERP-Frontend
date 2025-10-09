@@ -14,10 +14,6 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
         }
     })
 
-    if(!token) {
-        return null;
-    }
-
     return <>{children}</>;
 }
 
