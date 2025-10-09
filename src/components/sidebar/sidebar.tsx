@@ -8,11 +8,11 @@ import { useAuth } from '@/services/usuario/auth/AuthContext';
 export const Sidebar: React.FC = () => {
 
     const router = useRouter();
-    const { logout, user } = useAuth();
+    const { logout } = useAuth();
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('usuario') || 'null'));
 
     const [isOpen, setIsOpen] = useState(false);
     const toggleSidebar = () => setIsOpen(!isOpen);
-
 
     const handleLogout = () => {
         logout();
@@ -34,7 +34,7 @@ export const Sidebar: React.FC = () => {
                             <span className="text-xl font-bold text-[#725743]">ERP CLH</span>
                             <CloseButton onClick={toggleSidebar} />
                         </div>
-                        user && <p className='text-sm text-gray-600 font-light'>Olá, {user?.nome}</p>
+                        user && <p className='text-sm text-gray-600 font-light'>Olá, {user.nome}</p>
                     </div>
 
                     <div className='flex flex-col'>

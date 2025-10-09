@@ -1,7 +1,7 @@
 'use client'
 
 import { Formik, Form, ErrorMessage } from "formik";
-import { TextField, Button, ErrorAlert, FormikTextField } from "@/components";
+import { TextField, Button, ErrorAlert, FormikTextField, SuccessAlert } from "@/components";
 import { useAuth } from "@/services/usuario/auth/AuthContext";
 
 import React from "react";
@@ -11,7 +11,9 @@ import { useRouter } from "next/navigation";
 
 export const LoginForm: React.FC = () => {
     const router = useRouter();
-    const {login} = useAuth();
+    const { login } = useAuth();
+    const [SucessMessage, setSucessMessage] = React.useState("")
+    const [ErrorMessage, setErrorMessage] = React.useState("")
 
     const validationSchema = Yup.object(
         {
@@ -25,13 +27,19 @@ export const LoginForm: React.FC = () => {
             initialValues={{ login: "", senha: "" }}
             validationSchema={validationSchema}
 
-            onSubmit={async (values, { setSubmitting, setErrors },) => {
-                
-                try {
-                     await login(values.login, values.senha)
-                    router.replace("/inicio");
-                } catch (error: any) {
+            onSubmit={async (values, { setSubmitting },) => {
 
+                try {
+                    const response: any = await login(values.login, values.senha)
+
+                    if (response?.status === 200) {
+                        setSucessMessage("Login realizado com sucesso!");
+                        setTimeout(() => { router.push("/inicio"); }, 1000);
+                    } else {
+                        setErrorMessage(response.data.error);
+                    }
+                } catch (error: any) {
+                    setErrorMessage(error.data?.error);
                 } finally {
                     setSubmitting(false);
                 }
@@ -50,6 +58,8 @@ export const LoginForm: React.FC = () => {
                     </div>
 
                     <Button theme="primary" functionName="login" type="submit" disabled={isSubmitting} />
+                    {ErrorMessage && <SuccessAlert SuccessMessage={ErrorMessage} />}
+                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                 </Form>
             )}
         </Formik>

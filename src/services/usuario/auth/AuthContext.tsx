@@ -1,5 +1,6 @@
 'use client'
 
+import api from "@/services/api/api";
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react"
 
@@ -46,13 +47,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
     }, []);
 
-    const login = async (login: string, senha: string) => {
-        const response = await axios.post("http://localhost:8080/login", { login, senha });
-        const { token, usuario } = response.data;
-        
-        localStorage.setItem('token', token);
-        setToken(token)
-        setUser(usuario)
+    const login = async (login: string, senha: string): Promise<any> => {
+
+        try {
+            const response = await api.post("/login", { login, senha });
+            const { token, usuario } = response.data;
+
+            localStorage.setItem('token', token);
+            localStorage.setItem('usuario', JSON.stringify(usuario));
+            setToken(token)
+            setUser(usuario)
+
+            return response;
+        } catch (error: any) {
+            return error.response;
+        }
     }
 
     const logout = () => {
