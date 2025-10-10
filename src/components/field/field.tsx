@@ -27,9 +27,9 @@ export const TextField: React.FC<FieldProps> = ({ name, change, type, value, pla
 export const FormikTextField: React.FC<FieldProps> = ({ name, type, placeholder, label }) => {
   return (
     <div className="w-full">
-      <Label labelText={label} />
+      {label && <Label labelText={label} />}
       <Field
-        className="text-center bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-2xl py-4 w-full focus:outline-none"
+        className="text-center bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-2xl py-3 w-full focus:outline-none"
         name={name} type={type} placeholder={placeholder}>
       </Field>
     </div>
@@ -57,7 +57,7 @@ export const MaskedTextField: React.FC<MaskedTextFieldProps> = ({ name, mask, pl
         onChange={(e) => helpers.setValue(e.target.value)}
         onBlur={() => helpers.setTouched(true)}
         placeholder={placeholder}
-        className="text-center bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-2xl py-4 w-full focus:outline-none"
+        className="text-center bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-2xl py-3 w-full focus:outline-none"
       />
     </div>
   )
@@ -76,7 +76,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({ change, name, options,
     <div>
       {label && <Label labelText={label} />}
       <select
-        className="bg-white text-[#656565] border-2 shadow-md border-[#A3A3A3] rounded-2xl px-4 py-3 w-full focus:outline-none cursor-pointer"
+        className="bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-2xl px-4 py-3 w-full focus:outline-none cursor-pointer"
         name={name} onChange={change} disabled={filtro === "todos"}>
         {options?.map((option, index) => (
           <option key={option} value={option}>
