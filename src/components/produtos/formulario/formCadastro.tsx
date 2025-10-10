@@ -31,7 +31,6 @@ export const CadastroProdutoModal: React.FC = () => {
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20 backdrop-blur-sm">
                     <div className="w-full md:w-3xl bg-[#f3f3f3] rounded-2xl shadow-2xl px-6 py-8 box-border">
-
                         <Formik
                             initialValues={{
                                 nome: "",
@@ -51,7 +50,7 @@ export const CadastroProdutoModal: React.FC = () => {
                                 fornecedor_nome: Yup.string().required("Nome do fornecedor obrigatório"),
                             })}
 
-                            onSubmit={async (values, { setSubmitting, setErrors, resetForm }) => {
+                            onSubmit={async (values, { setSubmitting, setErrors }) => {
                                 try {
                                     const getResp: any = await searchFornecedor("nome", values.fornecedor_nome);
 
@@ -138,14 +137,11 @@ export const CadastroProdutoModal: React.FC = () => {
                                             <ErrorAlert name="categoria" component="div" />
                                         </div>
                                     </div>
-
                                     <div className="flex flex-col md:flex-row gap-5">
                                         <Button theme="primary" functionName="Adicionar Produto" type="submit" disabled={isSubmitting} />
-                                        {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                         <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
                                     </div>
-
-
+                                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}
                         </Formik>

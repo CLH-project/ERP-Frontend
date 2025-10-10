@@ -56,7 +56,7 @@ export const TabelaFornecedores: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await api.delete(`http://localhost:8080/fornecedor/${id}`);
+      await api.delete(`/fornecedor/${id}`);
       setFornecedorParaDeletar(null);
 
       pesquisarFornecedores(pager.currentPage);

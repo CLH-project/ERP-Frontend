@@ -2,10 +2,9 @@
 
 import { Button, CloseButton, ErrorAlert, FormikTextField, SelectField, SuccessAlert, TextField } from "@/components";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import { useEffect, useState } from "react"
 import * as Yup from "yup";
-import axios from 'axios';
 import api from "@/services/api/api";
 
 interface Fornecedor {
@@ -47,7 +46,7 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
 
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20 backdrop-blur-sm">
-                    <div className="bg-gray-50 rounded-2xl shadow-md px-4 py-6">
+                    <div className="w-full md:w-3xl bg-[#f3f3f3] rounded-2xl shadow-2xl px-6 py-8 box-border">
 
                         <Formik
                             initialValues={{
@@ -110,52 +109,54 @@ export const FormEdicaoProduto: React.FC<FormProps> = ({ produto }) => {
                                 }
                             }}>
                             {({ isSubmitting }) => (
-                                <Form className="flex flex-col gap-5 ">
+                                <Form className="flex flex-col gap-4 ">
                                     <div className="flex justify-between mb-5">
                                         <h1 className="text-xl font-bold">Editar Produto</h1>
                                         <CloseButton onClick={() => setIsOpen(false)} />
                                     </div>
-                                    <div>
-                                        <FormikTextField name="nome" type="text" placeholder="Digite o nome do produto" />
-                                        <ErrorAlert name="nome" component="div" />
-                                    </div>
 
-                                    <div>
-                                        <FormikTextField name="marca" type="text" placeholder="Digite a marca do produto" />
-                                        <ErrorAlert name="marca" component="div" />
-                                    </div>
-
-                                    <div className="flex gap-3">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         <div>
-                                            <FormikTextField name="valor_unico" type="number" placeholder="Valor do produto" />
+                                            <FormikTextField label="Nome" name="nome" type="text" placeholder="Digite o nome do produto" />
+                                            <ErrorAlert name="nome" component="div" />
+                                        </div>
+
+                                        <div>
+                                            <FormikTextField label="Marca" name="marca" type="text" placeholder="Digite a marca do produto" />
+                                            <ErrorAlert name="marca" component="div" />
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <div>
+                                            <FormikTextField label="Valor" name="valor_unico" type="number" placeholder="Valor do produto" />
                                             <ErrorAlert name="valor_unico" component="div" />
                                         </div>
 
                                         <div>
-                                            <FormikTextField name="estoque" type="number" placeholder="quantidade" />
+                                            <FormikTextField label="Estoque" name="estoque" type="number" placeholder="quantidade" />
                                             <ErrorAlert name="estoque" component="div" />
                                         </div>
-                                    </div>
+                                        </div>
+                                        
 
-                                    <div className="flex gap-3 items-center justify-center">
-                                        <div className="w-full">
-                                            <FormikTextField type="text" name="fornecedor_nome" placeholder="Nome Fornecedor" />
+                                        <div >
+                                            <FormikTextField label="Fornecedor" type="text" name="fornecedor_nome" placeholder="Nome Fornecedor" />
                                             <ErrorAlert name="fornecedor_nome" component="div" />
                                         </div>
 
-                                        <div className="w-full">
-                                             <SelectField label="Categoria" options={["Categoria", "Alcolico", "Não Alcolico"]} name="categoria" />
+                                        <div >
+                                            <SelectField label="Categoria" options={["Categoria", "Alcolico", "Não Alcolico"]} name="categoria" />
                                             <ErrorAlert name="categoria" component="div" />
                                         </div>
                                     </div>
-                                    <Button functionName="Confirmar Edição" type="submit" disabled={isSubmitting} />
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <Button functionName="Confirmar Edição" type="submit" disabled={isSubmitting} />
+                                        <Button functionName="Fechar" theme="back" onClick={() => setIsOpen(false)} />
+                                    </div>
                                     {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
                                 </Form>
                             )}
                         </Formik>
-                        <div className="mt-5">
-                            <Button functionName="Fechar" onClick={() => setIsOpen(false)} />
-                        </div>
                     </div>
                 </div>
             )}

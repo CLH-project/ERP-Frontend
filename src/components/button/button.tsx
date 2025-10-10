@@ -78,11 +78,17 @@ interface SidebarButtonProps {
 }
 
 export const SidebarButton: React.FC<SidebarButtonProps> = ({ iconUrl, name, onClick }) => {
-    return <button onClick={onClick}
-        className="gap-2 mb-4 w-full text-[#131313] text-left px-2 py-3 hover:bg-[#FFEEE2] rounded-2xl flex items-center hover:cursor-pointer transition-colors">
-        <img src={iconUrl} alt="" />{name}
-    </button>
-}
+    return (
+        <button
+            onClick={onClick}
+            className="flex items-center w-full px-4 py-3 gap-3 rounded-2xl text-sm text-[#131313] text-left hover:bg-[#FFEEE2] transition-colors cursor-pointer lg:w-[60%]"
+        >
+            <img src={iconUrl} alt="" className="w-5 h-5 lg:fill-amber-50 lg:hidden" />
+            <span className="whitespace-nowrap">{name}</span>
+        </button>
+    );
+};
+
 
 //CloseButton
 interface CloseButtonProps {

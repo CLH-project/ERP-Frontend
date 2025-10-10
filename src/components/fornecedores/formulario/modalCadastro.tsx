@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { TextField, Button, MaskedTextField, ErrorAlert, SuccessAlert, CadastroButtonModal, FormikTextField, CloseButton } from "@/components";
+import { Button, MaskedTextField, ErrorAlert, SuccessAlert, CadastroButtonModal, FormikTextField, CloseButton } from "@/components";
 import * as Yup from "yup";
-import axios from "axios";
+import api from "@/services/api/api";
 export const CadastroFornecedorModal: React.FC = () => {
 
     const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +39,7 @@ export const CadastroFornecedorModal: React.FC = () => {
 
                             onSubmit={
                                 async (values, { setSubmitting, setErrors, resetForm }) => {
-                                    axios.post("http://localhost:8080/fornecedores", values)
+                                    api.post("/fornecedores", values)
                                         .then((response) => {
                                             if (response.status === 201) {
                                                 setSucessMessage(response.data.message);

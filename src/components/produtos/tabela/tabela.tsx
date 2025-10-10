@@ -119,7 +119,7 @@ export const TabelaProdutos: React.FC = () => {
                                             <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{produto.categoria}</td>
                                             <td className="font-medium px-4 py-4 border-b-1 border-gray-300">{produto.fornecedor}</td>
                                             <td className="font-medium px-4 py-4 border-b-1 border-gray-300">
-                                                <div className="flex gap-3">
+                                                <div className="flex gap-3 justify-center">
                                                     <button className="w-4 hover:opacity-70 transition-opacity cursor-pointer" onClick={() => setProdutoParaDeletar(produto)}>
                                                         <img className="w-4" src={"./icons/remove-icon.svg"} />
                                                     </button>
