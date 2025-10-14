@@ -8,6 +8,7 @@ import { useAuth } from '@/services/usuario/auth/AuthContext';
 interface User {
     id: string;
     nome: string;
+    cargo?: string,
 }
 
 export const Sidebar: React.FC = () => {
@@ -30,23 +31,30 @@ export const Sidebar: React.FC = () => {
         router.push('/login');
     };
 
+    const renderAdmButton = (user: User) => {
+        
+        if (user.cargo === "Gerente") {
+            return <SidebarButton iconUrl='/icons/sidebar-adm-icon.svg' name='Administração' onClick={() => router.push("/administrador")} />;
+        }
+        return null;
+    
+    }
+
     return (
         <>
-            {/* Desktop: Menu fixo no topo */}
             <div className="hidden lg:flex gap-10 text-center justify-between items-center px-6 w-full">
                 <div className='flex flex-col items-center gap-2'>
                     <img className="w-15" src="/image/logo-small.svg" alt="" />
                     <span className="text-sm text-gray-300 font-light">Olá, {user?.nome}</span>
                 </div>
                 
-
                 <nav className="flex max-lg: bg-white p-2 rounded-2xl shadow-md gap-2">
                     <SidebarButton iconUrl='/icons/sidebar-home-icon.svg' name='Início' onClick={() => router.push("/inicio")} />
                     <SidebarButton iconUrl='/icons/sidebar-cashier-icon.svg' name='Vendas' onClick={() => router.push("/vendas")} />
                     <SidebarButton iconUrl='/icons/sidebar-customer-icon.svg' name='Clientes' onClick={() => router.push("/clientes")} />
                     <SidebarButton iconUrl='/icons/sidebar-product-icon.svg' name='Produtos' onClick={() => router.push("/produtos")} />
                     <SidebarButton iconUrl='/icons/sidebar-supplier-icon.svg' name='Fornecedores' onClick={() => router.push("/fornecedores")} />
-                    <SidebarButton iconUrl='/icons/sidebar-adm-icon.svg' name='Administração' onClick={() => router.push("/administrador")} />
+                    {renderAdmButton(user)}
                 </nav>
 
                 <div className="flex items-center">
@@ -60,7 +68,6 @@ export const Sidebar: React.FC = () => {
                 </button>
             </div>
 
-            {/* Mobile: Sidebar lateral */}
             {isOpen && (
                 <div className="lg:hidden flex flex-col justify-between fixed top-0 left-0 h-screen w-64 bg-white text-white z-[1000] shadow-lg p-4 overflow-y-auto rounded-r-2xl">
                     <div className="w-full flex flex-col">
@@ -78,7 +85,7 @@ export const Sidebar: React.FC = () => {
                         <SidebarButton iconUrl='/icons/sidebar-customer-icon.svg' name='Clientes' onClick={() => router.push("/clientes")} />
                         <SidebarButton iconUrl='/icons/sidebar-product-icon.svg' name='Produtos' onClick={() => router.push("/produtos")} />
                         <SidebarButton iconUrl='/icons/sidebar-supplier-icon.svg' name='Fornecedores' onClick={() => router.push("/fornecedores")} />
-                        <SidebarButton iconUrl='/icons/sidebar-adm-icon.svg' name='Administração' onClick={() => router.push("/administrador")} />
+                        {renderAdmButton(user)}
                     </div>
                     <Button theme='back' functionName='Sair' onClick={handleLogout} />
                 </div>

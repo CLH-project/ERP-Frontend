@@ -25,6 +25,7 @@ type User = {
     id: number;
     login: string;
     nome?: string
+    cargo?: string,
 }
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -41,7 +42,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 const payload = JSON.parse(atob(savedToken.split('.')[1]));
                 setUser({ id: payload.sub, login: payload.login });
             } catch (err) {
-                console.error('Token inválido:', err);
                 logout();
             }
         }

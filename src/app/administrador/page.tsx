@@ -20,7 +20,7 @@ export default function Inicio() {
                     </div>
                     <TabelaUsuarios />
                     <div className="w-full md:mt-2 flex md:justify-end" >
-                        <div className="md:w-[20rem]">
+                        <div className="w-full md:w-[20rem]">
                             <Button theme="back" functionName="Voltar para tela inicial" type="button" onClick={() => router.push("/inicio")} />
                         </div>
                     </div>

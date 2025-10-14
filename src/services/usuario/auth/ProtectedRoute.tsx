@@ -10,7 +10,7 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
         if(!localStorage.getItem("token") || !localStorage.getItem("usuario")) {
             router.push("/login");
         }
-    })
+    }, [])
 
     return <>{children}</>;
 }
