@@ -16,6 +16,9 @@ export {FormEdicaoProduto} from "./produtos/formulario/formEdicao"
 export {LoginForm} from "./login/loginForm"
 export { FormEdicaoUsuario, TabelaUsuarios, CadastroUsuarioModal } from "./usuario"
 
+//Venda exports 
+export {VendaForm} from "./vendas"
+
 //Generic exports
 export {FormikTextField, TextField,MaskedTextField, SelectField} from "./field"
 export {ErrorMessagePop} from "./errorMessage/errorMessage"

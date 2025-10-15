@@ -1,0 +1,1 @@
+export {VendaForm} from "./formulario"
