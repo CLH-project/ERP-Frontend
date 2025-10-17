@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ERP- CLH
 
-## Getting Started
+Frontend do projeto CLH, software fullstack feito com colaboração
 
-First, run the development server:
+## 🚀 Começando
 
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
+
+
+### 📋 Pré-requisitos
+
+Para rodar é preciso ter o NODE instalado, recomendo a versão LTS (Long Term Support), pois geralmente é a mais estável. 
+
+execute: 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+node -v
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+para assim, verificar se o node está instalado, podendo ser adquirido em https://nodejs.org/en
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+É preciso ter o git instalado, para verificar se está instalado execute:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+execute: 
+```bash
+git -v
+```
 
-## Learn More
+Se não estiver instalado pode ver como instalar em: https://git-scm.com/
 
-To learn more about Next.js, take a look at the following resources:
+### 🔧 Instalando e Executando
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Faça o clone do projeto a partir do repositório, você pode fazer isso em: 
+[Repositório ERP-Frontend](https://github.com/CLH-project/ERP-Frontend)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ou executar:
 
-## Deploy on Vercel
+```bash
+git clone https://github.com/CLH-project/ERP-Frontend
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+No diretório do projeto execute:
+```bash
+ npm install
+```
+para baixar as dependências do projeto.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Após isso digite:
+```bash
+ npm run dev
+```
+para rodar o projeto no modo desenvolvimento e 
+acesse em [http://localhost:3000](http://localhost:3000) no navegador para poder visualizar o projeto.
+
+Para entrar é preciso digitar um usuário e senha. Você pode seguir o repositório do [ERP-Backend](https://github.com/CLH-project/ERP-Backend) para poder rodar o projeto codeigniter 
+em seu computador, afim de testar o projeto.
+
+## 🛠️ Construído com
+
+* [Typescript](https://www.typescriptlang.org/) - Linguagem usada
+* [NextJS](https://nextjs.org/) - O framework utilizado
+* [NPM](https://www.npmjs.com/) - Gerente de Pacotes
+
+## ✒️ Autores
+
+* **Frontend** - *Elaboração e Execução* - [LuizHenri16](https://github.com/LuizHenri16)
+* **Backend** - *Elaboração e Execução* - [CarlosBackend](https://github.com/CarlosBackend)
+
+## 🎁 Mensagem final
+
+* Este é um projeto teve como finalidade testar habilidades de colaboração, criação e resolução de problemas em um projeto fullstack;
+
+---
+⌨️  Por [Luiz Henrique](https://gist.github.com/LuizHenri16) 😊
+
