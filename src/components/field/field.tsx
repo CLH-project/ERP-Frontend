@@ -18,7 +18,7 @@ export const TextField: React.FC<FieldProps> = ({ name, change, type, value, pla
       {label && <Label labelText={label} />}
       <input
         className="bg-white text-[#656565] border-2 shadow-md border-[#A3A3A3] rounded-2xl px-4 py-3 w-full focus:outline-none"
-        name={name} type={type} value={value} onChange={change} placeholder={`Pesquisar por ${placeholder}`}>
+        name={name} type={type} value={value} onChange={change} placeholder={placeholder}>
       </input>
     </div>
   )

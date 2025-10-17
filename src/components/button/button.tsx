@@ -4,7 +4,7 @@ interface ButtonProps {
     type?: "button" | "submit" | "reset";
     disabled?: boolean;
     onClick?: () => void;
-    theme?: "primary" | "back" | "secondary";
+    theme?: "primary" | "back" | "secondary" | "confirm";
 }
 
 export const Button: React.FC<ButtonProps> = ({ theme = "primary", onClick, functionName, type, disabled }) => {
@@ -12,6 +12,7 @@ export const Button: React.FC<ButtonProps> = ({ theme = "primary", onClick, func
         primary: "bg-[#725743] text-[#FFF9ED] hover:border-[#725743] text-lg hover:bg-[#FFF9ED] hover:text-[#725743] border-2 border-[#725743]",
         secondary: "bg-white text-[#725743] border-2 border-[#725743] text-lg hover:text-white hover:bg-[#725743]",
         back: "bg-[#B23C3C] text-white hover:bg-white hover:text-[#B23C3C] border-2 border-[#B23C3C]",
+        confirm: "bg-[#05674B] text-white hover:bg-white hover:text-[#05674B] border-2 border-[#05674B]"
     }
 
     const baseTheme = 'w-full text-sm group shadow-md px-5 py-3 rounded-2xl transition-colors duration-300 font-semibold cursor-pointer';
