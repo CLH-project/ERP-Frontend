@@ -16,7 +16,7 @@ export const CadastroClienteModal: React.FC = () => {
             <CadastroButtonModal onClick={() => { setIsOpen(true) }} name="Novo cliente" urlIcon="/icons/customer-icon.svg" />
 
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/20 backdrop-blur-sm">
+                <div className="fixed inset-0 z-60 flex items-center px-5 justify-center bg-black/20 backdrop-blur-sm">
                     <div className="w-full md:w-3xl bg-[#F3F3F3] rounded-2xl shadow-2xl px-6 py-8">
                         <Formik
                             initialValues={{ nome: "", cpf: "", telefone: "" }}

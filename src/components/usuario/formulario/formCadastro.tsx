@@ -6,12 +6,10 @@ import { useState } from "react";
 import * as Yup from "yup";
 import { FormikSelectField } from "@/components/field/field";
 import { addUsuario } from "@/services/usuario/addUsuario";
-import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 
 export const CadastroUsuarioModal: React.FC = () => {
 
-    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const [SucessMessage, setSucessMessage] = useState("")
 

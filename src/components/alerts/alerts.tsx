@@ -63,12 +63,12 @@ export const ModalConfirm: React.FC<ModalConfirm> = ({ title, message, onConfirm
 
             <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/30 backdrop-blur-sm">
                 <div className="relative bg-[#f3f3f3] rounded-lg ">
-                    <div className="flex p-3">
+                    <div className="flex p-2">
                         <CloseButton onClick={onCancel} />
                     </div>
 
                     <div className="p-3 md:p-6 text-center">
-                        <svg className="mx-auto mb-4 text-[#B23C3C] w-12 h-12"
+                        <svg className="mx-auto mb-4 text-[#B23C3C] w-11 h-11"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -84,7 +84,7 @@ export const ModalConfirm: React.FC<ModalConfirm> = ({ title, message, onConfirm
                         <h3 className="mb-5 text-xl font-normal text-gray-900">
                             {title}
                         </h3>
-                        <p className="mb-5 text-md text-gray-500 dark:text-gray-400">{message}</p>
+                        <p className="text-gray-700 mt-4 mb-8">{message}</p>
                         <div className='flex gap-4'>
                             <Button theme='primary' onClick={onConfirm} functionName='Sim, apagar' />
                             <Button theme='back' onClick={onCancel} functionName='Não, cancelar' />
@@ -96,3 +96,55 @@ export const ModalConfirm: React.FC<ModalConfirm> = ({ title, message, onConfirm
     );
 
 }
+
+interface NotificationModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    title: string;
+    message: string;
+    isSuccess: boolean;
+    onConfirmSuccess?: () => void;
+}
+
+export const NotificationModal: React.FC<NotificationModalProps> = ({
+    isOpen,
+    onClose,
+    title,
+    message,
+    isSuccess,
+    onConfirmSuccess
+}) => {
+    if (!isOpen) return null;
+
+    const buttonTheme = isSuccess ? "confirm" : "primary";
+
+    const handleButtonClick = () => {
+        onClose();
+        if (isSuccess && onConfirmSuccess) {
+            onConfirmSuccess();
+        }
+    };
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/30">
+            <div className="bg-[#F3F3F3] rounded-2xl p-8 w-full max-w-sm shadow-lg border-t-8"
+                style={{ borderColor: isSuccess ? '#05674B' : '#B23C3C' }}
+            >
+                <div className="flex justify-between items-start mb-4">
+                    <h2 className={`text-xl font-bold ${isSuccess ? 'text-[#4BB543]' : 'text-[#3D2422]'}`}>{title}</h2>
+                    <CloseButton onClick={onClose} />
+                </div>
+
+                <div className="text-gray-700 mt-4 mb-8">
+                    <p>{message}</p>
+                </div>
+
+                <div className="flex justify-center">
+                    <div className="w-full max-w-[12rem]">
+                        <Button functionName="Fechar" onClick={handleButtonClick} theme={buttonTheme} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
