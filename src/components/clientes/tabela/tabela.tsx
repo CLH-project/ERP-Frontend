@@ -37,7 +37,7 @@ export const TabelaClientes: React.FC = () => {
 
       } else {
 
-        const response = await api.get(`${filtroTexto}`)
+        const response = await api.get(`/clientes/${filtroTexto}`)
         const cliente = response.data;
 
         if (cliente && cliente.id) {
