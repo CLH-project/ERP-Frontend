@@ -22,8 +22,8 @@ export const Button: React.FC<ButtonProps> = ({ theme = "primary", onClick, func
         <button
             type={type}
             className={`${baseTheme} ${selectedTheme}`}
-            disabled={disabled} onClick={onClick}> 
-            {functionName} 
+            disabled={disabled} onClick={onClick}>
+            {functionName}
         </button>
     )
 }
@@ -71,7 +71,12 @@ export const PaginateButton: React.FC<PaginateButtonProps> = ({ onClick, disable
     )
 }
 
-//SidebarButton 
+interface SidebarButtonProps {
+    onClick?: () => void;
+    name?: string
+    iconUrl?: string
+}
+
 interface SidebarButtonProps {
     onClick?: () => void;
     name?: string
@@ -80,23 +85,23 @@ interface SidebarButtonProps {
 
 export const SidebarButton: React.FC<SidebarButtonProps> = ({ iconUrl, name, onClick }) => {
     return (
-        <button
+        <button 
             onClick={onClick}
-            className="flex items-center w-full px-4 py-3 gap-3 rounded-2xl text-sm text-[#131313] text-left hover:bg-[#FFEEE2] transition-colors cursor-pointer lg:w-[60%]"
-        >
-            <img src={iconUrl} alt="" className="w-5 h-5 lg:fill-amber-50 lg:hidden" />
-            <span className="whitespace-nowrap">{name}</span>
+            className="flex items-center group w-full px-4 py-3 gap-3 rounded-2xl text-sm text-[#131313] text-left hover:bg-[#FFEEE2] transition-colors cursor-pointer lg:w-auto">
+            
+            <img src={iconUrl} alt="" className="w-5 h-5 lg:w-6 lg:h-6" />
+            <span className="whitespace-nowrap lg:hidden group-hover:flex">
+                {name}
+            </span>
         </button>
     );
 };
 
-
-//CloseButton
 interface CloseButtonProps {
     onClick?: () => void;
 }
 
-export const CloseButton: React.FC<SidebarButtonProps> = ({ onClick }) => {
+export const CloseButton: React.FC<CloseButtonProps> = ({ onClick }) => {
     return <button type="button" onClick={onClick}
         className="cursor-pointer top-3 end-2.5 text-[#725743] bg-transparent hover:bg-[#725743] rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:text-white">
         <svg className="w-3 h-3"

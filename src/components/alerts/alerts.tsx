@@ -61,33 +61,22 @@ export const ModalConfirm: React.FC<ModalConfirm> = ({ title, message, onConfirm
             className={`${isOpen ? 'flex' : 'hidden'}
                          overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center cursor-default items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}>
 
-            <div className="fixed inset-0 z-50 flex items-center px-5 justify-center bg-black/30 backdrop-blur-sm">
-                <div className="relative bg-[#f3f3f3] rounded-lg ">
-                    <div className="flex p-2">
+            <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/30">
+                <div className="bg-[#F3F3F3] rounded-2xl p-4 w-full max-w-sm shadow-lg border-t-8 " style={{ borderColor: "#3D2422"}}>
+                    <div className="flex justify-between items-start">
                         <CloseButton onClick={onCancel} />
                     </div>
 
-                    <div className="p-3 md:p-6 text-center">
-                        <svg className="mx-auto mb-4 text-[#B23C3C] w-11 h-11"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 20 20">
-                            <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                            />
-                        </svg>
-                        <h3 className="mb-5 text-xl font-normal text-gray-900">
+                    <div className="p-2 text-center">
+                        <h3 className="mb-2 text-xl font-normal text-gray-900">
                             {title}
                         </h3>
                         <p className="text-gray-700 mt-4 mb-8">{message}</p>
-                        <div className='flex gap-4'>
-                            <Button theme='primary' onClick={onConfirm} functionName='Sim, apagar' />
-                            <Button theme='back' onClick={onCancel} functionName='Não, cancelar' />
+                        <div className="flex justify-center">
+                            <div className='flex gap-2'>
+                                <Button theme='primary' onClick={onConfirm} functionName='Sim, apagar' />
+                                <Button theme='back' onClick={onCancel} functionName='Não, cancelar' />
+                            </div>
                         </div>
                     </div>
                 </div>

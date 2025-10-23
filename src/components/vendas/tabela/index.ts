@@ -1,0 +1,1 @@
+export {TabelaVendas} from "./vendas"
