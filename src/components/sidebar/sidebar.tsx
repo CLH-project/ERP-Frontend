@@ -32,25 +32,25 @@ export const Sidebar: React.FC = () => {
     };
 
     const renderAdmButton = (user: User) => {
-        
+
         if (user.cargo === "Gerente") {
             return <SidebarButton iconUrl='/icons/sidebar-adm-icon.svg' name='Administração' onClick={() => router.push("/administrador")} />;
         }
         return null;
-    
+
     }
 
     return (
         <>
-            <div className="hidden lg:flex gap-10 text-center justify-between items-center px-6 w-full">
+            <div className="hidden lg:flex justify-between items-center px-8 py-3 w-full backdrop-blur-sm z-50 shadow-md">
                 <div className='flex flex-col items-center gap-2'>
                     <img className="w-15" src="/image/logo-small.svg" alt="" />
                     <span className="text-sm text-gray-300 font-light">Olá, {user?.nome}</span>
                 </div>
-                
+
                 <nav className="flex max-lg: bg-white p-2 rounded-2xl shadow-md gap-2">
                     <SidebarButton iconUrl='/icons/sidebar-home-icon.svg' name='Início' onClick={() => router.push("/inicio")} />
-                    <SidebarButton iconUrl='/icons/sidebar-cashier-icon.svg' name='Vendas' onClick={() => router.push("/caixa")} />
+                    <SidebarButton iconUrl='/icons/sidebar-cashier-icon.svg'  name='Vendas' onClick={() => router.push("/caixa")} />
                     <SidebarButton iconUrl='/icons/sidebar-customer-icon.svg' name='Clientes' onClick={() => router.push("/clientes")} />
                     <SidebarButton iconUrl='/icons/sidebar-product-icon.svg' name='Produtos' onClick={() => router.push("/produtos")} />
                     <SidebarButton iconUrl='/icons/sidebar-supplier-icon.svg' name='Fornecedores' onClick={() => router.push("/fornecedores")} />

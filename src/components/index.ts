@@ -17,7 +17,7 @@ export {LoginForm} from "./login/loginForm"
 export { FormEdicaoUsuario, TabelaUsuarios, CadastroUsuarioModal } from "./usuario"
 
 //Venda exports 
-export {VendaForm} from "./vendas"
+export {VendaForm, TabelaVendas} from "./vendas"
 
 //Generic exports
 export {FormikTextField, TextField,MaskedTextField, SelectField} from "./field"
