@@ -26,3 +26,4 @@ export {Button, CadastroButtonModal, PaginateButton, SidebarButton, CloseButton}
 export {Sidebar} from "./sidebar"
 export {SuccessAlert, ErrorAlert, ModalConfirm, NotificationModal} from "./alerts"
 export {LoadingSpinner} from "./spinner"
+export {Template} from "./template"
