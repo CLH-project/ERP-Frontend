@@ -52,21 +52,18 @@ export const PaginateButton: React.FC<PaginateButtonProps> = ({ onClick, disable
 
     const directions = {
         next: {
-            url: "/icons/next-icon.svg",
             text: "Próxima"
         },
         previous: {
-            url: "/icons/previous-icon.svg",
             text: "Anterior",
         }
     }
 
-    const selectedUrl = directions[direction].url || directions.next.url;
     const selectedText = directions[direction].text || directions.next.text;
 
     return (
-        <button className="group flex gap-2 px-4 py-2 border-2 text-sm border-[#725743] rounded-2xl cursor-pointer hover:bg-[#725743] hover:text-white" onClick={onClick} disabled={disabled}>
-            <img className="group-hover:invert group-hover:brightness-0 transition-colors" src={selectedUrl} alt={selectedText} /> {selectedText}
+        <button className="group flex gap-2 px-4 py-2 text-lg font-medium text-[#725743] cursor-pointer hover:opacity-80" onClick={onClick} disabled={disabled}>
+            {selectedText}
         </button>
     )
 }
@@ -85,12 +82,12 @@ interface SidebarButtonProps {
 
 export const SidebarButton: React.FC<SidebarButtonProps> = ({ iconUrl, name, onClick }) => {
     return (
-        <button 
+        <button
             onClick={onClick}
-            className="flex items-center group w-full px-4 py-3 gap-3 rounded-2xl text-sm text-[#131313] text-left hover:bg-[#FFEEE2] transition-colors cursor-pointer lg:w-auto">
-            
+            className="flex w-full px-6 py-3 gap-4 rounded-2xl text-sm text-[#725743] text-left font-medium hover:bg-[#FFEEE2] transition-colors cursor-pointer lg:text-lg">
+
             <img src={iconUrl} alt="" className="w-5 h-5 lg:w-6 lg:h-6" />
-            <span className="whitespace-nowrap lg:hidden group-hover:flex">
+            <span className="">
                 {name}
             </span>
         </button>

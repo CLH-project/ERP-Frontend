@@ -24,7 +24,7 @@ export default function login() {
                             md:px-16 
                             lg:w-[40rem]"
             >
-                <h1 className="text-3xl font-bold mb-10 text-[#333333]">Bem vindo!</h1>
+                <h1 className="text-3xl font-bold mb-10 text-[#]">Bem vindo!</h1>
                 <LoginForm />
             </div>
         </div>

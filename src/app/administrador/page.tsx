@@ -1,17 +1,16 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import { Button, CadastroUsuarioModal, Header, TabelaUsuarios } from "@/components";
+import { Button, CadastroUsuarioModal, Header, TabelaUsuarios, Template } from "@/components";
 
 export default function Inicio() {
 
     const router = useRouter();
 
     return (
-        <div className="w-full h-screen flex flex-col">
-            <Header />
-            <div className="mt-10 flex flex-col px-5 md:px-24 md:justify-center">
-                <div className="text-2xl font-bold mb-5">
+        <Template>
+            <div className="">
+                <div className="text-3xl md:text-4xl lg:text-5xl mb-10">
                     <h1>Usuários</h1>
                 </div>
                 <div>
@@ -19,13 +18,8 @@ export default function Inicio() {
                         <CadastroUsuarioModal />
                     </div>
                     <TabelaUsuarios />
-                    <div className="w-full md:mt-2 flex md:justify-end" >
-                        <div className="w-full md:w-[20rem]">
-                            <Button theme="back" functionName="Voltar para tela inicial" type="button" onClick={() => router.push("/inicio")} />
-                        </div>
-                    </div>
                 </div>
             </div>
-        </div>
+        </Template>
     )
 }

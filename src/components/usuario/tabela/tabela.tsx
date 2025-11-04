@@ -105,9 +105,9 @@ export const TabelaUsuarios: React.FC = () => {
                             </tbody>
                         </table>
                     </div>
-                    <div className=" flex gap-6 p-3 items-center">
+                    <div className="w-full flex gap-6 mt-2 items-center justify-end">
                         <PaginateButton direction="previous" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1} />
-                        <span className="font-medium text-[#9B6D39]">
+                        <span className="text-[#725743]">
                             Página {pager.currentPage} de {pager.totalPages}
                         </span>
                         <PaginateButton direction="next" onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages} />

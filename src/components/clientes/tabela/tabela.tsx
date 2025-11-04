@@ -141,9 +141,9 @@ export const TabelaClientes: React.FC = () => {
               </tbody>
             </table>
           </div>
-          <div className=" w-full flex gap-4 p-3 justify-center items-center">
+          <div className=" w-full flex gap-4 mt-2 justify-end items-center">
             <PaginateButton direction="previous" onClick={() => mudancaPagina(pager.currentPage - 1)} disabled={pager.currentPage === 1} />
-            <span className="font-medium text-sm text-[#9B6D39]">
+            <span className="text-[#725743]">
               Página {pager.currentPage} de {pager.totalPages}
             </span>
             <PaginateButton direction="next" onClick={() => mudancaPagina(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages} />

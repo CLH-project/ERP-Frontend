@@ -38,9 +38,7 @@ const formatarData = (dataString: string | null): string => {
 };
 
 
-// Função utilitária para formatar o valor como moeda
 const formatarMoeda = (valor: string): string => {
-    // Converte a string para número (float)
     const numero = parseFloat(valor);
     if (isNaN(numero)) return valor;
 
@@ -132,13 +130,13 @@ export const TabelaVendas: React.FC = () => {
                             </tbody>
                         </table>
                     </div>
-                    <div className=" flex gap-6 p-3 items-center">
+                    <div className="w-full flex gap-6 mt-2 items-center justify-end">
                         <PaginateButton
                             direction="previous"
                             onClick={() => mudancaPagina(pager.currentPage - 1)}
                             disabled={pager.currentPage === 1}
                         />
-                        <span className="font-medium text-[#9B6D39]">
+                        <span className="font-medium text-[#725743]">
                             Página {pager.currentPage} de {pager.totalPages}
                         </span>
                         <PaginateButton
