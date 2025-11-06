@@ -136,7 +136,6 @@ export const VendaForm: React.FC = () => {
                 openNotification("Produto Não Encontrado", "Nenhum produto foi encontrado com esse nome.", false);
             }
         } catch (error) {
-            console.error("Erro ao buscar produto:", error);
             openNotification("Erro na Busca", "Ocorreu um erro ao buscar o produto.", false);
         }
     };

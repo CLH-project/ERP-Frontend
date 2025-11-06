@@ -1,7 +1,7 @@
 'use client';
 
 import { ModalConfirm } from "@/components/alerts/alerts";
-import { Button, LoadingSpinner, PaginateButton, TextField } from "@/components";
+import { Button, CadastroFornecedorModal, LoadingSpinner, PaginateButton, TextField } from "@/components";
 import { useEffect, useState } from "react";
 import { searchFornecedor } from "@/services/fornecedor/searchFornecedor";
 import api from "@/services/api/api";
@@ -21,6 +21,9 @@ export const TabelaFornecedores: React.FC = () => {
 
   const [filtroTexto, setFiltroTexto] = useState('');
   const [filtroCampo, setFiltroCampo] = useState('todos');
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [SucessMessage, setSucessMessage] = useState("")
 
   const pesquisarFornecedores = async (page = 1) => {
     setLoading(true);
@@ -67,14 +70,31 @@ export const TabelaFornecedores: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="w-full flex flex-row gap-2 mb-5 mt-2">
-        <div className="md:w-[30rem]">
-          <TextField name="filtro" value={filtroTexto} placeholder="fornecedores" change={(e) => setFiltroTexto(e.target.value)} />
-        </div>
-        <div className="w-[20rem]">
-          <Button onClick={() => pesquisarFornecedores(1)} functionName="Pesquisar" theme="secondary" />
+      <div className="w-full mt-2 mb-5">
+        <div className="flex flex-col lg:flex-row lg:justify-between gap-4">
+          <div className="flex flex-col md:flex-row gap-4 flex-1">
+            <div className="w-full md:w-2/4">
+              <TextField
+                name="filtro"
+                value={filtroTexto}
+                placeholder="fornecedores"
+                change={(e) => setFiltroTexto(e.target.value)}
+              />
+            </div>
+            <div className="w-full md:w-1/3">
+              <Button
+                onClick={() => pesquisarFornecedores(1)}
+                functionName="Pesquisar"
+                theme="secondary"
+              />
+            </div>
+          </div>
+          <div className="w-full lg:w-auto">
+            <CadastroFornecedorModal />
+          </div>
         </div>
       </div>
+
 
       {loading ? (
         <LoadingSpinner />

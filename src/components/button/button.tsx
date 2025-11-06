@@ -15,7 +15,7 @@ export const Button: React.FC<ButtonProps> = ({ theme = "primary", onClick, func
         confirm: "bg-[#05674B] text-white hover:bg-white hover:text-[#05674B] border-2 border-[#05674B]"
     }
 
-    const baseTheme = 'w-full text-sm group shadow-md px-5 py-3 rounded-2xl transition-colors duration-300 font-semibold cursor-pointer';
+    const baseTheme = 'w-full h-14 group shadow-md py-4 px-5 rounded-2xl transition-colors duration-300 font-semibold cursor-pointer';
     const selectedTheme = themes[theme] || themes.primary;
 
     return (
@@ -36,7 +36,7 @@ interface CadastroButtonModalProps {
 }
 
 export const CadastroButtonModal: React.FC<CadastroButtonModalProps> = ({ name, urlIcon, onClick }) => {
-    return <button onClick={onClick} className=" group flex gap-2 border-2 border-[#725743] text-[#725743] font-semibold rounded-2xl py-2 px-4 cursor-pointer transition-colors hover:bg-[#725743] hover:text-white bg-white shadow-md" type="button">
+    return <button onClick={onClick} className=" group flex gap-2 border-2 border-[#725743] bg-[#725743] text-[#FFF9ED] justify-center font-semibold rounded-2xl py-4 px-5 w-full h-14 cursor-pointer transition-colors hover:bg-white hover:text-[#725743]  shadow-md" type="button">
         <img className="group-hover:invert group-hover:brightness-0 transition-colors" src={urlIcon} alt="" />{name}
     </button>
 }

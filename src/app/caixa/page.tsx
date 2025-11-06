@@ -4,7 +4,7 @@ export default function Caixa() {
     return (
         <Template>
             <div className="w-full">
-                <div className="text-3xl md:text-4xl lg:text-5xl mb-10">
+                <div className="text-3xl font-bold text-[#725742] md:text-4xl lg:text-5xl mb-10">
                     <h1>Clientes</h1>
                 </div>
                 <VendaForm />
