@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, FormEdicaoProduto, LoadingSpinner, ModalConfirm, PaginateButton, SelectField, TextField } from "@/components";
+import { Button, CadastroProdutoModal, FormEdicaoProduto, LoadingSpinner, ModalConfirm, PaginateButton, SelectField, TextField } from "@/components";
 import api from "@/services/api/api";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -73,17 +73,38 @@ export const TabelaProdutos: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center w-full">
-            <div className="w-full mt-4 mb-4 flex flex-col md:flex-row gap-3 ">
-                <div className="md:w-[15rem]">
-                    <SelectField options={["todos", "nome"]} name="" change={(e) => setFiltroCampo(e.target.value)} />
-                </div>
-                <div className="md:w-[30rem]">
-                    <TextField name="filtro" value={filtroTexto} placeholder={filtroCampo} change={(e) => setFiltroTexto(e.target.value)} />
-                </div>
-                <div className="md:w-[15rem]">
-                    <Button onClick={() => pesquisarProdutos(1)} functionName="Pesquisar" theme="secondary" />
+            <div className="w-full mt-4 mb-4">
+                <div className="flex flex-col lg:flex-row lg:justify-between gap-4">
+                    <div className="flex flex-col md:flex-row gap-4 flex-1">
+                        <div className="w-full md:w-1/6">
+                            <SelectField
+                                options={["todos", "nome"]}
+                                name=""
+                                change={(e) => setFiltroCampo(e.target.value)}
+                            />
+                        </div>
+                        <div className="w-full md:w-2/6">
+                            <TextField
+                                name="filtro"
+                                value={filtroTexto}
+                                placeholder={filtroCampo}
+                                change={(e) => setFiltroTexto(e.target.value)}
+                            />
+                        </div>
+                        <div className="w-full md:w-1/4">
+                            <Button
+                                onClick={() => pesquisarProdutos(1)}
+                                functionName="Pesquisar"
+                                theme="secondary"
+                            />
+                        </div>
+                    </div>
+                    <div className="w-full lg:w-auto">
+                        <CadastroProdutoModal />
+                    </div>
                 </div>
             </div>
+
             {loading ? (
                 <LoadingSpinner />
             ) : (

@@ -8,6 +8,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import api from '@/services/api/api'
+import { CadastroClienteModal } from "../formulario";
 
 interface Cliente {
   id: string,
@@ -86,18 +87,45 @@ export const TabelaClientes: React.FC = () => {
         <LoadingSpinner />
       ) : (
         <>
-          <div className="w-full mt-4 mb-4 flex flex-col md:flex-row gap-3 ">
-            <div className="md:w-[15rem]">
-              <SelectField options={["todos", "id", "cpf"]} name="filtro" change={(e: any) => setFiltroCampo(e.target.value)} />
+          <div className="w-full mt-5 mb-5">
+            <div className="flex flex-col lg:flex-row lg:justify-between gap-4">
+              <div className="flex flex-col md:flex-row gap-4 flex-1">
+                <div className="w-full md:w-1/6">
+                  <SelectField
+                    options={["todos", "id", "cpf"]}
+                    name="filtro"
+                    change={(e: any) => setFiltroCampo(e.target.value)}
+                  />
+                </div>
+                <div className="w-full md:w-1/4">
+                  <TextField
+                    name="filtroTexto"
+                    type="text"
+                    placeholder={
+                      filtroCampo === "id"
+                        ? "Digite o ID do cliente"
+                        : filtroCampo === "cpf"
+                          ? "Digite o CPF do cliente"
+                          : "Pesquise por ID ou CPF"
+                    }
+                    value={filtroTexto}
+                    change={(e: any) => setFiltroTexto(e.target.value)}
+                  />
+                </div>
+                <div className="w-full md:w-1/4">
+                  <Button
+                    theme="secondary"
+                    functionName="Pesquisar"
+                    onClick={() => pesquisarClientes(1)}
+                  />
+                </div>
+              </div>
+              <div className="w-full lg:w-auto">
+                <CadastroClienteModal />
+              </div>
             </div>
-            <div className="md:w-[30rem]">
-              <TextField name="filtroTexto" type="text" placeholder={filtroCampo === "id" ? "Digite o ID do cliente" : filtroCampo === "cpf" ? "Digite o CPF do cliente" : "Pesquise por ID ou CPF"} value={filtroTexto} change={(e: any) => setFiltroTexto(e.target.value)} />
-            </div>
-            <div className="md:w-[15rem]">
-              <Button theme="secondary" functionName="Pesquisar" onClick={() => pesquisarClientes(1)} />
-            </div>
-
           </div>
+
 
           <div className="shadow-md rounded-2xl border border-zinc-300 overflow-x-auto w-full mx-auto p-5">
             <table className="w-full table-auto">

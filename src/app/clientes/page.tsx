@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import { TabelaClientes, Header, Button, CadastroClienteModal, Template } from "@/components";
+import { TabelaClientes, CadastroClienteModal, Template } from "@/components";
 
 export default function ListaClientes() {
   const router = useRouter();
@@ -9,13 +9,15 @@ export default function ListaClientes() {
   return (
     <Template>
       <div className="w-full">
-        <div className="text-3xl md:text-4xl lg:text-5xl mb-10">
+        <div className="text-3xl font-bold text-[#725742] md:text-4xl lg:text-5xl mb-10">
           <h1>Clientes</h1>
         </div>
-        <div>
-          <CadastroClienteModal />
-          <TabelaClientes />
-          <div className="w-full md:mt-2 flex md:justify-end">
+
+        <div className="bg-[#f3f3f3] p-4 rounded-2xl">
+          <div className="bg-white rounded-2xl p-6">
+            <TabelaClientes />
+            <div className="w-full md:mt-2 flex md:justify-end">
+            </div>
           </div>
         </div>
       </div>

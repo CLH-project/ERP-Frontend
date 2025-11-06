@@ -17,7 +17,7 @@ export const TextField: React.FC<FieldProps> = ({ name, change, type, value, pla
     <div className="w-full self-end">
       {label && <Label labelText={label} />}
       <input
-        className="bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-2xl px-4 py-3 w-full focus:outline-none"
+        className="bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-2xl py-4 px-5 w-full focus:outline-none"
         name={name} type={type} value={value} onChange={change} placeholder={placeholder}>
       </input>
     </div>
@@ -76,7 +76,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({ change, name, options,
     <div>
       {label && <Label labelText={label} />}
       <select
-        className="bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-2xl px-4 py-3 w-full focus:outline-none cursor-pointer"
+        className="bg-white text-[#656565] border-2 shadow-md border-[#725743] rounded-2xl py-4 px-5 w-full h-14 focus:outline-none cursor-pointer"
         name={name} onChange={change} disabled={filtro === "todos"}>
         {options?.map((option, index) => (
           <option key={option} value={option}>
