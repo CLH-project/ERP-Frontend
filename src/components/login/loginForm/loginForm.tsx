@@ -1,10 +1,10 @@
 'use client'
 
 import { Formik, Form, ErrorMessage } from "formik";
-import { TextField, Button, ErrorAlert, FormikTextField, SuccessAlert } from "@/components";
+import { TextField, Button, ErrorAlert, FormikTextField, SuccessAlert, NotificationModal } from "@/components";
 import { useAuth } from "@/services/usuario/auth/AuthContext";
 
-import React from "react";
+import React, { useCallback, useState } from "react";
 import * as Yup from "yup";
 
 import { useRouter } from "next/navigation";
@@ -12,8 +12,24 @@ import { useRouter } from "next/navigation";
 export const LoginForm: React.FC = () => {
     const router = useRouter();
     const { login } = useAuth();
-    const [SucessMessage, setSucessMessage] = React.useState("")
     const [ErrorMessage, setErrorMessage] = React.useState("")
+
+    const [notificationModal, setNotificationModal] = useState({
+        isOpen: false,
+        title: "",
+        message: "",
+        isSuccess: false,
+        onConfirmSuccess: undefined as (() => void) | undefined,
+    });
+
+    const openNotification = useCallback((title: string, message: string, isSuccess: boolean, onConfirmSuccess?: () => void) => {
+        setNotificationModal({ isOpen: true, title, message, isSuccess, onConfirmSuccess });
+    }, []);
+
+    const closeNotification = useCallback(() => {
+        setNotificationModal(prev => ({ ...prev, isOpen: false }));
+    }, []);
+
 
     const validationSchema = Yup.object(
         {
@@ -33,13 +49,13 @@ export const LoginForm: React.FC = () => {
                     const response: any = await login(values.login, values.senha)
 
                     if (response?.status === 200) {
-                        setSucessMessage("Login realizado com sucesso!");
                         setTimeout(() => { router.push("/inicio"); }, 1000);
                     } else {
-                        setErrorMessage(response.data.error);
+                        openNotification("Erro no login", `Detalhes: ${response.data.error}`, false);
                     }
                 } catch (error: any) {
-                    setErrorMessage(error.data?.error);
+                    const errorMessage = error.data?.error
+                    openNotification("Erro no login", `Detalhes: ${errorMessage}`, false);
                 } finally {
                     setSubmitting(false);
                 }
@@ -56,12 +72,20 @@ export const LoginForm: React.FC = () => {
                         <FormikTextField label="Senha" name="senha" type="password" placeholder="Digite sua senha" />
                         <ErrorAlert name="senha" component="div" />
                     </div>
-
                     <Button theme="primary" functionName="login" type="submit" disabled={isSubmitting} />
-                    {ErrorMessage && <SuccessAlert SuccessMessage={ErrorMessage} />}
-                    {SucessMessage && <SuccessAlert SuccessMessage={SucessMessage} />}
+                    <NotificationModal
+                        isOpen={notificationModal.isOpen}
+                        onClose={closeNotification}
+                        title={notificationModal.title}
+                        message={notificationModal.message}
+                        isSuccess={notificationModal.isSuccess}
+                        onConfirmSuccess={notificationModal.onConfirmSuccess}
+                    />
                 </Form>
+
             )}
         </Formik>
+
     );
+
 };

@@ -221,7 +221,6 @@ export const VendaForm: React.FC = () => {
             }
 
         } catch (error: any) {
-            console.error("Erro na requisição de venda:", error);
             const errorMessage = error.response?.data?.message || error.message || "Verifique a conexão e os dados da venda.";
             openNotification("Falha ao Processar Venda", `Detalhes: ${errorMessage}`, false);
         }
